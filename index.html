@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C2025">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HabitFlow">
+<meta name="format-detection" content="telephone=no">
+<title>HabitFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6FC;--surf:#fff;--ink:#17203A;--mute:#667291;--line:#E1E7F3;--soft:#E9EEF9;--acc:#3B63F0;--onacc:#fff;--coin:#B7791F;--bad:#C0392B;--hd:#F3F6FC;color-scheme:light}
+[data-theme=dark]{--bg:#0E1424;--surf:#172037;--ink:#EEF2FF;--mute:#8F9BBD;--line:#25304D;--soft:#202B47;--acc:#7C9BFF;--onacc:#0B1226;--coin:#F0B84A;--bad:#F0817A;--hd:#0E1424;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.4 'Figtree','Noto Sans Thai',system-ui,-apple-system,'Segoe UI',sans-serif}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:8px}
+.top{position:sticky;top:0;z-index:5;background:var(--hd);border-bottom:1px solid var(--line);padding:calc(14px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left))}
+.bar{max-width:640px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+h1{font-size:28px;font-weight:500;margin:0;letter-spacing:-.01em}
+.tools{display:flex;align-items:center;gap:6px}
+.fl{color:#E08A3C;font-weight:600;font-size:20px;padding:0 6px}
+.ib{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;color:var(--ink)}
+.ib:hover{background:var(--soft)}
+.ib svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.coins{height:40px;padding:0 12px;border-radius:99px;border:2px dashed var(--coin);color:var(--coin);font-weight:600;display:flex;align-items:center;gap:6px}
+main{max-width:640px;margin:auto;padding:16px max(16px,env(safe-area-inset-right)) calc(120px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+h2{font-size:28px;font-weight:500;margin:0;letter-spacing:-.01em;line-height:1.25}
+.sub{color:var(--mute);font-size:14px;margin:2px 0 0}
+.row{display:flex;align-items:center;gap:14px}
+.between{justify-content:space-between}
+.sec{margin-top:22px}
+.lbl{font-size:14px;font-weight:500;color:var(--mute)}
+.link{color:var(--acc);font-size:14px;font-weight:500;padding:6px 0}
+.week{max-width:640px;margin:8px auto 0;display:grid;grid-template-columns:24px repeat(7,1fr) 24px;align-items:center;gap:2px}
+.wb{height:32px;color:var(--mute);font-size:20px}
+.day{display:flex;flex-direction:column;align-items:center;gap:0;padding:6px 0;border:2px solid transparent;border-radius:14px;font-size:13px;color:var(--mute);font-weight:500;min-height:56px}
+.day b{font-size:20px;font-weight:500;color:var(--ink);line-height:1.3}
+.day[aria-pressed=true]{border-color:var(--acc)}
+.day.today span{color:var(--acc)}
+.banner{display:flex;align-items:center;gap:16px;background:#58A883;color:#fff;border-radius:26px;padding:14px 18px;margin-bottom:16px}
+.rp{position:relative;flex:none;width:54px;height:54px;display:grid;place-items:center;font-size:14px;font-weight:600}
+.rp svg{position:absolute;inset:0;width:54px;height:54px;transform:rotate(-90deg)}
+.rp circle{fill:none;stroke-width:4}.rp .bg{stroke:rgba(255,255,255,.35)}.rp .fg{stroke:#fff;stroke-linecap:round;transition:stroke-dashoffset .3s}
+.bt{font-size:19px;font-weight:600;line-height:1.3}.bs{font-size:15px;opacity:.85}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px 6px;padding:0 16px}
+.tabs::-webkit-scrollbar{display:none}
+.pill{flex:none;padding:7px 16px;border-radius:99px;font-size:14px;color:var(--mute);background:var(--surf)}
+.pill[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.list{margin-top:12px;display:grid;gap:14px}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 12px;background:var(--surf);border-radius:26px;min-height:84px}
+.item .go{flex:1;min-width:0;display:flex;align-items:center;gap:16px;text-align:left;border-radius:18px}
+.tile{flex:none;width:60px;height:60px;border-radius:18px;background:var(--c,var(--soft));display:grid;place-items:center;font-size:30px;line-height:1}
+.t{font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m{font-size:16px;color:var(--mute)}
+.plus{flex:none;width:44px;height:44px;border-radius:13px;border:2px solid var(--line);font-size:26px;font-weight:300;color:var(--mute);display:grid;place-items:center;line-height:1}
+.hb.ok{background:color-mix(in srgb,var(--c) 62%,#fff)}
+.hb.ok .tile{background:color-mix(in srgb,var(--c) 85%,#000)}
+.hb.ok .t,.hb.ok .m,.hb.ok .plus{color:rgba(255,255,255,.92)}
+.hb.ok .plus{border-color:transparent;font-size:24px}
+.empty{padding:32px 0;text-align:center;color:var(--mute)}
+.empty p{margin:0 0 10px}
+.btn{height:46px;padding:0 20px;border-radius:14px;border:1px solid var(--line);font-weight:500;background:var(--surf)}
+.btn:hover{background:var(--soft)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.btn.bad{color:var(--bad)}
+.btn.sm{height:38px;padding:0 16px;font-size:14px;border-radius:12px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:99px;padding:4px;gap:2px}
+.seg button{min-width:44px;height:40px;padding:0 12px;border-radius:99px;font-size:14px;color:var(--mute);font-weight:500;display:grid;place-items:center}
+.seg button[aria-pressed=true]{background:var(--soft);color:var(--ink)}
+.seg svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.card,.stat{background:var(--surf);border-radius:26px;padding:16px;margin-bottom:14px;width:100%;display:block;text-align:left}
+.heat{display:grid;grid-template-rows:repeat(7,auto);grid-auto-flow:column;grid-auto-columns:1fr;gap:3px;margin-top:12px}
+.heat i{aspect-ratio:1;border-radius:3px;background:var(--soft)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px;text-align:center;font-size:12px;color:var(--mute)}
+.wk b{display:grid;place-items:center;height:36px;margin-top:2px;border-radius:12px;background:var(--soft);color:var(--ink);font-weight:500;font-size:14px}
+.wk b.on{background:var(--c);color:#fff}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:15px;margin-top:10px}
+.cal span{color:var(--ink);font-size:15px;padding:6px 0}
+.cal b{font-weight:400;display:grid;place-items:center;aspect-ratio:1;border-radius:12px}
+.cal b.now{box-shadow:inset 0 0 0 2px var(--ink);font-weight:600}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.nums>div{background:var(--surf);border-radius:24px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nums strong{display:block;font-size:26px;font-weight:500;line-height:1.2}
+.nums small{color:var(--mute);font-size:14px}
+.mc{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:600}
+.mnav{display:flex;align-items:center;gap:2px}
+.mnav b{font-weight:500;margin-right:auto;font-size:18px}
+.bal{font-size:44px;font-weight:600;color:var(--coin);line-height:1.1}
+.sbar{display:flex;margin-top:20px;gap:8px}
+.sbar button{padding:8px 18px;border-radius:99px;color:var(--mute);font-weight:500;background:var(--surf)}
+.sbar button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.cost{color:var(--coin);font-size:15px;font-weight:500}
+.x{color:var(--mute);width:34px;height:34px;border-radius:10px;font-size:20px}.x:hover{color:var(--bad)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surf);border-radius:32px 32px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+nav div{max-width:640px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav button{height:84px;display:grid;place-items:center;color:var(--mute)}
+nav button[aria-current=page]{color:var(--acc)}
+nav svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.addbox{width:52px;height:52px;border:2px solid var(--acc);border-radius:15px;display:grid;place-items:center;font-size:32px;font-weight:300;line-height:1;color:var(--acc)}
+dialog{border:0;padding:0;background:var(--bg);color:var(--ink);width:100%;max-width:520px;max-height:92dvh;margin:auto auto 0;border-radius:28px 28px 0 0;overflow:hidden}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:rgba(8,12,11,.6)}
+dialog.full{height:92dvh}
+@media(min-width:700px){dialog{margin:auto;border-radius:28px}dialog.full{height:min(760px,90dvh)}}
+.dh{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 12px 10px 20px}
+.dh h3{margin:0;font-size:20px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.db{padding:8px 20px 16px;overflow-y:auto;flex:1}
+.df{display:flex;gap:10px;padding:12px 20px calc(14px + env(safe-area-inset-bottom))}
+.df .btn{flex:1}
+.f{display:block;margin-bottom:14px}
+.f>span{display:block;font-size:14px;color:var(--mute);margin-bottom:6px;font-weight:500}
+.in{width:100%;height:48px;padding:0 14px;border-radius:14px;border:0;background:var(--surf)}
+.in:focus{outline:2px solid var(--acc)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.icons{display:flex;gap:8px;flex-wrap:wrap}
+.icons button{width:52px;height:52px;border-radius:16px;background:var(--surf);display:grid;place-items:center;font-size:26px}
+.icons button[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--acc)}
+.set{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{display:flex;gap:10px;align-items:center;padding:12px;border-radius:20px;text-align:left;background:var(--surf)}
+.pick:hover{outline:2px solid var(--acc)}
+.pick .e{font-size:28px}.pick .t{font-size:14px;white-space:normal;line-height:1.3}
+h4{font-size:14px;color:var(--mute);font-weight:500;margin:20px 0 8px}
+.toast{position:fixed;inset:auto;margin:0;bottom:calc(110px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);background:var(--ink);color:var(--bg);padding:11px 18px;border:0;border-radius:16px;font-size:15px;font-weight:500}
+.toast.err{background:var(--bad);color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+body{font-family:'Plus Jakarta Sans','IBM Plex Sans Thai',system-ui,sans-serif}
+.top{background:var(--bg);padding-bottom:6px;border-bottom:0}
+h1{font-size:21px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.02em}
+h1 svg{width:30px;height:30px;padding:6px;border-radius:50%;background:var(--acc);stroke:var(--onacc);fill:none;stroke-width:2.4;stroke-linecap:round}
+.fl{background:var(--soft);border-radius:99px;padding:6px 12px;font-size:15px;color:var(--ink)}
+.coins{border:0;background:var(--soft);color:var(--coin);font-size:15px}
+.day{border-radius:99px;padding:8px 0 6px;gap:2px}
+.day b{font-size:17px}
+.day[aria-pressed=true]{background:var(--acc);border-color:var(--acc)}
+.day[aria-pressed=true] b,.day[aria-pressed=true] span{color:var(--onacc)}
+.dd{width:5px;height:5px;border-radius:50%;margin-top:2px}.dd.on{background:var(--acc)}.day[aria-pressed=true] .dd.on{background:var(--onacc)}
+.day.today span{font-weight:700}
+.hero{margin:8px 2px 18px}
+.gr{margin:0;color:var(--mute);font-size:14px;font-weight:500}
+.hero h2{font-size:26px;font-weight:700;margin:6px 0 14px}
+.flow{display:flex;gap:5px}.flow i{flex:1;height:10px;border-radius:6px;background:var(--soft);transition:background .3s}
+.hero .sub{margin-top:8px}
+.add{height:36px;padding:0 14px;border-radius:99px;background:var(--acc);color:var(--onacc);font-weight:600;font-size:14px}
+.item{border:1px solid var(--line);border-radius:22px;padding:14px;min-height:0;gap:10px}
+.item .go{gap:14px}
+.tile{border-radius:50%;width:54px;height:54px;font-size:26px;background:color-mix(in srgb,var(--c,var(--acc)) 20%,var(--surf))}
+.t{font-size:17px;font-weight:600}
+.sm2{display:flex;align-items:center;gap:10px;margin-top:4px}
+.trail{display:flex;gap:4px}.trail i{width:8px;height:8px;border-radius:50%;background:var(--line)}.trail i.on{background:var(--c)}
+.m{font-size:13px}
+.plus{width:46px;height:46px;border-radius:50%;border:2px solid var(--c,var(--line));color:var(--c,var(--mute));font-size:26px}
+.hb.ok,.hb.ok .tile{background:var(--surf)}.hb.ok .tile{background:color-mix(in srgb,var(--c) 20%,var(--surf))}
+.hb.ok .t{color:var(--mute);text-decoration:line-through;text-decoration-thickness:1px}
+.hb.ok .m{color:var(--mute)}
+.hb.ok .plus{background:var(--c);border-color:var(--c);color:#fff}
+@keyframes pop{50%{transform:scale(1.18)}}.plus.pop{animation:pop .28s}
+nav{border-radius:0;border-top:1px solid var(--line);background:var(--bg)}
+nav button{height:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600}
+nav svg{width:24px;height:24px;box-sizing:content-box;padding:3px 16px;border-radius:99px}
+nav button[aria-current=page] svg{background:color-mix(in srgb,var(--acc) 16%,transparent)}
+.cal b{border-radius:50%}
+.nums>div{flex-direction:column;align-items:flex-start;gap:2px;border:1px solid var(--line)}
+.nums .mc{display:none}
+.ins{margin:14px 2px 0;color:var(--mute);font-size:14px}
+.lvbar,.mb{height:6px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:6px}
+.lvbar i,.mb i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}.mb i{background:var(--coin)}
+.lv{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:99px;background:var(--soft);font-size:13px;font-weight:600}
+.card,.stat{border:1px solid var(--line)}
+.btn{white-space:nowrap}.rw .t{white-space:normal;font-size:16px;line-height:1.3}.rw .cost{white-space:nowrap;font-size:13px}.rw .btn{padding:0 12px}.rw .mb{width:100%}
+body{font-size:14px}
+.top{padding-top:calc(8px + env(safe-area-inset-top));padding-bottom:4px}
+h1{font-size:18px}h1 svg{width:26px;height:26px;padding:5px}
+.fl{font-size:13px;padding:4px 10px}.coins{height:32px;font-size:13px;padding:0 10px}.ib{width:38px;height:38px}.ib svg{width:20px;height:20px}
+main{padding-top:10px;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h2{font-size:21px}
+.week{margin-top:4px}.day{min-height:46px;padding:5px 0 4px;font-size:11px}.day b{font-size:15px}.dd{width:4px;height:4px}
+.hero{margin:4px 2px 12px}.gr{font-size:13px}.hero h2{font-size:21px;margin:4px 0 10px}.flow i{height:7px}.add{height:32px;font-size:13px;padding:0 12px}
+.sub{font-size:13px}
+.pill{padding:5px 12px;font-size:13px}.tabs{margin-bottom:0}
+.list{gap:10px;margin-top:10px}
+.item{padding:10px 12px;border-radius:18px;gap:8px}.item .go{gap:12px}
+.tile{width:44px;height:44px;font-size:22px}
+.t{font-size:15px}.m{font-size:12px}.sm2{margin-top:2px}.trail i{width:6px;height:6px}
+.plus{width:38px;height:38px;font-size:22px}
+nav button{height:54px;font-size:11px;gap:2px}nav svg{width:20px;height:20px;padding:2px 14px}
+.btn{height:42px}.btn.sm{height:34px;font-size:13px}.seg button{height:34px;min-width:38px}.seg svg{width:20px;height:20px}
+.card,.stat{padding:12px;border-radius:20px;margin-bottom:10px}
+.cal{gap:4px;font-size:13px}.cal span{font-size:12px;padding:3px 0}
+.nums{gap:10px;margin-top:10px}.nums>div{padding:12px;border-radius:18px}.nums strong{font-size:20px}.nums small{font-size:12px}
+.mnav b{font-size:15px}
+.bal{font-size:34px}.lv{font-size:12px}.sbar button{padding:6px 14px;font-size:13px}
+.rw .t{font-size:15px}.cost{font-size:12px}
+.in{height:42px}.dh h3{font-size:17px}.f>span{font-size:13px}.icons button{width:44px;height:44px;font-size:22px}
+.pick{padding:10px;border-radius:16px}.pick .e{font-size:24px}
+.toast{bottom:calc(76px + env(safe-area-inset-bottom));font-size:13px;padding:9px 14px}
+nav div{grid-template-columns:repeat(4,1fr)}
+.moods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px;margin-top:12px}
+.mo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--ink)}
+.bl{display:grid;place-items:center;width:64px;height:60px;font-size:30px;border-radius:44% 56% 52% 48%/52% 46% 54% 48%;background:color-mix(in srgb,var(--c,var(--soft)) 45%,var(--surf));border:2px solid transparent;transition:transform .15s}
+.mo[aria-pressed=true] .bl{border-color:var(--acc);transform:scale(1.08)}
+.bl.s{width:34px;height:32px;font-size:18px;margin:0 auto 4px;flex:none}
+.m7{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:var(--mute);margin-top:8px}
+.mq{font-size:16px;font-weight:600;margin:14px 0 0}
+.ndate{background:var(--soft);text-align:center;font-weight:600;padding:10px;font-size:14px}
+.phs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.ph{position:relative;width:76px;height:76px}.ph img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.ph button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:14px;line-height:1}
+.nb{flex:none;width:34px;height:34px;border-radius:50%;color:var(--mute);display:grid;place-items:center}
+.nb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nb.on{background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
+.nrow{display:block;width:100%;text-align:left;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ths{display:flex;gap:6px;margin-top:6px}.ths img{width:48px;height:48px;object-fit:cover;border-radius:10px}
+.pi{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav div{grid-template-columns:repeat(5,1fr)}nav svg{padding:2px 10px}
+.fsum{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:16px 0 12px;padding:14px;background:var(--surf);border:1px solid var(--line);border-radius:20px}
+.fsum b{font-size:30px;font-weight:700;color:var(--acc);line-height:1}.fsum span{color:var(--mute);font-size:12px}
+.fwk{display:flex;gap:6px;align-items:flex-end;height:44px}.fwk div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--mute);justify-content:flex-end;height:100%}
+.fwk i{width:14px;border-radius:4px;background:var(--acc);min-height:3px;opacity:.85}.fwk i.z{background:var(--soft)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fw1{position:relative}
+.fc{display:flex;flex-direction:column;justify-content:space-between;text-align:left;width:100%;height:100px;padding:12px;border-radius:24px;background:color-mix(in srgb,var(--c) 30%,var(--surf))}
+.fe{width:38px;height:38px;border-radius:50%;background:var(--surf);display:grid;place-items:center;font-size:20px}
+.fb{display:flex;align-items:flex-end;justify-content:space-between;gap:6px}
+.fn{display:block;font-weight:600;font-size:15px;line-height:1.2}.fm{display:block;font-size:11px;color:var(--mute);min-height:14px}
+.fp{flex:none;width:30px;height:30px;border-radius:50%;background:var(--surf);color:var(--acc);display:grid;place-items:center;font-size:11px}
+.fx{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;font-size:16px;color:var(--mute)}
+.frun{display:block;width:100%;margin-top:14px;padding:12px 14px;border-radius:16px;background:var(--acc);color:var(--onacc);font-weight:600;text-align:left}
+.fo{display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:20px}
+.fring{position:relative;width:220px;height:220px}.fring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.fring circle{fill:none;stroke-width:10}.fring .bg{stroke:var(--soft)}.fring .fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .5s linear}
+.ft{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:8px;background:color-mix(in srgb,var(--acc) 20%,var(--surf));border-radius:28px;padding:16px 14px 14px 18px;margin:8px 0 14px}
+.hl{min-width:0}.hero h2{font-size:20px;margin:2px 0 4px}.hero .sub{margin:0 0 10px}
+.hg{position:relative;flex:none;text-align:center;line-height:0}.hg b{position:absolute;left:0;right:0;bottom:2px;font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
+.gg{display:block;margin:auto}
+.item.hb{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 42%,var(--surf)) var(--p,0%),var(--surf) var(--p,0%));border-color:color-mix(in srgb,var(--c) 30%,var(--line))}
+.item.hb .tile{background:var(--surf)}
+.item.hb.ok .t{text-decoration:none;color:var(--ink)}.item.hb.ok .m{color:var(--ink);opacity:.7}
+.trail i{background:color-mix(in srgb,var(--ink) 16%,transparent)}.trail i.on{background:var(--c)}
+nav{left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 20px);max-width:620px;bottom:calc(8px + env(safe-area-inset-bottom));border:1px solid var(--line);border-radius:28px;padding-bottom:0;background:var(--surf)}
+nav button{height:58px}nav button[aria-current=page] svg{background:color-mix(in srgb,var(--acc) 28%,transparent)}
+main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}.toast{bottom:calc(88px + env(safe-area-inset-bottom))}
+.mcal b{font-size:20px;font-weight:400;border-radius:50%}.mc2{background:var(--soft)}.mc2 i{font-style:normal;font-size:12px;color:var(--mute)}
+.mcnt{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;font-weight:600}.mcnt>span{display:flex;flex-direction:column;align-items:center;gap:4px}
+#d-note{overflow-y:auto;max-height:100dvh}#d-note .db{flex:none;overflow:visible}#d-note .df{position:sticky;bottom:0;background:var(--bg)}
+#d-note .dh{position:sticky;top:0;background:var(--bg);z-index:1}#d-note textarea{min-height:110px!important}.ndate{padding:6px}
+.plus svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.db{flex:1 1 auto}
+.mf{display:block;line-height:0}.mf svg{display:block;transition:transform .15s}
+.mo .mf{border-radius:50%}.mo[aria-pressed=true] .mf{outline:3px solid var(--acc);outline-offset:3px}.mo[aria-pressed=true]{font-weight:700}
+.mcnt{display:flex;align-items:center;justify-content:space-between;gap:4px;margin:0 0 12px!important}
+.mcnt>span{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:14px}.tot{font-size:26px;font-weight:700;padding-left:4px}
+.mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px 4px;margin-top:6px}
+.mcell{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;color:var(--mute);font-weight:500}
+.mfe{display:block;width100%;width:100%;aspect-ratio:1;border-radius:50%;background:var(--soft);line-height:0}.mfe svg{width:100%;height:100%}
+.mcell i{font-style:normal;padding:0 8px;border-radius:99px}.mcell.now i{background:var(--acc);color:var(--onacc)}
+#m7{display:none}
+button.set{width:100%;text-align:left}
+.step{display:flex;gap:6px;align-items:center}.step .in{text-align:center;font-weight:600;min-width:0;padding:0 4px}
+.step button{flex:none;width:42px;height:42px;border-radius:50%;background:var(--surf);display:grid;place-items:center;color:var(--ink)}
+.step svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+/* ===== v3.2 redesign ===== */
+@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+:root{--bg:#F4F5F7;--surf:#fff;--ink:#16191D;--mute:#6B737C;--line:#E3E6EA;--soft:#EDEFF2;--acc:#22A275;--onacc:#fff;--hd:#F4F5F7;--plus:rgba(22,25,29,.13);--plusI:rgba(22,25,29,.36);--ease:cubic-bezier(.3,1.35,.5,1)}
+[data-theme=dark]{--bg:#1C2025;--surf:#262B31;--ink:#F3F5F6;--mute:#8D949B;--line:#31373E;--soft:#30363D;--acc:#36B58A;--onacc:#fff;--coin:#E8B43E;--bad:#F0817A;--hd:#1C2025;--plus:rgba(255,255,255,.14);--plusI:rgba(255,255,255,.42)}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Inter','IBM Plex Sans Thai',system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+/* header */
+.top{background:var(--hd);border-bottom:1px solid var(--line);padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:8px}
+.hi{display:flex;align-items:center;gap:10px;min-width:0}
+.hn{min-width:0;line-height:1.2}.hn small{display:block;font-size:12px;color:var(--mute)}.hn b{display:block;font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.av{flex:none;width:40px;height:40px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#3BBB8F,#2C8C9E);display:grid;place-items:center;color:#fff;font-weight:600;font-size:17px;box-shadow:0 0 0 2px var(--hd),0 0 0 3.5px color-mix(in srgb,var(--acc) 75%,transparent)}
+.av img{width:100%;height:100%;object-fit:cover;display:block}.av .pi{width:22px;height:22px;stroke:#fff}
+.av.lg{width:92px;height:92px;font-size:36px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--acc)}.av.lg .pi{width:44px;height:44px}
+.fl{background:none;color:#F0913A;font-size:16px;font-weight:600;padding:0 4px}
+.coins{height:30px;border:1.5px dashed var(--coin);background:none;color:var(--coin);font-size:13px;padding:0 10px}
+.coins.bump,.fl.bump{animation:nb .45s var(--ease)}.fl{display:inline-block}@keyframes nb{40%{transform:scale(1.18)}}
+.ib.gear svg{width:22px;height:22px;transition:transform .5s var(--ease)}.ib.gear:active svg{transform:rotate(90deg)}
+/* compact week */
+.week{grid-template-columns:20px repeat(7,1fr) 20px;margin-top:8px;gap:3px}
+.wb{height:28px;font-size:16px}
+.day{min-height:0;padding:4px 0 3px;border-radius:12px;border:1.5px solid transparent;background:none;font-size:10px;gap:1px;transition:border-color .25s,background .25s,transform .15s var(--ease)}
+.day b{font-size:14px;font-weight:500}
+.day[aria-pressed=true]{background:color-mix(in srgb,var(--acc) 10%,transparent);border-color:var(--acc)}
+.day[aria-pressed=true] b,.day[aria-pressed=true] span{color:var(--ink)}
+.day.today span{color:var(--acc)}
+.dd{width:3px;height:3px}.day[aria-pressed=true] .dd.on{background:var(--acc)}
+/* banner */
+.hero{display:flex;align-items:center;justify-content:flex-start;gap:16px;background:linear-gradient(135deg,#3DBD91,#2AA47D);color:#fff;border-radius:24px;padding:14px 18px;margin:6px 0 14px;box-shadow:0 10px 26px -14px rgba(54,181,138,.75)}
+.hero h2{font-size:17px;font-weight:600;margin:0 0 2px;color:#fff}.hero .sub{color:rgba(255,255,255,.75);margin:0;font-size:14px}
+.ring{position:relative;flex:none;width:96px;height:54px;color:#fff;font-variant-numeric:tabular-nums}
+.ring svg{display:block;overflow:visible}
+.ring span{position:absolute;left:0;right:0;bottom:-1px;text-align:center;font-size:19px;font-weight:700;line-height:1}
+.ring path{fill:none;stroke-width:9;stroke-linecap:round}.ring .bg{stroke:rgba(255,255,255,.3)}.ring .fg{stroke:#14231D;transition:stroke-dashoffset .8s var(--ease)}
+/* habit cards */
+.list{gap:12px}
+.item{border:0;border-radius:24px;padding:12px 14px 12px 12px;transition:transform .2s var(--ease)}
+.item .go{gap:16px}
+.tile{border-radius:18px}
+.hb .tile,#dd-body .tile,.set .tile{background:var(--c)!important}
+.hb .tile{width:60px;height:60px;font-size:30px}
+.hb .t{font-size:17px;font-weight:600}.hb .m{font-size:14px;margin-top:3px}
+.item.hb{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 24%,var(--surf)) var(--p),var(--surf) var(--p));border:0}
+.item.hb.ok{background:color-mix(in srgb,var(--c) 76%,#fff)}
+.item.hb.ok .tile{background:color-mix(in srgb,var(--c) 86%,#000)!important}
+.item.hb.ok .t{color:#fff}.item.hb.ok .m{color:rgba(255,255,255,.82);opacity:1}
+.plus{width:46px;height:46px;border-radius:14px;border:1.5px solid var(--plus)!important;background:transparent;color:var(--plusI)!important}
+.plus:active{background:var(--plus)}
+.hb.ok .plus{background:transparent!important;border-color:transparent!important;color:rgba(255,255,255,.85)!important}
+.plus svg{width:22px;height:22px;stroke-width:2}
+.item.just:not(.ok){animation:fillp .5s cubic-bezier(.25,.9,.3,1)}@keyframes fillp{from{--p:var(--from)}}
+.item.ok.just{animation:okin .5s var(--ease)}@keyframes okin{0%{transform:scale(.97);filter:brightness(1.25)}60%{transform:scale(1.015)}}
+.item.ok.just .tile{animation:pop .45s var(--ease)}
+.item.ok.just .plus path{stroke-dasharray:22;animation:draw .4s .12s both}@keyframes draw{from{stroke-dashoffset:22}}
+.go:active{transform:none!important}.item:has(.go:active){transform:scale(.975)}
+/* nav like reference */
+nav{left:0;right:0;transform:none;width:auto;max-width:none;bottom:0;border:0;border-radius:28px 28px 0 0;background:var(--surf);padding-bottom:env(safe-area-inset-bottom)}
+nav div{max-width:560px}
+nav button{height:74px;font-size:0;gap:0;color:var(--mute)}
+nav svg{width:22px;height:22px;padding:12px;border-radius:14px;border:1.5px solid transparent;transition:border-color .25s,color .25s,transform .2s var(--ease)}
+nav button[aria-current=page]{color:var(--acc)}nav button[aria-current=page] svg{background:none;border-color:var(--acc)}
+main{padding-bottom:calc(104px + env(safe-area-inset-bottom))}.toast{bottom:calc(92px + env(safe-area-inset-bottom))}
+/* detail note card */
+.ncard{margin-top:14px;padding:14px;border-radius:20px;background:var(--surf)}
+.ntx{margin:8px 0 0;white-space:pre-wrap;line-height:1.5}
+.nact{display:flex;gap:8px;margin-top:12px}.nact .btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:0;background:var(--soft)}
+.nact svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* profile & settings pop-up */
+#d-settings,#d-profile,#d-habits{margin:auto;border-radius:28px;width:calc(100% - 24px);max-width:420px;max-height:88dvh;background:var(--bg)}
+#d-settings[open],#d-profile[open],#d-habits[open]{animation:zoom .34s var(--ease)}@keyframes zoom{from{transform:scale(.9);opacity:0}}
+#d-settings .dh h3,#d-profile .dh h3,#d-habits .dh h3{text-align:center;padding-left:44px}
+.prof{display:flex;flex-direction:column;align-items:center;text-align:center;padding:4px 0 6px}
+.pav{position:relative;border-radius:50%}
+.cam{position:absolute;right:-2px;bottom:-2px;width:32px;height:32px;border-radius:50%;background:var(--acc);display:grid;place-items:center;box-shadow:0 0 0 3px var(--bg)}
+.cam svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pname{margin-top:14px;width:100%;max-width:260px;text-align:center;font-size:20px;font-weight:600;border:0;background:none;border-radius:10px;padding:4px 8px}
+.pname:focus{outline:none;background:var(--surf)}.pname::placeholder{color:var(--mute);font-weight:500}
+.pst{display:grid;grid-template-columns:repeat(3,1fr);width:100%;margin-top:14px;background:var(--surf);border-radius:18px;padding:12px 0}
+.pst div{display:flex;flex-direction:column;gap:2px}.pst div+div{border-left:1px solid var(--line)}
+.pst b{font-size:20px;font-weight:700}.pst small{font-size:12px;color:var(--mute)}
+#d-settings h4,#d-profile h4{margin:20px 4px 8px;font-size:12px;letter-spacing:.02em}
+.grp{background:var(--surf);border-radius:18px;overflow:hidden}
+.grp .set{padding:11px 14px;border-bottom:1px solid var(--line);min-height:52px}.grp .set:last-child{border-bottom:0}
+.grp button.set:active{background:var(--soft);transform:none}
+.sl{gap:12px;font-size:15px}
+.si{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center}
+.si svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chev{color:var(--mute);font-size:20px;line-height:1}
+.set .tile{width:30px!important;height:30px!important;border-radius:9px;font-size:16px!important}
+.set .t{font-size:15px;font-weight:500}
+.sel{width:auto;height:34px;padding:0 10px;background:var(--soft);font-size:14px}
+.grp .seg{border:0;background:var(--soft);padding:3px}.grp .seg button{height:28px;font-size:13px}
+.grp .seg button[aria-pressed=true]{background:var(--surf);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.sw{width:50px;height:30px;border-radius:99px;background:var(--soft);position:relative;flex:none;transition:background .25s}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:transform .32s var(--ease)}
+.sw[aria-checked=true]{background:var(--acc)}.sw[aria-checked=true]::after{transform:translateX(20px)}
+.ver{text-align:center;color:var(--mute);font-size:12px;margin:18px 0 4px}
+/* focus long-press */
+.fring{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:pointer;border-radius:50%;transition:transform .3s var(--ease)}
+.fring .hold{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:.0;stroke-dashoffset:615.8;transition:stroke-dashoffset .2s,opacity .2s}
+.fring.holding{transform:scale(.95)}.fring.holding .hold{opacity:.9;stroke-dashoffset:0;transition:stroke-dashoffset .95s linear,opacity .1s}
+.fring.l1{animation:sh1 .18s linear infinite}.fring.l2{animation:sh2 .12s linear infinite}.fring.l3{animation:sh3 .08s linear infinite}
+.fring.buzz{animation:buzz .8s ease-out}
+@keyframes buzz{0%,100%{transform:none}7%{transform:scale(1.08) rotate(-1.5deg)}16%{transform:scale(.97) rotate(1.2deg)}30%{transform:scale(1.05) rotate(-.8deg)}40%{transform:scale(.99)}54%{transform:scale(1.02) rotate(.3deg)}64%{transform:none}}
+.fhint{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:13px;margin:0}
+/* micro-interactions */
+button{transition:transform .16s var(--ease),background-color .2s,color .2s,border-color .2s}
+button:active{transform:scale(.94)}
+.list.anim>*{animation:rise .42s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+main>section:not([hidden]){animation:fade .3s ease both}@keyframes fade{from{opacity:0;transform:translateY(5px)}}
+dialog::backdrop{background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+dialog[open]{animation:sheet .34s cubic-bezier(.2,.9,.25,1)}@keyframes sheet{from{transform:translateY(36px);opacity:0}}
+dialog[open]::backdrop{animation:bd .3s ease}@keyframes bd{from{opacity:0}}
+.toast{animation:tin .32s var(--ease)}@keyframes tin{from{opacity:0;transform:translate(-50%,14px) scale(.95)}}
+.av{transition:transform .2s var(--ease)}.av:active{transform:scale(.9)}
+/* ===== mobile sizing & behaviour ===== */
+html,body{overscroll-behavior-y:none;-webkit-text-size-adjust:100%}
+body{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select{-webkit-user-select:text;user-select:text;font-size:16px!important}
+@media(hover:hover){.ib:hover{background:var(--soft)}}@media(hover:none){.ib:hover,.btn:hover{background:inherit}}
+/* header */
+.top{padding-top:calc(6px + env(safe-area-inset-top));padding-bottom:6px}
+.av{width:34px;height:34px;font-size:14px;box-shadow:0 0 0 2px var(--hd),0 0 0 3px color-mix(in srgb,var(--acc) 75%,transparent)}.av .pi{width:18px;height:18px}
+.hn small{font-size:11px}.hn b{font-size:15px}
+.fl{font-size:14px}.coins{height:26px;font-size:12px;padding:0 8px;border-width:1.2px}
+.ib{width:36px;height:36px}.ib svg,.ib.gear svg{width:20px;height:20px}
+.week{margin-top:6px}.wb{height:24px;font-size:14px}.day{padding:3px 0 2px;border-radius:10px}.day b{font-size:13px}.day span{font-size:9.5px}
+/* banner */
+main{padding-top:8px}
+.hero{padding:10px 14px;gap:12px;border-radius:20px;margin:4px 0 12px}
+.ring{width:76px;height:43px}.ring svg{width:76px;height:43px}.ring span{font-size:15px}
+.hero h2{font-size:15px}.hero .sub{font-size:12.5px}
+/* habit cards */
+.list{gap:10px}
+.item{padding:8px 10px 8px 8px;border-radius:18px;min-height:0}
+.item .go{gap:12px}
+.hb .tile{width:46px;height:46px;font-size:22px;border-radius:14px}
+.hb .t{font-size:15px}.hb .m{font-size:12.5px;margin-top:1px}
+.plus{width:36px;height:36px;border-radius:11px;position:relative}
+.plus::after{content:'';position:absolute;inset:-6px}
+.plus svg{width:18px;height:18px}
+.tile{width:40px;height:40px;font-size:20px}
+/* nav */
+nav button{height:58px}
+nav svg{width:20px;height:20px;padding:7px;border-radius:11px}
+main{padding-bottom:calc(84px + env(safe-area-inset-bottom))}.toast{bottom:calc(72px + env(safe-area-inset-bottom))}
+/* sheets */
+.dh{padding:10px 10px 6px 16px}.dh h3{font-size:16px}
+.db{padding:6px 16px 14px}.df{padding:10px 16px calc(12px + env(safe-area-inset-bottom))}
+.btn{height:40px;font-size:14px;border-radius:12px}.btn.sm{height:32px;font-size:13px}
+dialog:not(#d-settings):not(#d-profile):not(#d-habits):not(#d-confirm)::before{content:'';display:block;width:36px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 0;flex:none}
+dialog.drag{transition:none!important}
+#dd-body .tile{width:44px;height:44px;font-size:22px;border-radius:13px}
+.ncard{padding:12px;border-radius:16px}.nact .btn{height:34px}
+.nums strong{font-size:18px}.card,.stat{padding:12px;border-radius:16px}
+/* profile & settings */
+.av.lg{width:76px;height:76px;font-size:30px}.av.lg .pi{width:36px;height:36px}
+.cam{width:26px;height:26px}.cam svg{width:13px;height:13px}
+.pname{font-size:18px!important;margin-top:10px}
+.pst{padding:10px 0;border-radius:14px}.pst b{font-size:17px}.pst small{font-size:11px}
+.grp{border-radius:14px}.grp .set{padding:8px 12px;min-height:44px}
+.sl{gap:10px;font-size:14px}.si{width:26px;height:26px;border-radius:7px}.si svg{width:15px;height:15px}
+.set .tile{width:26px!important;height:26px!important;border-radius:7px;font-size:14px!important}.set .t{font-size:14px}
+.sw{width:44px;height:26px}.sw::after{width:22px;height:22px}.sw[aria-checked=true]::after{transform:translateX(18px)}
+.sel{height:30px;font-size:14px!important}.grp .seg button{height:26px;min-width:34px;font-size:12px}
+/* focus */
+.fring{width:190px;height:190px}.ft{font-size:38px}
+.fgrid{gap:8px}.fc{height:84px;padding:10px;border-radius:18px}.fe{width:30px;height:30px;font-size:16px}.fn{font-size:14px}.fp{width:26px;height:26px}
+.fsum{padding:12px;border-radius:16px}.fsum b{font-size:24px}
+/* mood */
+.moods{gap:10px 6px}.mo .mf svg{width:56px;height:56px}
+.icons button{width:40px;height:40px;font-size:20px;border-radius:12px}
+.pick .e{font-size:20px}
+/* habit presets + reset page */
+.pick.hp{border:1.5px solid transparent;transition:border-color .2s,background .2s,transform .15s var(--ease)}
+.pick.hp .m{font-size:11.5px;margin-top:2px}
+.pick.hp.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--surf))}.pick.hp.on .m{color:var(--acc)}
+#d-hpick h4{font-size:13px;color:var(--ink);font-weight:600;margin:18px 2px 8px}
+#d-reset .dh h3{text-align:center}
+.rwarn{background:var(--surf);border-radius:16px;padding:14px 16px;font-size:14px;line-height:1.5}
+.rlist{display:grid;gap:10px;margin-top:14px}
+.ropt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;background:var(--surf);border-radius:16px}
+.ri{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center}
+.ri svg{width:20px;height:20px;fill:none;stroke:#1C2025;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.rt{flex:1;min-width:0}.rt b{display:block;font-size:15px;font-weight:500}.rt small{display:block;color:var(--mute);font-size:12.5px;line-height:1.4;margin-top:2px}
+/* custom emoji tile */
+.emo{position:relative;width:40px;height:40px;border-radius:12px;background:var(--surf);display:grid;place-items:center;border:1.5px dashed var(--plus);cursor:text;transition:border-color .2s,box-shadow .2s}
+.emo input{position:absolute;inset:0;width:100%;height:100%;border:0;background:none;text-align:center;font-size:22px!important;padding:0;color:var(--ink);caret-color:var(--acc);border-radius:12px}
+.emo input:focus{outline:none}.emo:focus-within{border-color:var(--acc)}
+.emo-ph{pointer-events:none;color:var(--plusI);font-size:20px;line-height:1}
+.emo.on{border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 2px var(--acc)}
+.fl{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border-radius:99px;font-size:15px;font-weight:700}
+.fl .flame{width:20px;height:20px;display:block}
+.fl.t-off{color:var(--mute)}.fl.t-red{color:#FF6A3D}.fl.t-purple{color:#B46BFF}.fl.t-blue{color:#3AA8FF}.fl.t-gold{color:#FFC233}
+.flame.f-gold{filter:drop-shadow(0 0 4px rgba(255,200,60,.75));animation:glow 1.8s ease-in-out infinite}
+.flame.f-blue{filter:drop-shadow(0 0 3px rgba(60,170,255,.55))}.flame.f-purple{filter:drop-shadow(0 0 3px rgba(180,100,255,.45))}
+@keyframes glow{50%{filter:drop-shadow(0 0 8px rgba(255,210,80,.95))}}
+.pfl{display:inline-flex;align-items:center;justify-content:center;gap:2px}.pfl .flame{width:18px;height:18px}
+.ftier{width:100%;margin-top:10px;background:var(--surf);border-radius:14px;padding:12px 8px 10px}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.tl span{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.38;transition:opacity .3s}
+.tl span.on{opacity:1}.tl span.cur .flame{transform:scale(1.18)}
+.tl .flame{width:24px;height:24px;transition:transform .3s var(--ease)}
+.tl small{font-size:11px;font-weight:600}.tl i{font-style:normal;font-size:10px;color:var(--mute)}
+.tn{margin:8px 0 0;font-size:12px;color:var(--mute);text-align:center}
+.hhint{margin:0 4px 10px;font-size:12px;color:var(--mute)}
+.hrow{display:flex;align-items:center;position:relative;background:var(--surf);border-bottom:1px solid var(--line);transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.hrow .set{flex:1;min-width:0;border-bottom:0!important}
+.grip{flex:none;width:44px;height:44px;display:grid;place-items:center;color:var(--mute);touch-action:none;cursor:grab}
+.grip svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.sorting .hrow{user-select:none}
+.hrow.lift{z-index:2;transition:box-shadow .2s;box-shadow:0 10px 26px rgba(0,0,0,.35);border-radius:12px;background:var(--soft)}
+.hrow.lift .grip{color:var(--acc);cursor:grabbing}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart .cg{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.chart text{fill:var(--mute);font-size:10px;font-family:inherit}.chart .cx{text-anchor:middle}.chart .cy{text-anchor:end}.chart .cv{text-anchor:middle;fill:var(--ink);font-size:10px;font-weight:600}
+.chart .cl{stroke-dasharray:1200;stroke-dashoffset:1200;animation:drawl 1.1s ease-out forwards}@keyframes drawl{to{stroke-dashoffset:0}}
+.chart .cb{transform-box:fill-box;transform-origin:bottom;animation:grow .6s var(--ease) both;animation-delay:var(--d)}@keyframes grow{from{transform:scaleY(0)}}
+.donut{width:118px;height:118px;display:block;margin:4px auto 0}.donut .dt{text-anchor:middle;fill:var(--ink);font-size:19px;font-weight:700}.donut .ds{text-anchor:middle;fill:var(--mute);font-size:9px}
+.donut .dn{transition:stroke-dashoffset .8s var(--ease)}
+.ccard{background:var(--surf);border-radius:18px;padding:12px 14px;margin-bottom:10px;min-width:0}
+.cch{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.cch b{font-size:13px;font-weight:600;color:var(--mute)}.cch .link{padding:0;font-size:12px}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.crow .ccard{margin-bottom:10px}
+.sk{display:grid;gap:6px;padding-top:6px}.sk div{display:flex;align-items:baseline;justify-content:space-between}.sk b{font-size:22px;font-weight:700}.sk small{color:var(--mute);font-size:12px}
+.hb2{display:grid;gap:9px}.hbr{display:grid;grid-template-columns:minmax(0,1.2fr) 1fr 38px;gap:8px;align-items:center;font-size:12.5px}
+.hbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hbl i{font-style:normal;margin-right:4px}
+.hbt{height:8px;border-radius:5px;background:var(--soft);overflow:hidden}.hbt b{display:block;height:100%;border-radius:5px;animation:wgrow .8s var(--ease) both}@keyframes wgrow{from{width:0!important}}
+.crow .hbr{grid-template-columns:22px 1fr 24px}.crow .hbl{font-size:0}.crow .hbl i{font-size:16px;margin:0}
+.hbv{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}.kpi{background:var(--surf);border-radius:16px;padding:12px 14px}.kpi b{display:block;font-size:22px;font-weight:700;line-height:1.2}.kpi small{color:var(--mute);font-size:12px}
+.big{font-size:30px;font-weight:700;line-height:1.1}
+#d-tool .dh h3{text-align:center}#tl-add{flex:none;height:30px;padding:0 12px}
+.tlist{display:grid;gap:10px}
+.tcard{display:flex;flex-direction:column;gap:3px;text-align:left;padding:12px 14px;background:var(--surf);border-radius:16px;width:100%}
+.tcard b{font-size:15px;font-weight:600}.tcard span{font-size:13px;color:var(--mute);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}.tcard small{font-size:11px;color:var(--mute)}
+.ti{margin-bottom:10px;font-weight:600}.ta{height:auto!important;min-height:200px;padding:12px 14px!important;resize:none;line-height:1.55}
+.tbtn{display:flex;gap:10px;margin-top:12px}.tbtn .btn{flex:1}
+.gcard{background:var(--surf);border-radius:16px;padding:12px 14px}.gcard.done{box-shadow:inset 0 0 0 1.5px var(--acc)}
+.gtop{display:flex;align-items:center;gap:10px;width:100%;text-align:left}.ge{font-size:24px}.gt{flex:1;min-width:0}.gt b{display:block;font-size:15px}.gt small{color:var(--mute);font-size:12px}.gp{font-weight:700;color:var(--acc)}
+.gbar{height:8px;border-radius:5px;background:var(--soft);margin:10px 0;overflow:hidden}.gbar i{display:block;height:100%;background:linear-gradient(90deg,#E5544B,#F2A33A);border-radius:5px;transition:width .5s var(--ease)}.gcard.done .gbar i{background:var(--acc)}
+.gst{display:flex;justify-content:flex-end;gap:8px}.gst .btn{min-width:56px}
+.jhead{margin:2px 0 10px}.jhead b{display:block;font-size:17px}.jhead small{color:var(--mute);font-size:13px}
+.jm{display:flex;justify-content:space-between;margin-bottom:12px}.jm button{border-radius:50%;opacity:.45;transition:opacity .2s,transform .2s var(--ease)}.jm button[aria-pressed=true]{opacity:1;transform:scale(1.15)}.jm svg{display:block}
+#d-tool h4{margin:20px 2px 8px}
+.fc{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:pan-y}
+.fc::after{content:'';position:absolute;left:0;bottom:0;height:100%;width:0;background:rgba(255,255,255,.16);pointer-events:none}
+.fc.holding::after{width:100%;transition:width .95s linear}
+.fc.holding{transform:scale(.96)}
+.fc.l1{animation:sh1 .18s linear infinite}.fc.l2{animation:sh2 .12s linear infinite}.fc.l3{animation:sh3 .08s linear infinite}
+@keyframes sh1{25%{transform:scale(.96) translateX(-.6px)}75%{transform:scale(.96) translateX(.6px)}}
+@keyframes sh2{25%{transform:scale(.95) translateX(-1.4px) rotate(-.4deg)}75%{transform:scale(.95) translateX(1.4px) rotate(.4deg)}}
+@keyframes sh3{25%{transform:scale(.94) translateX(-2.4px) rotate(-.8deg)}75%{transform:scale(.94) translateX(2.4px) rotate(.8deg)}}
+.fc.nudge{animation:ndg .35s ease}@keyframes ndg{30%{transform:translateX(-4px)}60%{transform:translateX(3px)}}
+.rmt{width:auto;min-width:96px;text-align:center}
+.wnav{display:flex;gap:2px}.sbar{margin-top:16px}
+dialog .ib:focus:not(:focus-visible){outline:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar">
+  <div class="hi"><button class="av" id="av" data-act="profile" aria-label="โปรไฟล์"></button><span class="hn"><small id="greet"></small><b id="hname"></b></span></div>
+  <div class="tools">
+    <button class="fl" id="fl" data-act="profile" title="ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง"><span id="fl-ic"></span><b id="hs">0</b></button>
+    <button class="coins" data-act="tab" data-id="rewards" aria-label="เหรียญสะสม">🪙 <span id="coins">0</span></button>
+    <button class="ib gear" data-act="settings" aria-label="ตั้งค่า"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+  </div>
+</div><div class="week" id="week"></div></header>
+
+<main>
+<section id="tab-habits">
+  <div class="hero"><div class="ring" id="flow" role="img" aria-label="ความคืบหน้าวันนี้"></div><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div></div>
+  <div class="tabs" id="groups" hidden></div>
+  <div class="list" id="habits"></div>
+</section>
+
+<section id="tab-stats" hidden>
+  <div class="row between"><div><h2>สถิติ</h2><p class="sub">แตะกิจวัตรเพื่อดูรายละเอียด</p></div>
+    <div class="seg" id="seg-stats" role="group" aria-label="มุมมอง">
+      <button data-act="mode" data-id="heatmap" aria-label="ภาพรวม"><svg viewBox="0 0 24 24"><path d="M5 5h2M11 5h2M17 5h2M5 12h2M11 12h2M17 12h2M5 19h2M11 19h2M17 19h2" stroke-width="3.2"/></svg></button><button data-act="mode" data-id="weekly" aria-label="สัปดาห์"><svg viewBox="0 0 24 24"><path d="M5 8h14M5 16h14"/></svg></button><button data-act="mode" data-id="monthly" aria-label="เดือน"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></button>
+    </div></div>
+  <div id="stats" class="sec" style="margin-top:8px"></div>
+</section>
+
+<section id="tab-rewards" hidden>
+  <div class="row between" style="align-items:flex-start"><div><h2>รางวัล</h2><p class="sub">ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง</p></div><button class="btn sm" data-act="newReward">เพิ่มรางวัล</button></div>
+  <div class="sec row between"><div><div class="bal"><span id="bal">0</span> <span style="font-size:15px;font-weight:500">เหรียญ</span></div><span class="lv" id="lvl"></span></div><div class="hg" id="lvg" role="img" aria-label="ความคืบหน้าเลเวล"></div></div><p class="sub" style="margin-top:8px">สิทธิ์ข้ามวัน <b id="skips">0</b> ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน</p>
+  <div class="sbar" role="tablist"><button role="tab" data-act="rtab" data-id="active">รอแลก</button><button role="tab" data-act="rtab" data-id="claimed">แลกแล้ว</button></div>
+  <div class="list" id="rewards" style="margin-top:14px"></div>
+</section>
+<section id="tab-mood" hidden>
+  <h2>อารมณ์</h2><p class="sub" id="mood-date"></p>
+  <h3 class="mq">วันนี้รู้สึกยังไง?</h3>
+  <div class="moods" id="moods"></div>
+  <label class="f" style="margin-top:14px"><span>บันทึกเพิ่มเติม</span><textarea class="in" id="mood-note" rows="3" maxlength="300" placeholder="เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)" style="height:auto;padding:10px 14px;resize:none"></textarea></label>
+  <button class="btn pri" style="width:100%" data-act="saveMood">บันทึกอารมณ์</button>
+  <div class="sec"><span class="lbl">ข้อมูลเชิงลึก</span><div class="m7" id="m7"></div><p class="ins" id="mood-ins"></p></div>
+  <div class="sec"><div id="mood-cal"></div></div>
+  <div class="sec"><span class="lbl">ประวัติ</span><div class="list" id="mood-list"></div></div>
+</section>
+<section id="tab-focus" hidden>
+  <div class="row between" style="align-items:flex-start"><div><h2>โฟกัส</h2><p class="sub">เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ</p></div><button class="btn sm" data-act="addFcat">+ โหมด</button></div>
+  <button class="frun" id="f-run" data-act="openRun" hidden></button>
+  <div class="fsum"><div><b id="f-min">0</b> <span>นาทีวันนี้</span></div><div class="fwk" id="f-week"></div></div>
+  <div class="fgrid" id="f-grid"></div>
+</section>
+</main>
+
+<nav aria-label="เมนูหลัก"><div>
+  <button data-act="home" id="n-habits" aria-label="วันนี้"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>วันนี้</button>
+  <button data-act="tab" data-id="stats" id="n-stats" aria-label="สถิติ"><svg viewBox="0 0 24 24"><path d="M6 20V11M12 20V4M18 20v-6" stroke-width="3"/></svg>สถิติ</button>
+  <button data-act="tab" data-id="rewards" id="n-rewards" aria-label="รางวัล"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg>รางวัล</button>
+  <button data-act="tab" data-id="mood" id="n-mood" aria-label="อารมณ์"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.2c1.8 2 5.2 2 7 0M9 9.8v.4M15 9.8v.4" stroke-width="2.2"/></svg>อารมณ์</button>
+  <button data-act="tab" data-id="focus" id="n-focus" aria-label="โฟกัส"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg>โฟกัส</button>
+</div></nav>
+
+<dialog id="d-detail" class="full" aria-labelledby="dd-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="กลับ"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><h3 id="dd-title"></h3><button class="btn sm" data-act="editHabit">แก้ไข</button></div>
+  <div class="db" id="dd-body"></div>
+</dialog>
+
+<dialog id="d-habit" aria-labelledby="dh-title">
+  <div class="dh"><h3 id="dh-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db">
+    <input type="hidden" id="f-id">
+    <label class="f"><span>ชื่อกิจกรรม</span><input class="in" id="f-name" maxlength="60" placeholder="เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ" autocomplete="off"></label>
+    <label class="f" hidden><span>หมวดหมู่</span><select class="in" id="f-group"></select></label>
+    <div class="g2"><div class="f"><span>ต้องทำกี่ครั้งต่อวัน</span><div class="step"><button type="button" data-act="tgt" data-id="-1" aria-label="ลดจำนวน"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><input class="in" id="f-target" type="number" min="1" max="999" inputmode="numeric" aria-label="จำนวนครั้งต่อวัน"><button type="button" data-act="tgt" data-id="1" aria-label="เพิ่มจำนวน"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+    <label class="f"><span>หน่วยนับ</span><input class="in" id="f-unit" maxlength="12"></label></div>
+    <label class="f"><span>แจ้งเตือนเวลา</span><input class="in" id="f-remind" type="time" aria-label="เวลาแจ้งเตือน"></label>
+    <div class="f"><span>ไอคอน</span><div class="icons" id="f-icons"></div></div>
+    <button class="btn bad sm" id="f-del" data-act="delHabit" hidden>ลบกิจวัตรนี้</button>
+  </div>
+  <div class="df"><button class="btn" data-act="close">ยกเลิก</button><button class="btn pri" data-act="saveHabit">บันทึก</button></div>
+</dialog>
+
+<dialog id="d-picker" class="full" aria-labelledby="dp-title">
+  <div class="dh"><h3 id="dp-title">เพิ่มรางวัล</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db"><button class="btn pri" style="width:100%" data-act="customReward">สร้างรางวัลเอง</button><div id="presets"></div></div>
+</dialog>
+
+<dialog id="d-hpick" class="full" aria-labelledby="hp-title">
+  <div class="dh"><h3 id="hp-title">เพิ่มกิจวัตร</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db"><button class="btn pri" style="width:100%" data-act="customHabit">สร้างกิจวัตรเอง</button><div id="hpresets"></div></div>
+</dialog>
+
+<dialog id="d-reset" class="full" aria-labelledby="rs-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="กลับ"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><h3 id="rs-title">รีเซ็ตข้อมูล</h3><span style="width:36px;flex:none"></span></div>
+  <div class="db" id="rs-body"></div>
+</dialog>
+
+<dialog id="d-reward" aria-labelledby="dr-title">
+  <div class="dh"><h3 id="dr-title">รางวัลใหม่</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db">
+    <label class="f"><span>ชื่อรางวัล</span><input class="in" id="r-title" maxlength="60" placeholder="เช่น ดูหนัง 1 เรื่อง" autocomplete="off"></label>
+    <div class="g2"><label class="f"><span>เหรียญที่ใช้</span><input class="in" id="r-cost" type="number" min="1" inputmode="numeric" value="5"></label>
+    <label class="f"><span>อีโมจิ</span><input class="in" id="r-emoji" value="🎁" maxlength="4" style="text-align:center;font-size:20px"></label></div>
+  </div>
+  <div class="df"><button class="btn" data-act="close">ยกเลิก</button><button class="btn pri" data-act="saveReward">บันทึก</button></div>
+</dialog>
+
+<dialog id="d-profile" aria-labelledby="pf-title">
+  <div class="dh"><h3 id="pf-title">โปรไฟล์</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db">
+    <div class="prof">
+      <button class="pav" data-act="pickAv" aria-label="เปลี่ยนรูปโปรไฟล์"><span class="av lg" id="s-av"></span><span class="cam"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span></button>
+      <input type="file" id="av-file" accept="image/*" hidden>
+      <input class="pname" id="s-name" maxlength="24" placeholder="แตะเพื่อตั้งชื่อ" autocomplete="off" aria-label="ชื่อของคุณ">
+      <button class="link" id="s-rmav" data-act="rmAv" hidden>ลบรูปโปรไฟล์</button>
+      <div class="pst"><div><b class="pfl"><span id="p-fl"></span><span id="p-streak">0</span></b><small>ไฟต่อเนื่อง</small></div><div><b id="p-coins">0</b><small>เหรียญ</small></div><div><b id="p-lv">1</b><small>เลเวล</small></div></div>
+      <div class="ftier" id="p-tier"></div>
+    </div>
+    <div class="grp" style="margin-top:16px"><button class="set" data-act="pickAv"><span class="row sl"><span class="si" style="background:var(--acc)"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>เปลี่ยนรูปโปรไฟล์</span><span class="chev">›</span></button><button class="set" data-act="goSettings"><span class="row sl"><span class="si" style="background:#8D949B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span>ตั้งค่า</span><span class="chev">›</span></button></div>
+  </div>
+</dialog>
+
+<dialog id="d-habits" aria-labelledby="dhs-title">
+  <div class="dh"><h3 id="dhs-title">กิจวัตรของฉัน</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db">
+    <p class="hhint">ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข</p>
+    <div class="grp"><div id="s-habits"></div><button class="set" data-act="addHabit"><span class="row sl"><span class="si" style="background:var(--acc)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span style="color:var(--acc);font-weight:500">เพิ่มกิจวัตร</span></span></button></div>
+  </div>
+</dialog>
+
+<dialog id="d-tool" class="full" aria-labelledby="tl-title">
+  <div class="dh"><button class="ib" data-act="toolBack" aria-label="กลับ"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><h3 id="tl-title"></h3><button class="btn sm pri" id="tl-add" data-act="toolAdd">+</button></div>
+  <div class="db" id="tl-body"></div>
+</dialog>
+
+<dialog id="d-remind" class="full" aria-labelledby="rm-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="กลับ"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><h3 id="rm-title"></h3><span style="width:36px;flex:none"></span></div>
+  <div class="db" id="rm-body"></div>
+</dialog>
+
+<dialog id="d-settings" aria-labelledby="ds-title">
+  <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db">
+    <div class="grp" style="margin-top:4px"><button class="set" data-act="tool" data-id="overview"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="goals"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes"><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button></div>
+    <h4>การตั้งค่า</h4>
+    <div class="grp">
+      <div class="set"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></svg></span>ภาษา</span><div class="seg" id="s-lang"><button data-act="lang" data-id="th">ไทย</button><button data-act="lang" data-id="en">EN</button></div></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#3A8FE0"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>เริ่มสัปดาห์</span><div class="seg" id="s-week"><button data-act="weekStart" data-id="1">อา.</button><button data-act="weekStart" data-id="0">จ.</button></div></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#6E6BDE"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>ธีม</span><select class="in sel" id="s-theme" aria-label="ธีม"><option value="system">ตามระบบ</option><option value="dark">มืด</option><option value="light">สว่าง</option></select></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></svg></span>เสียงแจ้งเตือน</span><button class="sw" id="s-sound" role="switch" data-act="toggleSound" aria-label="เสียงแจ้งเตือน"></button></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><rect x="8" y="4" width="8" height="16" rx="2"/><path d="M4 9v6M20 9v6"/></svg></span>การสั่น</span><button class="sw" id="s-hap" role="switch" data-act="toggleHap" aria-label="การสั่น"></button></div>
+    </div>
+    <div id="s-groups" hidden></div>
+    <div hidden><input id="s-newgroup"></div>
+    <h4>ข้อมูล</h4>
+    <div class="grp">
+      <button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
+      <button class="set" data-act="syncOut"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></span>ส่งข้อมูลไปเครื่องอื่น</span><span class="chev">›</span></button>
+      <button class="set" data-act="syncIn"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><path d="M8 7l4-4 4 4M12 3v12M5 13v6h14v-6"/></svg></span>รวมข้อมูลจากเครื่องอื่น</span><span class="chev">›</span></button><input type="file" id="sync-file" accept=".json,application/json" hidden>
+      <button class="set" data-act="export"><span class="row sl"><span class="si" style="background:#2FB283"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>สำรองข้อมูล</span><span class="chev">›</span></button>
+      <button class="set" data-act="import"><span class="row sl"><span class="si" style="background:#3A8FE0"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg></span>นำเข้าข้อมูล</span><span class="chev">›</span></button>
+      <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
+    </div>
+    <input type="file" id="s-file" accept=".json,application/json" hidden>
+    <p class="ver">HabitFlow v3.2</p>
+  </div>
+</dialog>
+
+<dialog id="d-confirm" style="max-width:380px;margin:auto;border-radius:16px">
+  <div class="db"><p id="c-msg" style="margin:0"></p></div>
+  <div class="df"><button class="btn" id="c-no">ยกเลิก</button><button class="btn pri" id="c-yes">ยืนยัน</button></div>
+</dialog>
+
+<dialog id="d-note" aria-labelledby="nt-title">
+  <div class="dh"><h3 id="nt-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="ndate" id="nt-date"></div>
+  <div class="db"><textarea class="in" id="nt-text" maxlength="1000" placeholder="วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก" style="height:auto;min-height:150px;padding:12px 14px;resize:none"></textarea><div class="phs" id="nt-ph"></div></div>
+  <div class="df"><button class="btn pri" data-act="saveNote">เสร็จสิ้น</button><button class="btn" id="nt-add" data-act="pickPh" aria-label="แนบรูป" style="flex:none;width:46px;padding:0;display:grid;place-items:center"><svg class="pi" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4 4 3 3-2 4 3"/></svg></button><input type="file" id="nt-file" accept="image/*" multiple hidden></div>
+</dialog>
+
+<dialog id="d-focus" class="full" aria-labelledby="fo-title">
+  <div class="dh"><h3 id="fo-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db fo"><div class="fring" id="fo-hold" role="button" tabindex="0" aria-label="กดค้างเพื่อเริ่มหรือพักโฟกัส"><svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fo-ring" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/><circle class="hold" cx="100" cy="100" r="98" stroke-dasharray="615.8"/></svg><div class="ft" id="fo-time">25:00</div></div>
+  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p></div>
+  <div class="df"><button class="btn" id="fo-stop" data-act="stopF">หยุด</button><button class="btn pri" id="fo-go" data-act="goF">เริ่มโฟกัส</button></div>
+</dialog>
+<dialog id="d-fcat" aria-labelledby="fc-title">
+  <div class="dh"><h3 id="fc-title">โหมดโฟกัสใหม่</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db"><div class="g2" style="grid-template-columns:1fr 90px"><label class="f"><span>ชื่อโหมด</span><input class="in" id="fc-name" maxlength="20" placeholder="เช่น ฝึกกีตาร์" autocomplete="off"></label>
+  <label class="f"><span>อีโมจิ</span><input class="in" id="fc-e" value="⭐" maxlength="4" style="text-align:center;font-size:20px"></label></div></div>
+  <div class="df"><button class="btn" data-act="close">ยกเลิก</button><button class="btn pri" data-act="saveFcat">บันทึก</button></div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" async></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const KEY='habitflow_app_state_v3',VER='3.2.0';
+const mem={};
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v;return !/quota/i.test(e.name)}return true},del:k=>{try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
+const IC=(p,x)=>`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const ICONS={weight:{c:'indigo',e:'🏋️'},cardio:{c:'rose',e:'🫀'},sleep:{c:'amber',e:'🛏️'},water:{c:'sky',e:'💧'},read:{c:'emerald',e:'📚'},smoke:{c:'tan',e:'🚭'},run:{c:'violet',e:'🏃'},mind:{c:'emerald',e:'🧘'}};
+const COLORS={indigo:'#52A8AF',rose:'#F03E43',amber:'#C59A2B',sky:'#3A9FE0',emerald:'#2FB283',tan:'#A88E68',violet:'#8E6CE0',orange:'#E8803A',pink:'#DE5C95',navy:'#4A6FD0'};
+Object.assign(ICONS,{learn:{c:'violet',e:'🎓'},english:{c:'navy',e:'🇬🇧'},review:{c:'amber',e:'📝'},plan:{c:'sky',e:'📅'},target:{c:'rose',e:'🎯'},nophone:{c:'tan',e:'📵'},check:{c:'emerald',e:'✅'},zzz:{c:'violet',e:'😴'},money:{c:'emerald',e:'💵'},save:{c:'orange',e:'📈'},ai:{c:'navy',e:'💻'},rocket:{c:'pink',e:'🚀'}});
+const HPRE=[
+ [['พัฒนาตัวเอง','Self-growth','🧠'],[['read','อ่านหนังสือ 10 หน้า','Read 10 pages'],['learn','เรียนรู้ทักษะใหม่ 20 นาที','Learn a new skill, 20 min'],['english','ฝึกภาษาอังกฤษ 15 นาที','Practice English, 15 min'],['review','ทบทวนสิ่งที่เรียนรู้ 5 นาที','Review what you learned, 5 min']]],
+ [['วินัยและประสิทธิภาพ','Discipline & productivity','🎯'],[['plan','วางแผนประจำวัน','Plan your day'],['target','ทำงานสำคัญให้สำเร็จ 1 อย่าง','Finish 1 important task'],['nophone','ลดเวลาเล่นมือถือ','Cut down phone time'],['check','ทบทวนผลงานประจำวัน','Review your day']]],
+ [['สุขภาพ','Health','💪'],[['water','ดื่มน้ำให้เพียงพอ','Drink enough water'],['weight','ออกกำลังกาย','Exercise'],['zzz','นอนให้เพียงพอ','Get enough sleep'],['smoke','งดสูบบุหรี่','No smoking']]],
+ [['การเงินและอาชีพ','Money & career','💰'],[['money','บันทึกรายรับรายจ่าย','Track income & expenses'],['save','ออมเงินอย่างสม่ำเสมอ','Save money regularly'],['ai','ฝึกใช้ AI ช่วยทำงาน','Practice using AI at work'],['rocket','พัฒนาทักษะเพื่อเพิ่มรายได้','Build skills to earn more']]]];
+const hex=h=>COLORS[h.color]||COLORS.indigo;
+const icon=k=>typeof k==='string'&&k.startsWith('e:')?k.slice(2):(ICONS[k]||ICONS.weight).e;
+const CKEYS=['indigo','rose','amber','sky','emerald','violet','orange','pink','navy','tan'];
+const colorFor=k=>ICONS[k]?ICONS[k].c:CKEYS[[...String(k)].reduce((a,c)=>a+c.codePointAt(0),0)%CKEYS.length];
+const firstEmoji=v=>{v=String(v||'').trim();if(!v)return '';try{const it=new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(v)[Symbol.iterator]().next();return it.value?it.value.segment:''}catch(e){return [...v][0]||''}};
+const PRESETS={'ของรางวัลเล็ก ๆ':[['Favorite Coffee',7,'☕'],['Bubble Tea',7,'🧋'],['Sweet Treat',5,'🍫'],['One More Episode',5,'📺'],['1 Hour of Gaming',10,'🎮'],['Sleep In',10,'😴'],['Ice Cream',6,'🍦'],['Popcorn',5,'🍿'],['Walk in the Park',8,'🌳']],
+'รางวัลดี ๆ':[['Order Takeout',20,'🍜'],['Movie Night',25,'🎬'],['A New Book',30,'📚'],['Night Out with Friends',30,'🍻'],['Lazy Day Off',35,'🏖️'],['Massage',40,'💆'],['Board Game Night',25,'🎲'],['Fresh Flowers',30,'🌷'],['Brunch Out',35,'🥞']],
+'รางวัลใหญ่':[['Day Trip',50,'🚗'],['Fancy Dinner',60,'🍽️'],['New Outfit',60,'👔'],['Theme Park Day',70,'🎢'],['New Sneakers',80,'👟'],['Concert Ticket',90,'🎤'],['Spa Day',65,'🧖'],['Cooking Class',75,'🍳'],['New Backpack',70,'🎒']],
+'รางวัลในฝัน':[['Weekend Getaway',180,'✈️'],['Smart Watch',200,'⌚'],['Nice Headphones',220,'🎧'],['Game Console',250,'🕹️'],['New Phone',300,'📱'],['Dream Trip',360,'🌍'],['Camera',280,'📷'],['Bicycle',320,'🚲'],['Laptop Upgrade',400,'💻']]};
+const DEF={version:VER,theme:'system',soundEnabled:true,hapticEnabled:true,lang:'th',profile:{name:'',avatar:''},coins:10,skips:0,startWeekOnSunday:true,selectedDate:'2026-10-23',selectedGroup:'All',
+ groups:['สุขภาพ','การงาน','พัฒนาตนเอง'],selectedVectorKey:'weight',
+ habits:[{id:'h1',title:'Lift Weights',iconKey:'weight',color:'indigo',target:1,unit:'Times',group:'สุขภาพ',archived:false,logs:{'2026-10-23':1}},
+ {id:'h2',title:'Cardio',iconKey:'cardio',color:'rose',target:1,unit:'Times',group:'สุขภาพ',archived:false,logs:{'2026-10-23':0}},
+ {id:'h3',title:'Sleep Early',iconKey:'sleep',color:'amber',target:1,unit:'Times',group:'สุขภาพ',archived:false,logs:{'2026-10-23':0}},
+ {id:'h4',title:'Drink Water',iconKey:'water',color:'sky',target:1,unit:'Times',group:'สุขภาพ',archived:false,logs:{'2026-10-23':1}}],
+ rewards:[{id:'r1',title:'Favorite Coffee',cost:7,emoji:'☕'},{id:'r2',title:'Movie Night',cost:25,emoji:'🎬'}],claimedRewards:[]};
+
+function normalize(p){
+  const s=Object.assign(JSON.parse(JSON.stringify(DEF)),p||{});
+  ['habits','rewards','claimedRewards','groups'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=JSON.parse(JSON.stringify(DEF[k]))});
+  s.habits.forEach(h=>{h.logs=h.logs&&typeof h.logs==='object'?h.logs:{};h.target=Math.max(1,parseInt(h.target)||1);h.notes=h.notes&&typeof h.notes==='object'?h.notes:{};Object.values(h.notes).forEach(e=>{e.text=String(e.text||'');e.photos=(Array.isArray(e.photos)?e.photos:[]).filter(u=>typeof u==='string'&&u.startsWith('data:image/')).slice(0,3)})});
+  s.coins=Math.max(0,parseInt(s.coins)||0);s.skips=Math.max(0,parseInt(s.skips)||0);
+  if(typeof s.totalEarned!=='number')s.totalEarned=s.coins+s.claimedRewards.reduce((a,r)=>a+(+r.cost||0),0);
+  if(!s.bonusDays||typeof s.bonusDays!=='object')s.bonusDays={};
+  if(!s.moods||typeof s.moods!=='object')s.moods={};
+  if(!s.focus||typeof s.focus!=='object')s.focus={};if(!Array.isArray(s.focus.sessions))s.focus.sessions=[];if(!Array.isArray(s.focus.cats))s.focus.cats=[];
+  s.focus.sessions=s.focus.sessions.filter(x=>x&&typeof x.d==='string'&&x.m>0);s.focus.cats=s.focus.cats.filter(c=>c&&c.id&&c.name);s.focus.min=[15,25,45,60].includes(s.focus.min)?s.focus.min:25;
+  if(!s.focusRun||typeof s.focusRun.c!=='string'||!(s.focusRun.total>0))s.focusRun=null;
+  s.selectedGroup='All';
+  if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
+  s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  s.version=VER;return s;
+}
+let state;
+try{state=normalize(JSON.parse(store.get(KEY)))}catch(e){state=normalize(null)}
+
+/* dates */
+const pad=n=>String(n).padStart(2,'0');
+const fmt=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return fmt(d)};
+const today=()=>fmt(new Date());
+let WD,WDL,MS,ML;
+const WD_TH=['อา','จ','อ','พ','พฤ','ศ','ส'];
+const WDL_TH=['วันอาทิตย์','วันจันทร์','วันอังคาร','วันพุธ','วันพฤหัสบดี','วันศุกร์','วันเสาร์'];
+const MS_TH=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const ML_TH=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+
+const WD_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],WDL_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+MS_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],ML_EN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const tr=(th,en)=>state&&state.lang==='en'?en:th;
+const NAMES=[["Lift Weights", "ยกเวท"], ["Cardio", "คาร์ดิโอ"], ["Sleep Early", "นอนเร็ว"], ["Drink Water", "ดื่มน้ำ"], ["Favorite Coffee", "กาแฟแก้วโปรด"], ["Bubble Tea", "ชานมไข่มุก"], ["Sweet Treat", "ขนมหวาน"], ["One More Episode", "ดูซีรีส์อีก 1 ตอน"], ["1 Hour of Gaming", "เล่นเกม 1 ชั่วโมง"], ["Sleep In", "นอนตื่นสาย"], ["Ice Cream", "ไอศกรีม"], ["Popcorn", "ป๊อปคอร์น"], ["Walk in the Park", "เดินเล่นในสวน"], ["Order Takeout", "สั่งอาหารเดลิเวอรี"], ["Movie Night", "คืนดูหนัง"], ["A New Book", "หนังสือเล่มใหม่"], ["Night Out with Friends", "เที่ยวกับเพื่อน"], ["Lazy Day Off", "วันหยุดขี้เกียจ"], ["Massage", "นวดผ่อนคลาย"], ["Board Game Night", "คืนบอร์ดเกม"], ["Fresh Flowers", "ดอกไม้สด"], ["Brunch Out", "ออกไปกินบรันช์"], ["Day Trip", "เที่ยวไปกลับ 1 วัน"], ["Fancy Dinner", "ดินเนอร์หรู"], ["New Outfit", "ชุดใหม่"], ["Theme Park Day", "เที่ยวสวนสนุก"], ["New Sneakers", "รองเท้าผ้าใบคู่ใหม่"], ["Concert Ticket", "บัตรคอนเสิร์ต"], ["Spa Day", "วันสปา"], ["Cooking Class", "คลาสทำอาหาร"], ["New Backpack", "กระเป๋าเป้ใบใหม่"], ["Weekend Getaway", "ทริปสุดสัปดาห์"], ["Smart Watch", "สมาร์ตวอทช์"], ["Nice Headphones", "หูฟังดี ๆ"], ["Game Console", "เครื่องเล่นเกม"], ["New Phone", "มือถือเครื่องใหม่"], ["Dream Trip", "ทริปในฝัน"], ["Camera", "กล้องถ่ายรูป"], ["Bicycle", "จักรยาน"], ["Laptop Upgrade", "อัปเกรดแล็ปท็อป"], ["Times", "ครั้ง"], ["times", "ครั้ง"]];const N_EN={},N_TH={};
+NAMES.forEach(([e,t])=>{N_EN[t]=e;N_EN[e]=e;N_TH[e]=t;N_TH[t]=t});
+/* show built-in names (default habits, suggestions, preset rewards, unit) in the current language; user-typed text stays as typed */
+HPRE.forEach(([,it])=>it.forEach(([,t,e])=>{N_EN[t]=e;N_EN[e]=e;N_TH[e]=t;N_TH[t]=t}));
+const tn=x=>{x=String(x??'');return state&&state.lang==='en'?(N_EN[x]||x):(N_TH[x]||x)};
+const PRE_EN={'ของรางวัลเล็ก ๆ':'Small treats','รางวัลดี ๆ':'Nice rewards','รางวัลใหญ่':'Big rewards','รางวัลในฝัน':'Dream rewards'};
+const MOOD_N={happy:['มีความสุข','Happy'],calm:['สงบ','Calm'],excited:['ตื่นเต้น','Excited'],tired:['เหนื่อย','Tired'],sad:['เศร้า','Sad'],anxious:['กังวล','Anxious']};
+const FCAT_N={work:'Work',study:'Study',read:'Reading',focus:'Focus',exercise:'Exercise',walk:'Walk',cook:'Cooking',rest:'Rest',sleep:'Sleep',game:'Gaming',fun:'Entertainment',skin:'Skincare',baby:'Childcare',family:'Family'};
+const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
+const I18N=[];
+function collectStatic(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+  while(n=w.nextNode()){const k=n.nodeValue.trim();if(STATIC[k])I18N.push([n,'#',n.nodeValue,n.nodeValue.replace(k,STATIC[k])])}
+  document.querySelectorAll('[placeholder],[aria-label],[title]').forEach(el=>['placeholder','aria-label','title'].forEach(a=>{const v=el.getAttribute(a);if(v&&STATIC[v])I18N.push([el,a,v,STATIC[v]])}));
+}
+function applyLang(){
+  const en=state.lang==='en';
+  WD=en?WD_EN:WD_TH;WDL=en?WDL_EN:WDL_TH;MS=en?MS_EN:MS_TH;ML=en?ML_EN:ML_TH;
+  document.documentElement.lang=en?'en':'th';
+  Object.keys(MOOD_N).forEach(k=>MOODS[k][1]=MOOD_N[k][en?1:0]);
+  FCATS.forEach(c=>{if(!c[5])c[5]=c[1];c[1]=en?FCAT_N[c[0]]||c[5]:c[5]});
+  I18N.forEach(([el,a,th,e])=>{const v=en?e:th;if(a==='#')el.nodeValue=v;else el.setAttribute(a,v)});
+  document.querySelectorAll('#s-lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===state.lang));
+}
+const weekStart=s=>{const dow=parse(s).getDay();return addDays(s,-(state.startWeekOnSunday?dow:(dow+6)%7))};
+
+/* data helpers */
+const active=()=>state.habits.filter(h=>!h.archived);
+const val=(h,d)=>h.logs[d]||0;
+const done=(h,d)=>val(h,d)>=h.target;
+const dayDone=d=>active().some(h=>done(h,d));
+function streaks(pred){
+  const t=today();let run=0,best=0,d=addDays(t,-730);
+  for(let i=0;i<=730;i++){run=pred(d)?run+1:0;if(run>best)best=run;d=addDays(d,1)}
+  let c=0,x=t;if(!pred(x))x=addDays(x,-1);
+  while(c<=730&&pred(x)){c++;x=addDays(x,-1)}
+  return{cur:c,best};
+}
+function save(){if(store.set(KEY,JSON.stringify(state))===false)toast(tr('พื้นที่เก็บข้อมูลเต็ม ลองลบรูปเก่าออก','Storage full — try removing old photos'),true);const ce=$('coins');if(ce.textContent!==String(state.coins)){ce.textContent=state.coins;const b=ce.parentElement;b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}$('bal').textContent=state.coins;$('skips').textContent=state.skips;const L=Math.floor(state.totalEarned/10)+1;$('lvl').textContent=tr(`เลเวล ${L} · สะสมรวม ${state.totalEarned} เหรียญ`,`Level ${L} · ${state.totalEarned} coins earned`);$('lvg').innerHTML=gauge((state.totalEarned%10)/10,112,12,'var(--coin)')+`<b>Lv ${L}</b>`}
+
+/* ui helpers */
+let confirmResolve=null;
+function ask(msg,ok=tr('ยืนยัน','Confirm')){return new Promise(r=>{$('c-msg').textContent=msg;$('c-yes').textContent=ok;confirmResolve=r;$('d-confirm').showModal()})}
+$('c-yes').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(true)};
+$('c-no').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(false)};
+$('d-confirm').addEventListener('cancel',()=>confirmResolve&&confirmResolve(false));
+function toast(msg,err){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');t.className='toast'+(err?' err':'');t.setAttribute('popover','manual');t.setAttribute('role','status');t.textContent=msg;
+  document.body.appendChild(t);try{t.showPopover()}catch(e){}
+  setTimeout(()=>t.remove(),2400);
+}
+/* real haptics: Vibration API on Android; on iPhone (iOS 18+) toggling a native <input switch> fires the Taptic Engine */
+const canVib=typeof navigator.vibrate==='function'&&!/iP(hone|ad|od)/.test(navigator.userAgent);
+let hsw=null;
+function iosTap(){try{if(!hsw){const l=document.createElement('label');l.style.cssText='position:fixed;left:-99px;top:0;opacity:0;pointer-events:none';l.setAttribute('aria-hidden','true');
+  const i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.tabIndex=-1;l.appendChild(i);document.body.appendChild(l);hsw=l}hsw.click()}catch(e){}}
+function vib(p){if(!state.hapticEnabled)return;if(canVib){try{navigator.vibrate(p)}catch(e){}return}
+  const n=Array.isArray(p)?Math.ceil(p.length/2):1;for(let i=0;i<n;i++)setTimeout(iosTap,i*90)}
+function haptic(){vib(20)}
+/* 3 back-to-back pulses, strong → weak (duration tapers since the Vibration API has no intensity); visual pulse mirrors it for iOS */
+function buzz(el){vib([190,60,120,60,55]);
+  if(el){el.classList.remove('buzz');void el.offsetWidth;el.classList.add('buzz')}}
+const PERSON='<svg class="pi" viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.6"/><path d="M5 19.5c1.4-3.2 4-4.6 7-4.6s5.6 1.4 7 4.6"/></svg>';
+function avHTML(){const p=state.profile;return p.avatar?`<img src="${esc(p.avatar)}" alt="">`:p.name?esc([...p.name][0].toUpperCase()):PERSON}
+function renderProfile(){const h=avHTML();$('av').innerHTML=h;$('s-av').innerHTML=h;$('hname').textContent=state.profile.name||tr('ตั้งชื่อของคุณ','Set your name');$('s-rmav').hidden=!state.profile.avatar;if(document.activeElement!==$('s-name'))$('s-name').value=state.profile.name}
+const sound={ctx:null,play(freqs){
+  if(!state.soundEnabled)return;
+  try{this.ctx=this.ctx||new(window.AudioContext||window.webkitAudioContext)();const n=this.ctx.currentTime;
+  freqs.forEach((f,i)=>{const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type='sine';o.frequency.value=f;
+  g.gain.setValueAtTime(.15,n+i*.08);g.gain.exponentialRampToValueAtTime(.001,n+i*.08+.25);o.connect(g);g.connect(this.ctx.destination);o.start(n+i*.08);o.stop(n+i*.08+.25)})}catch(e){}}};
+
+/* theme */
+const mq=matchMedia('(prefers-color-scheme: dark)');
+function applyTheme(){
+  const dark=state.theme==='system'?mq.matches:state.theme!=='light';
+  document.documentElement.dataset.theme=dark?'dark':'light';
+  document.querySelector('meta[name=theme-color]').content=dark?'#1C2025':'#F4F5F7';
+  $('s-theme').value=state.theme;
+}
+mq.addEventListener('change',applyTheme);
+
+/* habits tab */
+let sel=today(),tab='habits',mode='heatmap',detailId=null,detailMonth=null,statsMonth=null,formIcon='weight',rtab='active';
+function renderWeek(){
+  const ws=weekStart(sel),t=today();
+  let h=`<button class="wb" data-act="week" data-id="-7" aria-label="${tr('สัปดาห์ก่อน','Previous week')}">‹</button>`;
+  for(let i=0;i<7;i++){const d=addDays(ws,i),dt=parse(d);
+    h+=`<button class="day${d===t?' today':''}" data-act="pick" data-id="${d}" aria-pressed="${d===sel}" aria-label="${dlabel(d)}"><span>${WD[dt.getDay()]}</span><b>${dt.getDate()}</b><i class="dd${dayDone(d)?' on':''}"></i></button>`}
+  $('week').innerHTML=h+`<button class="wb" data-act="week" data-id="7" aria-label="${tr('สัปดาห์ถัดไป','Next week')}">›</button>`;
+}
+function renderGroups(){
+  $('groups').innerHTML=['All',...state.groups].map(g=>`<button class="pill" data-act="group" data-id="${esc(g)}" aria-pressed="${state.selectedGroup===g}">${g==='All'?'ทั้งหมด':esc(g)}</button>`).join('');
+}
+const MOODS={happy:['😊','มีความสุข','#8FD97A',5],calm:['😌','สงบ','#F2CF4E',4],excited:['🤩','ตื่นเต้น','#F58FA3',5],tired:['😴','เหนื่อย','#A99BEA',2],sad:['😢','เศร้า','#7FB5EE',1],anxious:['😰','กังวล','#F2956B',1]};
+let moodPick=null;
+function renderMoodGrid(){$('moods').innerHTML=Object.entries(MOODS).map(([k,v])=>`<button class="mo" style="--c:${v[2]}" data-act="pickMood" data-id="${k}" aria-pressed="${moodPick===k}"><span class="mf">${face(k,76)}</span>${v[1]}</button>`).join('')}
+function renderMood(){
+  const t=today(),cur=state.moods[t],dt=parse(t);
+  if(moodPick===null)moodPick=cur&&MOODS[cur.m]?cur.m:'';
+  $('mood-date').textContent=dlabel(t);
+  moodCal();renderMoodGrid();$('mood-note').value=cur?cur.note||'':'';
+  $('m7').innerHTML=[6,5,4,3,2,1,0].map(i=>{const d=addDays(t,-i),e=state.moods[d];return `<div><span class="bl s">${e&&MOODS[e.m]?MOODS[e.m][0]:''}</span>${WD[parse(d).getDay()]}</div>`}).join('');
+  const hab=[],non=[];Object.entries(state.moods).forEach(([d,e])=>{if(MOODS[e.m])(dayDone(d)?hab:non).push(MOODS[e.m][3])});
+  const av=a=>a.reduce((x,y)=>x+y,0)/a.length;
+  $('mood-ins').textContent=hab.length>=2&&non.length>=2?(av(hab)-av(non)>=.3?tr('💡 วันที่ทำกิจวัตรสำเร็จ อารมณ์ของคุณมักดีกว่าวันที่ไม่ได้ทำ','💡 On days you complete habits, your mood tends to be better'):''):tr('💡 บันทึกอารมณ์ต่อเนื่อง แอปจะเทียบให้ว่ากิจวัตรช่วยให้รู้สึกดีขึ้นไหม','💡 Keep logging to see whether your habits lift your mood');
+  const ds=Object.keys(state.moods).filter(d=>MOODS[state.moods[d].m]).sort().reverse().slice(0,14);
+  $('mood-list').innerHTML=ds.length?ds.map(d=>{const e=state.moods[d],v=MOODS[e.m],dd=parse(d);
+    return `<div class="item" style="--c:${v[2]}"><span class="mf">${face(e.m,38)}</span><div style="flex:1;min-width:0"><div class="t">${v[1]}</div><div class="m">${dd.getDate()} ${MS[dd.getMonth()]}${e.note?' · '+esc(e.note):''}</div></div></div>`}).join(''):tr('<div class="empty">ยังไม่มีบันทึกอารมณ์</div>','<div class="empty">No mood entries yet</div>');
+}
+const NOTE_SVG=IC('<path d="M4 20h4L19 9l-4-4L4 16z"/>');
+let noteH=null,noteD=null,notePh=[];
+const dlabel=d=>{const x=parse(d);return tr(`${WDL[x.getDay()]}ที่ ${x.getDate()} ${MS[x.getMonth()]}`,`${WDL[x.getDay()]}, ${MS[x.getMonth()]} ${x.getDate()}`)};
+function renderPh(){$('nt-ph').innerHTML=notePh.map((u,i)=>`<div class="ph"><img src="${esc(u)}" alt="${tr('รูปที่','Photo')} ${i+1}"><button data-act="rmPh" data-id="${i}" aria-label="${tr('ลบรูป','Remove photo')}">×</button></div>`).join('');$('nt-add').hidden=notePh.length>=3}
+function openNote(id,d){
+  const h=state.habits.find(x=>x.id===id);if(!h)return;
+  noteH=h;noteD=d||sel;const e=h.notes[noteD]||{};notePh=[...(e.photos||[])];
+  $('nt-title').textContent=icon(h.iconKey)+' '+tn(h.title);$('nt-date').textContent=dlabel(noteD);$('nt-text').value=e.text||'';renderPh();$('d-note').showModal();
+}
+function shrink(f,mx=720,q=.68,sq){return new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),x=c.getContext('2d');
+  if(sq){const s=Math.min(im.width,im.height);c.width=c.height=Math.min(mx,s);x.drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,c.width,c.height)}
+  else{const k=Math.min(1,mx/Math.max(im.width,im.height));c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);x.drawImage(im,0,0,c.width,c.height)}ok(c.toDataURL('image/jpeg',q))};im.onerror=no;im.src=r.result};r.onerror=no;r.readAsDataURL(f)})}
+function notesBlock(h){
+  const ds=Object.keys(h.notes).filter(d=>h.notes[d].text||h.notes[d].photos.length).sort().reverse().slice(0,30);
+  return `<div style="margin-top:22px"><span class="lbl">${tr('ประวัติบันทึก','Note history')}</span></div>`+(ds.length?ds.map(d=>{const e=h.notes[d];return `<button class="nrow" data-act="noteAt" data-id="${h.id}" data-d="${d}"><div class="m">${dlabel(d)}</div>${e.text?`<div>${esc(e.text.slice(0,140))}</div>`:''}${e.photos.length?`<div class="ths">${e.photos.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>`:''}</button>`}).join(''):`<p class="m" style="margin:10px 0">${tr('ยังไม่มีบันทึก','No notes yet')}</p>`);
+}
+const PEN='<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',CAM='<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4 4 3 3-2 4 3"/></svg>';
+function noteCard(h){
+  const e=h.notes[sel]||{text:'',photos:[]},has=e.text||e.photos.length;
+  return `<div class="ncard"><div class="row between"><span class="lbl">${tr('บันทึก','Note')} · ${dlabel(sel)}</span>${has?`<span class="m" style="color:var(--acc)">✓ ${tr('บันทึกแล้ว','Saved')}</span>`:''}</div>
+  ${e.text?`<p class="ntx">${esc(e.text)}</p>`:`<p class="m" style="margin:8px 0 0">${has?'':tr('จดสิ่งที่ทำวันนี้ หรือแนบรูปได้สูงสุด 3 รูป','Jot down today\'s session or attach up to 3 photos')}</p>`}
+  ${e.photos.length?`<div class="ths">${e.photos.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>`:''}
+  <div class="nact"><button class="btn sm" data-act="note" data-id="${h.id}">${PEN}${e.text?tr('แก้ไขบันทึก','Edit note'):tr('เขียนบันทึก','Write note')}</button><button class="btn sm" data-act="attachPh" data-id="${h.id}"${e.photos.length>=3?' disabled':''}>${CAM}${tr('แนบรูป','Attach photo')}</button></div></div>`;
+}
+const FCATS=[['work','ทำงาน','💼','#8EC5E6'],['study','เรียน','🎓','#F2CF4E'],['read','อ่านหนังสือ','📖','#7CCDB8'],['focus','โฟกัส','🎯','#F58F8F'],['exercise','ออกกำลังกาย','🏃','#8FB4F5'],['walk','เดินเล่น','🚶','#8FD97A'],['cook','ทำอาหาร','🍳','#E6A0F0'],['rest','พักผ่อน','☕','#F5C58A'],['sleep','นอนหลับ','😴','#D6D07A'],['game','เกม','🎮','#B7C46A'],['fun','บันเทิง','🎬','#A99BEA'],['skin','ดูแลผิว','🧴','#F2A0C4'],['baby','เลี้ยงลูก','👶','#F2A58F'],['family','ครอบครัว','👨‍👩‍👧','#C9A28F']];
+const fcats=()=>[...FCATS,...state.focus.cats.map(c=>[c.id,c.name,c.e||'⭐','#9BB0C9',1])];
+const fCat=id=>fcats().find(c=>c[0]===id)||['x','โฟกัส','🎯','#9BB0C9'];
+const mmss=ms=>{const t=Math.max(0,Math.ceil(ms/1000));return pad(Math.floor(t/60))+':'+pad(t%60)};
+let ftick=null,fSel=null,fMin=25;
+function renderFocus(){
+  const t=today(),ss=state.focus.sessions,td=ss.filter(x=>x.d===t),per={};
+  td.forEach(x=>per[x.c]=(per[x.c]||0)+x.m);
+  $('f-min').textContent=td.reduce((a,x)=>a+x.m,0);
+  const days=[6,5,4,3,2,1,0].map(i=>{const d=addDays(t,-i);return[d,ss.filter(x=>x.d===d).reduce((a,x)=>a+x.m,0)]}),mx=Math.max(1,...days.map(x=>x[1]));
+  $('f-week').innerHTML=days.map(([d,m])=>`<div title="${m} ${tr('นาที','min')}"><i class="${m?'':'z'}" style="height:${Math.max(3,Math.round(m/mx*26))}px"></i>${WD[parse(d).getDay()]}</div>`).join('');
+  $('f-grid').innerHTML=fcats().map(c=>`<div class="fw1"><button class="fc" style="--c:${c[3]}" data-hold="${esc(c[0])}" aria-label="${tr('เริ่มโฟกัส','Start focus')}: ${esc(c[1])}"><span class="fe">${esc(c[2])}</span><span class="fb"><span><span class="fn">${esc(c[1])}</span><span class="fm">${per[c[0]]?per[c[0]]+tr(' นาที',' min'):''}</span></span></span></button>${c[4]?`<button class="fx" data-act="rmFcat" data-id="${esc(c[0])}" aria-label="${tr('ลบโหมด','Delete mode')} ${esc(c[1])}">×</button>`:''}</div>`).join('');
+  updateRun();
+}
+function updateRun(){const r=state.focusRun,b=$('f-run');b.hidden=!r;if(r){const c=fCat(r.c);b.textContent=`${c[2]} ${tr('กำลังโฟกัส','Focusing:')} ${c[1]} · ${mmss(fLeft())}${r.end?'':tr(' (พัก)',' (paused)')} — ${tr('แตะเพื่อเปิด','tap to open')}`}}
+function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.now()):r.left):fMin*60000}
+function renderFocusUI(){
+  const r=state.focusRun,total=r?r.total:fMin*60000,left=fLeft();
+  $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));
+  $('fo-dur').hidden=!!r;$('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} ${tr('น.','min')}</button>`).join('');
+  $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('เริ่มโฟกัส','Start focus'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
+  $('fo-msg').textContent=!r?tr('👆 กดค้างที่วงเวลาเพื่อเริ่ม','👆 Long-press the timer to start'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
+}
+function openFocus(id){
+  const r=state.focusRun;fSel=r?r.c:id;fMin=state.focus.min;
+  const c=fCat(fSel);$('fo-title').textContent=c[2]+' '+c[1];renderFocusUI();$('d-focus').showModal();
+}
+function startTick(){clearInterval(ftick);ftick=setInterval(()=>{
+  const r=state.focusRun;if(!r){clearInterval(ftick);document.title='HabitFlow';return}
+  if(r.end&&r.end<=Date.now()){finishFocus();return}
+  document.title=(r.end?mmss(fLeft())+' · ':'')+'HabitFlow';
+  if($('d-focus').open)renderFocusUI();updateRun()},500)}
+function logFocus(m){state.focus.sessions.push({d:today(),c:state.focusRun.c,m,t:new Date().toISOString()})}
+function finishFocus(){
+  const r=state.focusRun;if(!r)return;const m=Math.round(r.total/60000);let msg=tr(`โฟกัส ${fCat(r.c)[1]} ครบ ${m} นาที`,`${fCat(r.c)[1]}: ${m} min done`);
+  logFocus(m);if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
+  state.focusRun=null;clearInterval(ftick);document.title='HabitFlow';sound.play([523,659,784,1047]);buzz($('fo-hold'));
+  save();renderFocus();renderRewards();renderFocusUI();toast(msg);
+}
+function gauge(p,w,sw,col){const L=Math.PI*50,o=L*(1-Math.min(1,Math.max(0,p))),d='M10 62A50 50 0 0 1 110 62';return `<svg class="gg" viewBox="0 0 120 68" width="${w}" aria-hidden="true"><path d="${d}" fill="none" stroke="var(--soft)" stroke-width="${sw}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col||'var(--acc)'}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${L}" stroke-dashoffset="${o}" style="transition:stroke-dashoffset .5s"/></svg>`}
+const FC={happy:'#6BB87B',calm:'#C5DE9A',excited:'#F2D96B',tired:'#B9A7E8',sad:'#7C8B86',anxious:'#EA6D6D'};
+function face(k,z){
+  const ink='#1F2A33',st=`fill="none" stroke="${ink}" stroke-width="4.5" stroke-linecap="round"`;
+  const eyes=k==='tired'?`<path d="M28 47q7 6 14 0M58 47q7 6 14 0" ${st}/>`:`<circle cx="36" cy="46" r="5" fill="${ink}"/><circle cx="64" cy="46" r="5" fill="${ink}"/>`;
+  const mouth={happy:`<path d="M32 58h36q-2 20-18 20T32 58z" fill="${ink}"/>`,excited:`<path d="M28 56h44q0 26-22 26T28 56z" fill="${ink}"/>`,calm:`<path d="M36 62q14 12 28 0" ${st}/>`,tired:`<path d="M40 68h20" ${st}/>`,sad:`<path d="M34 72q16-14 32 0" ${st}/>`,anxious:`<path d="M36 70q7-12 14-2t14 2q0 12-14 12T36 70z" fill="${ink}"/><path d="M76 52q6 8 0 12q-6-4 0-12z" fill="#BFE3FF"/>`}[k]||'';
+  return `<svg viewBox="0 0 100 100" width="${z}" height="${z}" aria-hidden="true"><path d="M50 5C75 3 96 24 95 50C94 77 75 96 50 95C24 94 4 75 5 49C6 24 26 7 50 5Z" fill="${FC[k]||'#ccc'}"/>${eyes}${mouth}</svg>`;
+}
+let moodMonth=null;
+function moodCal(){
+  const n=new Date();if(!moodMonth)moodMonth={y:n.getFullYear(),m:n.getMonth()};
+  const {y,m}=moodMonth,first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),off=state.startWeekOnSunday?first.getDay():(first.getDay()+6)%7,cnt={};let tot=0,cells='<div></div>'.repeat(off);
+  for(let d=1;d<=days;d++){const ds=`${y}-${pad(m+1)}-${pad(d)}`,e=state.moods[ds],ok=e&&MOODS[e.m];if(ok){cnt[e.m]=(cnt[e.m]||0)+1;tot++}
+    cells+=`<div class="mcell${ds===today()?' now':''}"><span class="mfe" style="${ok?'background:none':''}">${ok?face(e.m,100):''}</span><i>${d}</i></div>`}
+  const heads=(state.startWeekOnSunday?[0,1,2,3,4,5,6]:[1,2,3,4,5,6,0]).map(i=>`<span>${WD[i]}</span>`).join('');
+  $('mood-cal').innerHTML=`<div class="card mcnt">${Object.keys(MOODS).map(k=>`<span><span class="mf">${face(k,34)}</span>${cnt[k]||0}</span>`).join('')}<b class="tot">${tot}</b></div><div class="card">${monthNav(y,m,'mmonth')}<div class="cal">${heads}</div><div class="mgrid">${cells}</div></div>`;
+}
+let popId=null,popFrom=0,animList=true,flameUp=false;
+function setGreet(){const h=new Date().getHours();
+  $('greet').textContent=h<5?tr('ดึกแล้ว พักผ่อนบ้างนะ 🌌','Up late? Get some rest 🌌'):h<12?tr('สวัสดีตอนเช้า ☀️','Good morning ☀️'):h<17?tr('สวัสดีตอนบ่าย 🌤️','Good afternoon 🌤️'):h<21?tr('สวัสดีตอนเย็น 🌇','Good evening 🌇'):tr('ราตรีสวัสดิ์ 🌙','Good night 🌙')}
+setInterval(()=>{setGreet();if(sel!==today()&&document.hidden===false&&!state._k){}},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)setGreet()});
+/* 🔥 flame: +1 for every day on which ALL habits are completed; a day without it breaks the run */
+const allDone=d=>{const a=active();return a.length>0&&a.every(h=>done(h,d))};
+const FLAME_NEED=4;
+const flameNeed=()=>Math.min(FLAME_NEED,active().length);
+const doneCount=d=>active().filter(h=>done(h,d)).length;
+const perfect=d=>(!state.flameFrom||d>=state.flameFrom)&&flameNeed()>0&&doneCount(d)>=flameNeed();
+const flames=()=>streaks(perfect).cur;
+const TIERS=[
+ {min:0,  k:'off',   c:['#5E656D','#8D949B'], n:['ยังไม่มีไฟ','No flame']},
+ {min:1,  k:'red',   c:['#FF3B30','#FFB340'], n:['ไฟแดง','Red flame']},
+ {min:7,  k:'purple',c:['#7B3CFF','#E37BFF'], n:['ไฟม่วง','Purple flame']},
+ {min:30, k:'blue',  c:['#0A6CFF','#6FE7FF'], n:['ไฟฟ้า','Blue flame']},
+ {min:100,k:'gold',  c:['#FF9F0A','#FFF0A0'], n:['ไฟทอง','Golden flame']}];
+const tierOf=n=>{let t=0;TIERS.forEach((x,i)=>{if(n>=x.min)t=i});return t};
+let gid=0;
+function flameSVG(n){const t=TIERS[tierOf(n)],id='fg'+(++gid);
+  return `<svg class="flame f-${t.k}" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${t.c[0]}"/><stop offset="1" stop-color="${t.c[1]}"/></linearGradient></defs><path fill="url(#${id})" d="M12 1.8c1.3 3.7 6.3 6.4 6.3 12A6.3 6.3 0 0 1 5.7 13.8c0-2.6 1.2-4.5 2.6-5.8.3 2 1.3 3.2 2.5 3.8-.1-3.6.1-6.7 1.2-10z"/><path fill="#fff" opacity=".55" d="M12 12.2c.7 1.6 2.7 2.6 2.7 4.9a2.7 2.7 0 0 1-5.4 0c0-1.3.7-2.2 1.3-2.7.2.8.6 1.2 1.1 1.4 0-1.2.1-2.4.3-3.6z"/></svg>`}
+let lastTier=null;
+function setFlame(){
+  const n=flames(),ti=tierOf(n),t=TIERS[ti],el=$('hs'),fl=$('fl');
+  el.textContent=n;$('fl-ic').innerHTML=flameSVG(n);fl.className='fl t-'+t.k;
+  fl.setAttribute('aria-label',tr(`${t.n[0]} ${n} วันต่อเนื่อง`,`${t.n[1]}, ${n}-day streak`));
+  if(flameUp){fl.classList.remove('bump');void fl.offsetWidth;fl.classList.add('bump');
+    if(lastTier!==null&&ti>lastTier&&ti>1)setTimeout(()=>toast(tr(`ไฟเปลี่ยนเป็น${t.n[0]}แล้ว! 🎉`,`Your flame turned ${t.n[1].toLowerCase()}! 🎉`)),900)}
+  lastTier=ti;flameUp=false;
+}
+function renderTier(){
+  const n=flames(),ti=tierOf(n),nx=TIERS[ti+1];
+  $('p-fl').innerHTML=flameSVG(n);
+  $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+</i></span>`).join('')}</div>
+   <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):tr('ระดับสูงสุดแล้ว 👑','Top level reached 👑')}</p>`;
+}
+const RC=Math.PI*42;
+function setRing(pct){
+  const el=$('flow'),d='M8 50A42 42 0 0 1 92 50';
+  if(!el.querySelector('.fg')){el.innerHTML=`<svg viewBox="0 0 100 56" width="96" height="54" aria-hidden="true"><path class="bg" d="${d}"/><path class="fg" d="${d}" stroke-dasharray="${RC}" stroke-dashoffset="${RC}"/></svg><span></span>`;void el.offsetWidth}
+  requestAnimationFrame(()=>{el.querySelector('.fg').style.strokeDashoffset=RC*(1-pct/100)});
+  el.querySelector('span').textContent=pct+'%';el.setAttribute('aria-label',tr(`ความคืบหน้า ${pct}%`,`Progress ${pct}%`));
+}
+function renderHabits(){
+  const hr=new Date().getHours();
+  const list=active().filter(h=>state.selectedGroup==='All'||h.group===state.selectedGroup);
+  const n=list.filter(h=>done(h,sel)).length,pct=list.length?Math.round(n/list.length*100):0;
+  setFlame();
+  setGreet();
+  $('day-title').textContent=!list.length?tr('เริ่มจากกิจวัตรแรก','Start with your first habit'):pct===100?tr('ครบแล้ว เก่งมาก! 🎉','All done, great job! 🎉'):tr('ทำกิจวัตรให้ครบกันเถอะ! 🔥','Complete your habits now! 🔥');
+  setRing(pct);
+  $('day-sub').textContent=list.length?tr(`สำเร็จ ${n} จาก ${list.length}`,`${n} of ${list.length} completed`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
+  $('habits').classList.toggle('anim',animList);animList=false;
+  $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
+    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}</div></span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
+  :`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`;
+  popId=null;
+}
+function pay(n){state.coins=Math.max(0,state.coins+n);state.totalEarned=Math.max(0,state.totalEarned+n)}
+function bump(id){
+  const h=state.habits.find(x=>x.id===id);if(!h)return;
+  const v=val(h,sel);popFrom=Math.min(100,Math.round(v/h.target*100));const wasP=perfect(sel);
+  if(v>=h.target){h.logs[sel]=v-1;pay(-1);toast(tr('ยกเลิกแล้ว (-1 เหรียญ)','Undone (-1 coin)'))}
+  else{h.logs[sel]=v+1;
+    if(v+1>=h.target){pay(1);sound.play([523,784]);haptic();toast(tr('ทำสำเร็จ +1 เหรียญ','Done! +1 coin'));
+      if(window.confetti&&!matchMedia('(prefers-reduced-motion: reduce)').matches)confetti({particleCount:24,spread:50,startVelocity:22,origin:{y:.8},disableForReducedMotion:true})}}
+  const a=active(),all=a.length>0&&a.every(x=>done(x,sel));
+  if(all&&!state.bonusDays[sel]){state.bonusDays[sel]=1;pay(2);toast(tr('ครบทุกกิจวัตร! โบนัส +2 เหรียญ 🎉','All habits done! +2 bonus coins 🎉'))}
+  else if(!all&&state.bonusDays[sel]){delete state.bonusDays[sel];pay(-2)}
+  const isP=perfect(sel);if(isP&&!wasP){flameUp=true;setTimeout(()=>toast(tr(`ทำครบ ${flameNeed()} อย่างแล้ว ได้ไฟ 🔥 +1`,`${flameNeed()} habits done — 🔥 +1 flame`)),all?1300:0)}
+  popId=id;save();renderHabits();renderWeek();if(tab==='stats')renderStats();
+}
+
+/* calendar + heatmap */
+function heat(h){
+  const t=today(),W=18;let s=weekStart(t);s=addDays(s,-(W-1)*7);let out='';
+  for(let i=0;i<W*7;i++){const d=addDays(s,i);
+    if(d>t){out+='<i style="background:none"></i>';continue}
+    const v=val(h,d);out+=`<i style="${v?`background:${hex(h)};${v>=h.target?'':'opacity:.45'}`:''}"></i>`}
+  return `<div class="heat" aria-hidden="true">${out}</div>`;
+}
+function calendar(y,m,level){
+  const first=new Date(y,m,1),n=new Date(y,m+1,0).getDate(),t=today();
+  const off=state.startWeekOnSunday?first.getDay():(first.getDay()+6)%7;
+  const heads=(state.startWeekOnSunday?[0,1,2,3,4,5,6]:[1,2,3,4,5,6,0]).map(i=>`<span>${WD[i]}</span>`).join('');
+  let cells='<b></b>'.repeat(off);
+  for(let d=1;d<=n;d++){const ds=`${y}-${pad(m+1)}-${pad(d)}`,[l,c,tc]=level(ds);
+    cells+=`<b class="${ds===t?'now':''}" style="${l?`background:${c};color:${tc||'#fff'}`:''}${ds>t?';color:var(--mute)':''}">${d}</b>`}
+  return `<div class="cal">${heads}${cells}</div>`;
+}
+const monthNav=(y,m,act)=>`<div class="mnav"><b>${ML[m]} ${y}</b><button class="ib" data-act="${act}" data-id="-1" aria-label="${tr('เดือนก่อน','Previous month')}">‹</button><button class="ib" data-act="${act}" data-id="1" aria-label="${tr('เดือนถัดไป','Next month')}">›</button></div>`;
+const MI=[['#F1DDB4','#D9825B','🔥'],['#E6D6F5','#8E62D9','↗'],['#C5CCFB','#4B5BD6','◕'],['#C9EBDD','#3E9B76','✓'],['#F7E9B0','#C98F12','★'],['#F7CFD3','#D6454F','!']];
+const num=(v,l,i)=>`<div style="background:color-mix(in srgb,${MI[i][1]} 15%,var(--surf));border-color:transparent"><span><strong style="color:${MI[i][1]}">${v}</strong><small>${l}</small></span><span class="mc" style="background:${MI[i][0]};color:${MI[i][1]}">${MI[i][2]}</span></div>`;
+
+function renderStats(){
+  document.querySelectorAll('#seg-stats button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===mode));
+  const hs=active(),el=$('stats');
+  if(mode!=='monthly'&&!hs.length){el.innerHTML=tr('<div class="empty">ยังไม่มีข้อมูลสถิติ</div>','<div class="empty">No stats yet</div>');return}
+  if(mode==='heatmap')el.innerHTML=hs.map(h=>`<button class="stat" data-act="detail" data-id="${h.id}"><div class="row"><span class="tile" style="color:${hex(h)}">${icon(h.iconKey)}</span><span class="t">${esc(tn(h.title))}</span></div>${heat(h)}</button>`).join('');
+  else if(mode==='weekly'){
+    const ws=weekStart(sel);
+    el.innerHTML=`<div class="row between" style="padding-bottom:4px"><span class="lbl">${parse(ws).getDate()} ${MS[parse(ws).getMonth()]} – ${parse(addDays(ws,6)).getDate()} ${MS[parse(addDays(ws,6)).getMonth()]}</span><span class="wnav"><button class="ib" data-act="week" data-id="-7" aria-label="${tr('สัปดาห์ก่อน','Previous week')}">‹</button><button class="ib" data-act="week" data-id="7" aria-label="${tr('สัปดาห์ถัดไป','Next week')}">›</button></span></div>`+
+    hs.map(h=>`<button class="stat" data-act="detail" data-id="${h.id}" style="--c:${hex(h)}"><div class="row"><span class="tile" style="color:${hex(h)}">${icon(h.iconKey)}</span><span class="t">${esc(tn(h.title))}</span></div><div class="wk">${[0,1,2,3,4,5,6].map(i=>{const d=addDays(ws,i),dd=parse(d);return `<div>${WD[dd.getDay()]}<b class="${done(h,d)?'on':''}">${dd.getDate()}</b></div>`}).join('')}</div></button>`).join('');
+  }else{
+    if(!statsMonth){const n=new Date();statsMonth={y:n.getFullYear(),m:n.getMonth()}}
+    const {y,m}=statsMonth,t=today(),n=new Date(y,m+1,0).getDate();
+    let days=0,full=0,any=0,miss=0,sum=0;
+    for(let d=1;d<=n;d++){const ds=`${y}-${pad(m+1)}-${pad(d)}`;if(ds>t)break;days++;const c=hs.filter(h=>done(h,ds)).length;if(hs.length)sum+=c/hs.length;if(c)any++;else if(hs.length&&ds<t)miss++;if(hs.length&&c===hs.length)full++}
+    const s=streaks(dayDone);
+    const wc=[0,0,0,0,0,0,0];for(let i=0;i<56;i++){const d=addDays(t,-i);if(dayDone(d))wc[parse(d).getDay()]++}
+    const bi=wc.indexOf(Math.max(...wc)),ins=wc[bi]?`<p class="ins">${tr(`💡 ${WDL[bi]}คือวันที่คุณทำได้ดีที่สุดใน 8 สัปดาห์ที่ผ่านมา`,`💡 ${WDL[bi]} has been your best day over the past 8 weeks`)}</p>`:'';
+    el.innerHTML=`<div class="card">${monthNav(y,m,'smonth')}${calendar(y,m,ds=>{if(ds>t||!hs.length)return[0];const f=hs.filter(h=>done(h,ds)).length/hs.length;return f?[f,f>=1?'var(--acc)':'color-mix(in srgb,var(--acc) 35%,var(--surf))',f>=1?'var(--onacc)':'var(--ink)']:[0]})}</div>`+
+    `${statsCharts(y,m,{days,full,any,miss,sum,s})}${ins}`;
+  }
+}
+
+/* detail */
+function renderDetail(){
+  const h=state.habits.find(x=>x.id===detailId);if(!h)return;
+  if(!detailMonth){const n=new Date();detailMonth={y:n.getFullYear(),m:n.getMonth()}}
+  $('dd-title').textContent=tn(h.title);
+  const s=streaks(d=>done(h,d)),t=today();
+  const all=Object.keys(h.logs).filter(d=>h.logs[d]>=h.target).length;
+  let ok30=0;for(let i=0;i<30;i++)if(done(h,addDays(t,-i)))ok30++;
+  $('dd-body').style.setProperty('--c',hex(h));
+  $('dd-body').innerHTML=`<div class="row"><span class="tile">${icon(h.iconKey)}</span><div><div class="t">${esc(tn(h.title))}</div><div class="m">${tr('เป้าหมาย','Goal')} ${h.target} ${esc(tn(h.unit||'ครั้ง'))}/${tr('วัน','day')}</div></div></div>${noteCard(h)}${heat(h)}
+  <div class="sec">${monthNav(detailMonth.y,detailMonth.m,'dmonth')}${calendar(detailMonth.y,detailMonth.m,d=>done(h,d)?[1,hex(h)]:[0])}</div>
+  <div class="nums">${num(s.cur+tr(' วัน',' days'),tr('สตรีคปัจจุบัน','Current streak'),0)}${num(s.best+tr(' วัน',' days'),tr('สตรีคยาวที่สุด','Best streak'),1)}${num(all+tr(' วัน',' days'),tr('ทำสำเร็จทั้งหมด','Total completions'),3)}${num(Math.round(ok30/30*100)+'%',tr('อัตราสำเร็จ 30 วัน','30-day rate'),2)}</div>`+notesBlock(h);
+}
+
+/* habit form */
+function renderIconPicker(){
+  const cust=formIcon.startsWith('e:');
+  $('f-icons').innerHTML=Object.keys(ICONS).map(k=>`<button type="button" data-act="formIcon" data-id="${k}" aria-pressed="${k===formIcon}" aria-label="${tr('ไอคอน','Icon')} ${icon(k)}"><span class="tile" style="background:none;width:auto;height:auto">${icon(k)}</span></button>`).join('')
+   +`<label class="emo${cust?' on':''}" title="${tr('ใส่อีโมจิเอง','Your own emoji')}"><input id="f-emo" inputmode="text" enterkeyhint="done" autocomplete="off" value="${cust?esc(icon(formIcon)):''}" aria-label="${tr('ใส่อีโมจิเอง','Type your own emoji')}"><span class="emo-ph">${cust?'':'＋'}</span></label>`;
+  const inp=$('f-emo');
+  inp.addEventListener('input',()=>{const e=firstEmoji(inp.value);inp.value=e;
+    if(e){formIcon='e:'+e;document.querySelectorAll('#f-icons button').forEach(b=>b.setAttribute('aria-pressed','false'));inp.parentElement.classList.add('on');inp.nextElementSibling.textContent=''}
+    else{inp.parentElement.classList.remove('on');inp.nextElementSibling.textContent='＋'}});
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inp.blur()}});
+}
+function openHabitForm(id){
+  const h=id&&state.habits.find(x=>x.id===id);
+  $('f-group').innerHTML=state.groups.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');
+  $('f-id').value=h?h.id:'';$('f-name').value=h?h.title:'';$('f-target').value=h?h.target:1;$('f-unit').value=h?(tn(h.unit||'ครั้ง')):tr('ครั้ง','times');
+  if(h)$('f-group').value=h.group;else if(state.groups.includes(state.selectedGroup))$('f-group').value=state.selectedGroup;
+  formIcon=h?h.iconKey:'weight';$('f-remind').value=h&&h.remind||'';renderIconPicker();
+  $('dh-title').textContent=h?tr('แก้ไขกิจวัตร','Edit habit'):tr('กิจวัตรใหม่','New habit');$('f-del').hidden=!h;
+  $('d-habit').showModal();if(!h)$('f-name').focus();
+}
+function saveHabit(){
+  const id=$('f-id').value,name=$('f-name').value.trim();
+  if(!name){toast(tr('กรุณากรอกชื่อกิจกรรม','Please enter a habit name'),true);$('f-name').focus();return}
+  const target=Math.max(1,parseInt($('f-target').value)||1),unit=$('f-unit').value.trim()||tr('ครั้ง','times'),group=$('f-group').value||(state.groups[0]||'สุขภาพ');
+  if(id){const h=state.habits.find(x=>x.id===id);if(h){if(h.iconKey!==formIcon)h.color=colorFor(formIcon);Object.assign(h,{title:name,group,target,unit,iconKey:formIcon,remind:$('f-remind').value})}}
+  else state.habits.push({id:'h_'+Date.now(),title:name,group,target,unit,iconKey:formIcon,remind:$('f-remind').value,color:colorFor(formIcon),archived:false,logs:{},notes:{}});
+  state.selectedVectorKey=formIcon;save();$('d-habit').close();renderAll();if($('d-detail').open)renderDetail();toast(tr('บันทึกแล้ว','Saved'));
+}
+
+/* rewards */
+function renderRewards(){
+  document.querySelectorAll('.sbar button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===rtab));
+  const el=$('rewards');
+  if(rtab==='active')el.innerHTML=state.rewards.length?state.rewards.map(r=>{const can=state.coins>=r.cost;
+    return `<div class="item rw"><span class="tile">${esc(r.emoji)}</span><div style="flex:1;min-width:0"><div class="t">${esc(tn(r.title))}</div><div class="cost">${r.cost} ${tr('เหรียญ','coins')}${can?'':` · ${tr('ขาดอีก','need')} ${r.cost-state.coins}`}</div></div>
+    <button class="btn sm${can?' pri':''}" data-act="claim" data-id="${r.id}">${tr('แลกรางวัล','Claim')}</button><button class="x" data-act="rmReward" data-id="${r.id}" aria-label="${tr('ลบ','Delete')} ${esc(tn(r.title))}">×</button></div>`}).join('')
+  :`<div class="empty"><p>${tr('ยังไม่มีรางวัล','No rewards yet')}</p><button class="btn pri sm" data-act="newReward">${tr('เพิ่มรางวัลแรก','Add your first reward')}</button></div>`;
+  else el.innerHTML=state.claimedRewards.length?state.claimedRewards.map(r=>{const d=new Date(r.claimedAt);
+    return `<div class="item rw"><span class="tile">${esc(r.emoji)}</span><div style="flex:1;min-width:0"><div class="t">${esc(tn(r.title))}</div><div class="m">${isNaN(d)?'':`${d.getDate()} ${MS[d.getMonth()]} · `}${r.cost} ${tr('เหรียญ','coins')}</div></div></div>`}).join('')
+  :tr('<div class="empty">ยังไม่มีรางวัลที่แลก</div>','<div class="empty">No claimed rewards yet</div>');
+}
+function addReward(title,cost,emoji){state.rewards.push({id:'r_'+Date.now()+Math.floor(Math.random()*99),title,cost,emoji});save();renderRewards();toast(tr(`เพิ่ม "${title}" แล้ว`,`Added "${title}"`))}
+function claim(id){
+  const r=state.rewards.find(x=>x.id===id);if(!r)return;
+  if(state.coins<r.cost){toast(tr(`เหรียญไม่พอ ขาดอีก ${r.cost-state.coins} เหรียญ`,`Not enough coins — ${r.cost-state.coins} more needed`),true);return}
+  state.coins-=r.cost;state.claimedRewards.unshift({...r,claimedAt:new Date().toISOString()});
+  save();sound.play([523,659,784,1047]);haptic();renderRewards();toast(tr(`แลก "${r.title}" สำเร็จ`,`Claimed "${r.title}"`));
+}
+
+/* settings */
+function renderSettings(){
+  renderHabitList();$('s-hcount').textContent=active().length;$('s-gcount').textContent=state.goals.length;$('s-rcount').textContent=active().filter(h=>h.remind).length;$('s-ncount').textContent=state.notesList.length;
+  document.querySelectorAll('#s-week button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.id==='1')===state.startWeekOnSunday));
+  $('s-sound').setAttribute('aria-checked',state.soundEnabled);$('s-hap').setAttribute('aria-checked',state.hapticEnabled);
+  $('p-streak').textContent=flames();renderTier();$('p-coins').textContent=state.coins;$('p-lv').textContent=Math.floor(state.totalEarned/10)+1;
+  renderProfile();
+  $('s-groups').innerHTML=state.groups.map(g=>`<span class="pill">${esc(g)}</span>`).join('');
+}
+
+/* my habits popup: tap to edit, drag the grip to reorder */
+function renderHabitList(){
+  $('s-habits').innerHTML=active().map(h=>`<div class="hrow" data-id="${h.id}"><button class="set" data-act="editH" data-id="${h.id}"><span class="row sl" style="min-width:0"><span class="tile" style="--c:${hex(h)}">${icon(h.iconKey)}</span><span class="t">${esc(tn(h.title))}</span></span><span class="m" style="flex:none">${h.target} ${esc(tn(h.unit||'ครั้ง'))}/${tr('วัน','day')}</span></button><span class="grip" role="button" tabindex="0" aria-label="${tr('ลากเพื่อจัดลำดับ','Drag to reorder')}: ${esc(tn(h.title))}" data-id="${h.id}"><svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14"/></svg></span></div>`).join('')
+   ||`<p class="m" style="padding:14px">${tr('ยังไม่มีกิจวัตร','No habits yet')}</p>`;
+}
+function moveHabit(ids){
+  const map=new Map(state.habits.map(h=>[h.id,h]));
+  const act=ids.map(i=>map.get(i)).filter(Boolean),rest=state.habits.filter(h=>!ids.includes(h.id));
+  state.habits=[...act,...rest];save();animList=false;renderHabits();renderWeek();
+}
+(()=>{let drag=null;
+  const box=()=>$('s-habits');
+  box().addEventListener('pointerdown',e=>{
+    const g=e.target.closest('.grip');if(!g)return;e.preventDefault();
+    const rows=[...box().querySelectorAll('.hrow')],row=g.closest('.hrow'),i=rows.indexOf(row);
+    const H=row.getBoundingClientRect().height;
+    drag={row,rows,i,to:i,H,y0:e.clientY,id:e.pointerId};g.setPointerCapture(e.pointerId);
+    row.classList.add('lift');box().classList.add('sorting');haptic();
+  });
+  box().addEventListener('pointermove',e=>{
+    if(!drag||e.pointerId!==drag.id)return;
+    const {row,rows,i,H}=drag;let dy=e.clientY-drag.y0;
+    dy=Math.max(-i*H,Math.min((rows.length-1-i)*H,dy));row.style.transform=`translateY(${dy}px)`;
+    const to=Math.max(0,Math.min(rows.length-1,i+Math.round(dy/H)));
+    if(to!==drag.to){drag.to=to;haptic();
+      rows.forEach((r,j)=>{if(r===row)return;r.style.transform=j>i&&j<=to?`translateY(${-H}px)`:j<i&&j>=to?`translateY(${H}px)`:''})}
+  });
+  const end=e=>{
+    if(!drag||e.pointerId!==drag.id)return;const {row,rows,i,to}=drag;drag=null;
+    box().classList.remove('sorting');row.classList.remove('lift');rows.forEach(r=>r.style.transform='');
+    if(to!==i){const ids=rows.map(r=>r.dataset.id);const [m]=ids.splice(i,1);ids.splice(to,0,m);moveHabit(ids);renderHabitList()}
+  };
+  box().addEventListener('pointerup',end);box().addEventListener('pointercancel',end);
+  box().addEventListener('keydown',e=>{const g=e.target.closest('.grip');if(!g||!['ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();
+    const ids=active().map(h=>h.id),i=ids.indexOf(g.dataset.id),to=i+(e.key==='ArrowUp'?-1:1);if(to<0||to>=ids.length)return;
+    ids.splice(to,0,ids.splice(i,1)[0]);moveHabit(ids);renderHabitList();box().querySelector(`.grip[data-id="${g.dataset.id}"]`).focus()});
+})();
+
+/* opening a sheet shouldn't paint a focus ring on its first button when using touch */
+(()=>{const sm=HTMLDialogElement.prototype.showModal;let kb=false;
+  addEventListener('keydown',e=>{if(e.key==='Tab')kb=true});addEventListener('pointerdown',()=>{kb=false});
+  HTMLDialogElement.prototype.showModal=function(){sm.call(this);if(!kb){const a=document.activeElement;if(a&&this.contains(a)&&a.tagName!=='INPUT'&&a.tagName!=='TEXTAREA')a.blur()}}})();
+/* ===== charts ===== */
+const C_ACC='var(--acc)';
+function lineChart(vals,labels,o={}){
+  const W=320,H=o.h||140,pl=30,pr=8,pt=10,pb=20,n=vals.length,mx=o.max||Math.max(1,...vals),col=o.color||C_ACC,id='lg'+(++gid);
+  if(!n)return '';
+  const X=i=>pl+(n===1?0:i*(W-pl-pr)/(n-1)),Y=v=>pt+(1-v/mx)*(H-pt-pb);
+  const pts=vals.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`),every=Math.ceil(n/6);
+  const grid=[0,.5,1].map(f=>`<line x1="${pl}" x2="${W-pr}" y1="${Y(mx*f)}" y2="${Y(mx*f)}" class="cg"/><text x="${pl-5}" y="${Y(mx*f)+3}" class="cy">${o.fmt?o.fmt(mx*f):Math.round(mx*f)}</text>`).join('');
+  const xl=labels.map((l,i)=>i%every===0||i===n-1?`<text x="${X(i)}" y="${H-5}" class="cx">${l}</text>`:'').join('');
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".35"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>${grid}<path d="M${pts[0]} L${pts.join(' L')} L${X(n-1)},${Y(0)} L${X(0)},${Y(0)}Z" fill="url(#${id})"/><polyline points="${pts.join(' ')}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" class="cl"/>${vals.map((v,i)=>i===n-1?`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" fill="${col}"/>`:'').join('')}${xl}</svg>`;
+}
+function barChart(vals,labels,o={}){
+  const W=320,H=o.h||130,pl=8,pr=8,pt=16,pb=20,n=vals.length,mx=Math.max(1,...vals),col=o.color||C_ACC,bw=(W-pl-pr)/n;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><line x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}" class="cg"/>${vals.map((v,i)=>{const h=(H-pt-pb)*v/mx,x=pl+i*bw+bw*.18,w=bw*.64,y=H-pb-h;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(h,v?2:0)}" rx="${Math.min(5,w/2)}" fill="${v?col:'var(--soft)'}" class="cb" style="--d:${i*30}ms"/>${v?`<text x="${x+w/2}" y="${y-4}" class="cv">${o.fmt?o.fmt(v):v}</text>`:''}<text x="${x+w/2}" y="${H-5}" class="cx">${labels[i]}</text>`}).join('')}</svg>`;
+}
+function donut(p,col,center,sub){const R=42,C=2*Math.PI*R;return `<svg class="donut" viewBox="0 0 100 100" role="img"><circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--soft)" stroke-width="11"/><circle cx="50" cy="50" r="${R}" fill="none" stroke="${col||C_ACC}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-Math.min(1,p))}" transform="rotate(-90 50 50)" class="dn"/><text x="50" y="${sub?50:55}" class="dt">${center}</text>${sub?`<text x="50" y="65" class="ds">${sub}</text>`:''}</svg>`}
+const hbars=items=>`<div class="hb2">${items.map(it=>`<div class="hbr"><span class="hbl">${it.e?`<i>${it.e}</i>`:''}${esc(it.l)}</span><span class="hbt"><b style="width:${Math.round(Math.min(1,it.v/(it.max||1))*100)}%;background:${it.c||C_ACC}"></b></span><span class="hbv">${it.txt??it.v}</span></div>`).join('')}</div>`;
+const card=(title,body,extra='')=>`<div class="ccard"><div class="cch"><b>${title}</b>${extra}</div>${body}</div>`;
+function statsCharts(y,m,{days,full,any,miss,sum,s}){
+  const hs=active(),t=today(),n=new Date(y,m+1,0).getDate(),vals=[],labs=[];
+  for(let d=1;d<=n;d++){const ds=`${y}-${pad(m+1)}-${pad(d)}`;if(ds>t)break;vals.push(hs.length?Math.round(hs.filter(h=>done(h,ds)).length/hs.length*100):0);labs.push(d)}
+  const rate=days?sum/days:0;
+  const per=hs.map(h=>{let c=0;for(let d=1;d<=days;d++)if(done(h,`${y}-${pad(m+1)}-${pad(d)}`))c++;return{l:tn(h.title),e:icon(h.iconKey),v:c,max:days||1,c:hex(h),txt:(days?Math.round(c/days*100):0)+'%'}});
+  return `<div class="crow">${card(tr('อัตราสำเร็จ','Success rate'),donut(rate,C_ACC,Math.round(rate*100)+'%',tr(`${days} วัน`,`${days} days`)))}
+   ${card(tr('สตรีค','Streak'),`<div class="sk"><div><b>${s.cur}</b><small>${tr('ปัจจุบัน','Current')}</small></div><div><b>${s.best}</b><small>${tr('ยาวที่สุด','Best')}</small></div><div><b>${flames()}</b><small>🔥 ${tr('ไฟ','Flames')}</small></div></div>`)}</div>
+   ${card(tr('ความสำเร็จรายวัน (%)','Daily completion (%)'),lineChart(vals,labs,{max:100,fmt:v=>Math.round(v)}))}
+   ${card(tr('สรุปวันในเดือนนี้','Days this month'),barChart([any,full,miss],[tr('ทำสำเร็จ','Active'),tr('ทำครบ','Perfect'),tr('พลาด','Missed')],{h:120}))}
+   ${per.length?card(tr('แต่ละกิจวัตร','By habit'),hbars(per)):''}`;
+}
+/* ===== tools: notes · goals · journal · overview ===== */
+let toolName=null,toolEdit=null,jMood='';
+const TOOLT={overview:['ภาพรวมทั้งหมด','Overview'],goals:['เป้าหมาย','Goals'],journal:['บันทึกประจำวัน','Journal'],notes:['โน้ต','Notes']};
+const fdate=iso=>{const d=new Date(iso);return isNaN(d)?'':`${d.getDate()} ${MS[d.getMonth()]} ${pad(d.getHours())}:${pad(d.getMinutes())}`};
+const JQ=[['วันนี้มีอะไรดี ๆ เกิดขึ้นบ้าง?','What went well today?'],['วันนี้ได้เรียนรู้อะไร?','What did you learn today?'],['อะไรที่อยากทำให้ดีขึ้นพรุ่งนี้?','What would you improve tomorrow?'],['วันนี้รู้สึกขอบคุณอะไร?','What are you grateful for today?'],['อะไรทำให้ยิ้มได้วันนี้?','What made you smile today?']];
+function renderTool(){
+  const k=toolName,b=$('tl-body');$('tl-title').textContent=tr(...TOOLT[k]);
+  $('tl-add').hidden=k==='overview'||k==='journal'||toolEdit!==null;$('tl-add').textContent='+ '+tr('เพิ่ม','Add');
+  if(k==='notes'){
+    if(toolEdit!==null){const n=state.notesList.find(x=>x.id===toolEdit)||{title:'',text:''};
+      b.innerHTML=`<input class="in ti" id="t-title" maxlength="80" placeholder="${tr('หัวข้อ','Title')}" value="${esc(n.title)}"><textarea class="in ta" id="t-text" maxlength="5000" placeholder="${tr('เขียนโน้ต…','Write a note…')}">${esc(n.text)}</textarea>${toolBtns(toolEdit!=='new')}`;return}
+    const ns=[...state.notesList].sort((a,c)=>c.updated.localeCompare(a.updated));
+    b.innerHTML=ns.length?`<div class="tlist">${ns.map(n=>`<button class="tcard" data-act="tOpen" data-id="${n.id}"><b>${esc(n.title||tr('ไม่มีหัวข้อ','Untitled'))}</b><span>${esc(n.text.slice(0,120))}</span><small>${fdate(n.updated)}</small></button>`).join('')}</div>`:empty(tr('ยังไม่มีโน้ต กด + เพิ่ม เพื่อเริ่มจด','No notes yet — tap + Add'));
+  }else if(k==='goals'){
+    if(toolEdit!==null){const g=state.goals.find(x=>x.id===toolEdit)||{title:'',e:'🎯',target:10,cur:0,unit:'',due:''};
+      b.innerHTML=`<div class="g2" style="grid-template-columns:70px 1fr"><label class="f"><span>${tr('อีโมจิ','Emoji')}</span><input class="in" id="t-e" value="${esc(g.e)}" maxlength="4" style="text-align:center"></label><label class="f"><span>${tr('เป้าหมาย','Goal')}</span><input class="in" id="t-title" maxlength="60" value="${esc(g.title)}" placeholder="${tr('เช่น อ่านหนังสือให้ครบ 12 เล่ม','e.g. Read 12 books')}"></label></div>
+      <div class="g2"><label class="f"><span>${tr('ทำได้แล้ว','Progress')}</span><input class="in" id="t-cur" type="number" min="0" inputmode="decimal" value="${g.cur}"></label><label class="f"><span>${tr('เป้า','Target')}</span><input class="in" id="t-target" type="number" min="1" inputmode="decimal" value="${g.target}"></label></div>
+      <div class="g2"><label class="f"><span>${tr('หน่วย','Unit')}</span><input class="in" id="t-unit" maxlength="12" value="${esc(g.unit)}" placeholder="${tr('เล่ม, บาท, กม.','books, ฿, km')}"></label><label class="f"><span>${tr('กำหนดเสร็จ','Due date')}</span><input class="in" id="t-due" type="date" value="${esc(g.due)}"></label></div>${toolBtns(toolEdit!=='new')}`;return}
+    b.innerHTML=state.goals.length?`<div class="tlist">${state.goals.map(g=>{const p=Math.min(1,g.cur/g.target),dl=g.due?Math.ceil((parse(g.due)-parse(today()))/864e5):null;
+      return `<div class="gcard${p>=1?' done':''}"><button class="gtop" data-act="tOpen" data-id="${g.id}"><span class="ge">${esc(g.e)}</span><span class="gt"><b>${esc(g.title)}</b><small>${g.cur} / ${g.target} ${esc(g.unit)}${dl!==null?' · '+(dl>0?tr(`อีก ${dl} วัน`,`${dl} days left`):dl===0?tr('ครบกำหนดวันนี้','Due today'):tr(`เลยกำหนด ${-dl} วัน`,`${-dl} days overdue`)):''}</small></span><span class="gp">${Math.round(p*100)}%</span></button>
+       <div class="gbar"><i style="width:${p*100}%"></i></div><div class="gst"><button class="btn sm" data-act="gStep" data-id="${g.id}" data-d="-1">−1</button><button class="btn sm pri" data-act="gStep" data-id="${g.id}" data-d="1">+1</button></div></div>`}).join('')}</div>`:empty(tr('ยังไม่มีเป้าหมาย กด + เพิ่ม เพื่อตั้งเป้าแรก','No goals yet — tap + Add'));
+  }else if(k==='journal'){
+    const d=toolEdit&&toolEdit!=='new'?toolEdit:today(),e=state.journal[d]||{text:'',m:''},q=JQ[parse(d).getDate()%JQ.length];jMood=e.m||'';
+    const past=Object.keys(state.journal).filter(x=>x!==d&&state.journal[x].text).sort().reverse();
+    b.innerHTML=`<div class="jhead"><b>${dlabel(d)}</b><small>${tr(q[0],q[1])}</small></div>
+     <div class="jm">${Object.keys(MOODS).map(m=>`<button data-act="jMood" data-id="${m}" aria-pressed="${jMood===m}" aria-label="${MOODS[m][1]}">${face(m,34)}</button>`).join('')}</div>
+     <textarea class="in ta" id="t-text" maxlength="5000" placeholder="${tr('เขียนเรื่องราวของวันนี้…','Write about your day…')}">${esc(e.text)}</textarea>${toolBtns(!!state.journal[d])}
+     ${past.length?`<h4>${tr('บันทึกก่อนหน้า','Earlier entries')}</h4><div class="tlist">${past.map(x=>{const j=state.journal[x];return `<button class="tcard" data-act="tOpen" data-id="${x}"><b>${j.m&&MOODS[j.m]?MOODS[j.m][0]+' ':''}${dlabel(x)}</b><span>${esc(j.text.slice(0,120))}</span></button>`}).join('')}</div>`:''}`;
+  }else renderOverview(b);
+}
+const empty=t=>`<div class="empty">${t}</div>`;
+const toolBtns=del=>`<div class="tbtn">${del?`<button class="btn bad" data-act="tDel">${tr('ลบ','Delete')}</button>`:''}<button class="btn pri" data-act="tSave">${tr('บันทึก','Save')}</button></div>`;
+function toolSave(){
+  const k=toolName,id=toolEdit==='new'?'t_'+Date.now():toolEdit,now=new Date().toISOString();
+  if(k==='notes'){const title=$('t-title').value.trim(),text=$('t-text').value.trim();if(!title&&!text){toast(tr('เขียนอะไรสักหน่อยก่อน','Write something first'),true);return}
+    const n=state.notesList.find(x=>x.id===id);if(n)Object.assign(n,{title,text,updated:now});else state.notesList.push({id,title,text,updated:now});toolEdit=null}
+  else if(k==='goals'){const title=$('t-title').value.trim();if(!title){toast(tr('กรุณาตั้งชื่อเป้าหมาย','Please name your goal'),true);return}
+    const g={id,title,e:firstEmoji($('t-e').value)||'🎯',cur:Math.max(0,+$('t-cur').value||0),target:Math.max(1,+$('t-target').value||1),unit:$('t-unit').value.trim(),due:$('t-due').value};
+    const i=state.goals.findIndex(x=>x.id===id);if(i>=0)state.goals[i]=g;else state.goals.push(g);toolEdit=null}
+  else if(k==='journal'){const d=toolEdit&&toolEdit!=='new'?toolEdit:today(),text=$('t-text').value.trim();
+    if(!text&&!jMood)delete state.journal[d];else state.journal[d]={text,m:jMood,updated:now};toolEdit=null}
+  save();renderSettings();renderTool();haptic();toast(tr('บันทึกแล้ว','Saved'));
+}
+async function toolDel(){
+  if(!await ask(tr('ลบรายการนี้?','Delete this item?'),tr('ลบ','Delete')))return;const k=toolName,id=toolEdit;
+  if(k==='notes')state.notesList=state.notesList.filter(x=>x.id!==id);else if(k==='goals')state.goals=state.goals.filter(x=>x.id!==id);else delete state.journal[id&&id!=='new'?id:today()];
+  toolEdit=null;save();renderSettings();renderTool();toast(tr('ลบแล้ว','Deleted'));
+}
+function goalStep(id,d){const g=state.goals.find(x=>x.id===id);if(!g)return;const was=g.cur>=g.target;g.cur=Math.max(0,+(g.cur+d).toFixed(2));save();renderTool();haptic();
+  if(!was&&g.cur>=g.target){toast(tr(`สำเร็จเป้าหมาย "${g.title}" 🎉`,`Goal reached: "${g.title}" 🎉`));if(window.confetti)confetti({particleCount:40,spread:60,origin:{y:.7}})}}
+function renderOverview(b){
+  const t=today(),hs=active(),D30=[...Array(30)].map((_,i)=>addDays(t,i-29)),D7=D30.slice(-7);
+  const pct=D30.map(d=>hs.length?Math.round(hs.filter(h=>done(h,d)).length/hs.length*100):0);
+  const cnt7=D7.map(d=>hs.filter(h=>done(h,d)).length),foc7=D7.map(d=>state.focus.sessions.filter(x=>x.d===d).reduce((a,x)=>a+x.m,0));
+  const totF=state.focus.sessions.reduce((a,x)=>a+x.m,0),totDone=hs.reduce((a,h)=>a+Object.keys(h.logs).filter(d=>h.logs[d]>=h.target).length,0);
+  const mc={};D30.forEach(d=>{const e=state.moods[d];if(e&&MOODS[e.m])mc[e.m]=(mc[e.m]||0)+1});const mtot=Object.values(mc).reduce((a,x)=>a+x,0);
+  const rate30=pct.reduce((a,x)=>a+x,0)/30/100,sd=d=>parse(d).getDate();
+  const kpi=(v,l,c)=>`<div class="kpi"><b style="color:${c}">${v}</b><small>${l}</small></div>`;
+  b.innerHTML=`<div class="kpis">${kpi('🔥 '+flames(),tr('ไฟต่อเนื่อง','Flames'),'#FF6A3D')}${kpi(totDone,tr('ทำสำเร็จทั้งหมด','Completions'),'var(--acc)')}${kpi(state.totalEarned,tr('เหรียญสะสม','Coins earned'),'var(--coin)')}${kpi((totF/60).toFixed(1)+tr(' ชม.','h'),tr('เวลาโฟกัส','Focus time'),'#5B9BF0')}</div>
+   <div class="crow">${card(tr('อัตราสำเร็จ 30 วัน','30-day rate'),donut(rate30,C_ACC,Math.round(rate30*100)+'%'))}${card(tr('อารมณ์ 30 วัน','Mood, 30 days'),mtot?hbars(Object.keys(MOODS).filter(k=>mc[k]).map(k=>({l:MOODS[k][1],e:MOODS[k][0],v:mc[k],max:mtot,c:FC[k]}))):`<p class="m">${tr('ยังไม่มีบันทึกอารมณ์','No moods yet')}</p>`)}</div>
+   ${card(tr('ความสำเร็จ 30 วันล่าสุด (%)','Completion, last 30 days (%)'),lineChart(pct,D30.map(sd),{max:100,h:160}))}
+   ${card(tr('กิจวัตรที่ทำได้ 7 วัน','Habits done, 7 days'),barChart(cnt7,D7.map(d=>WD[parse(d).getDay()])))}
+   ${card(tr('เวลาโฟกัส 7 วัน (นาที)','Focus minutes, 7 days'),barChart(foc7,D7.map(d=>WD[parse(d).getDay()]),{color:'#5B9BF0'}))}
+   ${hs.length?card(tr('แต่ละกิจวัตร (30 วัน)','By habit (30 days)'),hbars(hs.map(h=>{const c=D30.filter(d=>done(h,d)).length;return{l:tn(h.title),e:icon(h.iconKey),v:c,max:30,c:hex(h),txt:Math.round(c/30*100)+'%'}}))):''}
+   ${card(tr('เป้าหมาย','Goals'),state.goals.length?hbars(state.goals.map(g=>({l:g.title,e:g.e,v:g.cur,max:g.target,c:'#E5544B',txt:Math.round(Math.min(1,g.cur/g.target)*100)+'%'}))):`<p class="m">${tr('ยังไม่มีเป้าหมาย','No goals yet')}</p>`,`<button class="link" data-act="toolGo" data-id="goals">${tr('ดูทั้งหมด ›','See all ›')}</button>`)}
+   <div class="crow">${card(tr('บันทึกประจำวัน','Journal'),`<div class="big">${Object.keys(state.journal).length}</div><small class="m">${tr('วันที่เขียน','entries')}</small>`,`<button class="link" data-act="toolGo" data-id="journal">›</button>`)}${card(tr('โน้ต','Notes'),`<div class="big">${state.notesList.length}</div><small class="m">${tr('รายการ','notes')}</small>`,`<button class="link" data-act="toolGo" data-id="notes">›</button>`)}</div>`;
+}
+
+/* ===== reminders ===== */
+function renderRemind(){
+  const hs=active(),perm='Notification' in window?Notification.permission:'unsupported';
+  $('rm-title').textContent=tr('การแจ้งเตือน','Reminders');
+  const st={granted:['✅ เปิดการแจ้งเตือนแล้ว','✅ Notifications on'],denied:['⛔ ถูกปิดในการตั้งค่าเบราว์เซอร์','⛔ Blocked in browser settings'],default:['ยังไม่ได้อนุญาต','Not allowed yet'],unsupported:['เบราว์เซอร์นี้ไม่รองรับ','Not supported here']}[perm];
+  $('rm-body').innerHTML=`<div class="rwarn"><b>${tr('แจ้งเตือนในแอป','In-app notifications')}</b><br><small class="m">${tr(st[0],st[1])} · ${tr('ทำงานขณะเปิดแอปไว้ (Android/คอมพิวเตอร์)','Works while the app is open (Android/desktop)')}</small>${perm==='default'?`<button class="btn pri sm" style="margin-top:10px;width:100%" data-act="askNotif">${tr('อนุญาตการแจ้งเตือน','Allow notifications')}</button>`:''}</div>
+   <div class="rwarn" style="margin-top:10px"><b>📅 ${tr('เตือนผ่านปฏิทิน iPhone (แนะนำ)','iPhone Calendar alarms (recommended)')}</b><br><small class="m">${tr('เพิ่มกิจวัตรที่ตั้งเวลาไว้ลงปฏิทินเป็นนัดประจำวัน มีเสียงเตือนแม้ปิดแอป','Adds timed habits as daily calendar events that alert even when the app is closed')}</small><button class="btn pri sm" style="margin-top:10px;width:100%" data-act="icsOut"${hs.some(h=>h.remind)?'':' disabled'}>${tr('เพิ่มลงปฏิทิน','Add to Calendar')}</button></div>
+   <h4>${tr('ตั้งเวลาแต่ละกิจวัตร','Time for each habit')}</h4>
+   <div class="grp">${hs.map(h=>`<label class="set"><span class="row sl" style="min-width:0"><span class="tile" style="--c:${hex(h)}">${icon(h.iconKey)}</span><span class="t">${esc(tn(h.title))}</span></span><input type="time" class="in sel rmt" data-id="${h.id}" value="${h.remind||''}"></label>`).join('')||`<p class="m" style="padding:14px">${tr('ยังไม่มีกิจวัตร','No habits yet')}</p>`}</div>
+   <p class="hhint" style="margin-top:10px">${tr('เว้นว่างไว้ = ไม่เตือน · เตือนเฉพาะวันที่ยังทำไม่ครบ','Leave empty for no reminder · only reminds if not done yet')}</p>`;
+  $('rm-body').querySelectorAll('.rmt').forEach(i=>i.addEventListener('change',()=>{const h=state.habits.find(x=>x.id===i.dataset.id);if(h){h.remind=i.value;save();renderSettings();renderRemind()}}));
+}
+function notify(title,body){
+  try{if('Notification' in window&&Notification.permission==='granted'){
+    if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(r=>r.showNotification(title,{body,tag:title}));else new Notification(title,{body,tag:title})}}catch(e){}
+  toast(`⏰ ${title}`);vib([120,60,120]);
+}
+function checkRemind(){
+  const n=new Date(),t=today(),hm=`${pad(n.getHours())}:${pad(n.getMinutes())}`;state.notified=state.notified||{};
+  active().forEach(h=>{if(!h.remind||h.remind>hm||done(h,t))return;const k=t+h.id;if(state.notified[k])return;
+    if(h.remind<=hm&&(n-new Date(`${t}T${h.remind}`))<36e5){state.notified[k]=1;notify(tr(`ถึงเวลา${tn(h.title)}`,`Time for ${tn(h.title)}`),tr('อย่าลืมทำกิจวัตรนี้วันนี้นะ','Don\'t forget this habit today'))}});
+  Object.keys(state.notified).forEach(k=>{if(k.slice(0,10)<addDays(t,-2))delete state.notified[k]});save();
+}
+setInterval(checkRemind,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkRemind,800)});
+function icsOut(){
+  const hs=active().filter(h=>h.remind),d=today().replace(/-/g,''),st=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
+  const ev=hs.map(h=>{const [H,M]=h.remind.split(':');return ['BEGIN:VEVENT',`UID:${h.id}@habitflow`,`DTSTAMP:${st}`,`DTSTART:${d}T${H}${M}00`,`DURATION:PT15M`,'RRULE:FREQ=DAILY',`SUMMARY:${icon(h.iconKey)} ${tn(h.title)}`,`DESCRIPTION:HabitFlow`,'BEGIN:VALARM','ACTION:DISPLAY','TRIGGER:PT0M',`DESCRIPTION:${tn(h.title)}`,'END:VALARM','END:VEVENT'].join('\r\n')});
+  const txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//HabitFlow//TH','CALSCALE:GREGORIAN',...ev,'END:VCALENDAR'].join('\r\n');
+  shareFile(new File([txt],'HabitFlow_Reminders.ics',{type:'text/calendar'}),tr('เปิดไฟล์แล้วกด "เพิ่มทั้งหมด" ในปฏิทิน','Open the file and tap "Add All" in Calendar'));
+}
+async function shareFile(f,hint){
+  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:f.name});toast(hint);return}}catch(e){if(e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);toast(hint);
+}
+/* ===== sync between devices (file based, merges instead of overwriting) ===== */
+function syncOut(){state.lastBackup=new Date().toISOString();save();
+  shareFile(new File([JSON.stringify(state)],`HabitFlow_Sync_${today()}.json`,{type:'application/json'}),tr('บนเครื่องอื่น: ตั้งค่า → รวมข้อมูลจากเครื่องอื่น','On the other device: Settings → Merge from another device'))}
+function mergeState(o){
+  const a=state,newer=(x,y,k)=>(String((y||{})[k]||'')>String((x||{})[k]||''))?y:x;
+  const hm=new Map(a.habits.map(h=>[h.id,h]));
+  o.habits.forEach(h=>{const m=hm.get(h.id);if(!m){a.habits.push(h);return}
+    Object.entries(h.logs).forEach(([d,v])=>{m.logs[d]=Math.max(m.logs[d]||0,v)});
+    Object.entries(h.notes||{}).forEach(([d,e])=>{const x=m.notes[d];if(!x)m.notes[d]=e;else{x.text=x.text.length>=e.text.length?x.text:e.text;x.photos=[...new Set([...x.photos,...e.photos])].slice(0,3)}});
+    if(h.archived)m.archived=true;if(!m.remind&&h.remind)m.remind=h.remind});
+  const byId=(A,B,pick)=>{const mp=new Map(A.map(x=>[x.id,x]));B.forEach(x=>{const y=mp.get(x.id);mp.set(x.id,y?pick(y,x):x)});return [...mp.values()]};
+  a.rewards=byId(a.rewards,o.rewards,x=>x);
+  const ck=new Set(a.claimedRewards.map(r=>r.id+r.claimedAt));o.claimedRewards.forEach(r=>{if(!ck.has(r.id+r.claimedAt))a.claimedRewards.push(r)});
+  Object.entries(o.moods).forEach(([d,e])=>{a.moods[d]=newer(a.moods[d],e,'t')});
+  Object.entries(o.journal).forEach(([d,e])=>{a.journal[d]=newer(a.journal[d],e,'updated')});
+  a.notesList=byId(a.notesList,o.notesList,(x,y)=>newer(x,y,'updated'));
+  a.goals=byId(a.goals,o.goals,(x,y)=>x.cur>=y.cur?x:y);
+  const fk=new Set(a.focus.sessions.map(x=>x.t+x.c));o.focus.sessions.forEach(x=>{if(!fk.has(x.t+x.c))a.focus.sessions.push(x)});
+  a.focus.cats=byId(a.focus.cats,o.focus.cats,x=>x);
+  Object.assign(a.bonusDays,o.bonusDays);o.groups.forEach(g=>{if(!a.groups.includes(g))a.groups.push(g)});
+  a.coins=Math.max(a.coins,o.coins);a.totalEarned=Math.max(a.totalEarned,o.totalEarned);a.skips=Math.max(a.skips,o.skips);
+  if(!a.profile.avatar&&o.profile.avatar)a.profile.avatar=o.profile.avatar;if(!a.profile.name&&o.profile.name)a.profile.name=o.profile.name;
+}
+$('sync-file').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const p=JSON.parse(r.result);if(!p||!Array.isArray(p.habits))throw 0;mergeState(normalize(p));save();renderAll();buzz();toast(tr('รวมข้อมูลเรียบร้อย ✓','Data merged ✓'))}catch(err){toast(tr('ไฟล์ไม่ถูกต้อง','Invalid file'),true)}};r.readAsText(f)});
+/* weekly backup nudge */
+if(!state.lastBackup){state.lastBackup=new Date().toISOString();store.set(KEY,JSON.stringify(state))}
+setTimeout(()=>{const lb=new Date(state.lastBackup);if(state.habits.length&&Date.now()-lb>7*864e5)toast(tr('💾 ไม่ได้สำรองข้อมูลเกิน 7 วัน — ตั้งค่า → ส่งข้อมูล/สำรอง','💾 No backup in 7+ days — Settings → Send/Back up'))},4000);
+/* habit presets */
+function renderHPick(){
+  const have=new Set(active().map(h=>h.title));
+  $('hpresets').innerHTML=HPRE.map(([g,items])=>`<h4>${g[2]} ${tr(g[0],g[1])}</h4><div class="picks">${items.map(([k,th,en])=>{const on=have.has(th)||have.has(en);
+    return `<button class="pick hp${on?' on':''}" data-act="hpreset" data-id="${k}"><span class="e">${icon(k)}</span><span><div class="t">${esc(tr(th,en))}</div><div class="m">${on?'✓ '+tr('เพิ่มแล้ว','Added'):tr('แตะเพื่อเพิ่ม','Tap to add')}</div></span></button>`}).join('')}</div>`).join('');
+}
+function addPreset(k){
+  for(const [g,items] of HPRE){const it=items.find(x=>x[0]===k);if(!it)continue;
+    if(active().some(h=>h.title===it[1]||h.title===it[2])){toast(tr('มีกิจวัตรนี้แล้ว','Already added'));return}
+    const title=tr(it[1],it[2]);if(!state.groups.includes(g[0]))state.groups.push(g[0]);
+    state.habits.push({id:'h_'+Date.now(),title,group:g[0],target:1,unit:tr('ครั้ง','times'),iconKey:k,color:ICONS[k].c,archived:false,logs:{},notes:{}});
+    save();haptic();renderAll();renderHPick();toast(tr(`เพิ่ม "${title}" แล้ว`,`Added "${title}"`));return}
+}
+/* reset data page */
+const RI=p=>`<svg viewBox="0 0 24 24">${p}</svg>`;
+const RESETS=[
+ ['habits','#45B386',RI('<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.5 2.5 4.5-5"/>'),['รีเซ็ตกิจวัตร','Reset Habits'],['ลบกิจวัตรทั้งหมด (รวมที่ลบไปแล้ว) และประวัติการทำ','Delete all active and archived habits and their records.']],
+ ['records','#E8704F',RI('<circle cx="12" cy="12" r="8" stroke-dasharray="2.2 2.4"/><path d="M12 8v4l2.5 2"/>'),['รีเซ็ตประวัติกิจวัตร','Reset Habit Records'],['ล้างประวัติการทำ สตรีค และบันทึก โดยยังเก็บกิจวัตรไว้','Clear habit records, streak history and notes while keeping your habits.']],
+ ['rewards','#F2A25E',RI('<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M4 13h16M12 9v11M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/>'),['รีเซ็ตรางวัล','Reset Rewards'],['ลบรางวัลทั้งหมด รวมถึงรางวัลที่แลกไปแล้ว','Delete all rewards, including rewards you have already claimed.']],
+ ['flame','#F0913A',RI('<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1-3.6 2-4.6.3 1.6 1 2.6 2 3 0-3 .5-5.5 1-8.4z"/>'),['รีเซ็ตไฟ','Reset Flames'],['ตั้งไฟ 🔥 กลับเป็น 0 โดยยังเก็บประวัติกิจวัตรไว้','Set your 🔥 flame streak back to 0 while keeping habit records.']],
+ ['coins','#EBC45E',RI('<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.5 0-2.5.8-2.5 1.9 0 2.6 5 1.4 5 4.1 0 1.1-1.1 2-2.5 2-1.2 0-2.1-.5-2.6-1.3M12 6.5v11"/>'),['รีเซ็ตเหรียญ','Reset Coins'],['รีเซ็ตเหรียญคงเหลือ เหรียญสะสม เลเวล และสิทธิ์ข้ามวัน','Reset coin balance, total earned, level and skip passes.']],
+ ['groups','#4A87B5',RI('<rect x="5" y="5" width="6" height="6" rx="1.5"/><rect x="13" y="5" width="6" height="6" rx="1.5"/><rect x="5" y="13" width="6" height="6" rx="1.5"/><rect x="13" y="13" width="6" height="6" rx="1.5"/>'),['รีเซ็ตหมวดหมู่','Reset Groups'],['ลบหมวดหมู่ทั้งหมด และนำกิจวัตรออกจากหมวดหมู่','Delete all groups and remove group assignments from your habits.']],
+ ['all','#E5544B',RI('<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>'),['รีเซ็ตข้อมูลทั้งหมด','Reset Everything'],['กลับเป็นค่าเริ่มต้นทั้งหมด รวมถึงโปรไฟล์และการตั้งค่า','Restore everything to defaults, including your profile and settings.']]];
+function renderReset(){
+  $('rs-title').textContent=tr('รีเซ็ตข้อมูล','Reset Data');
+  $('rs-body').innerHTML=`<div class="rwarn">${tr('การกระทำเหล่านี้จะลบข้อมูลอย่างถาวร และย้อนกลับไม่ได้','These actions delete your data permanently. They cannot be undone.')}</div><div class="rlist">${RESETS.map(([k,c,ic,t,d])=>`<button class="ropt" data-act="rst" data-id="${k}"><span class="ri" style="background:${c}">${ic}</span><span class="rt"><b>${tr(...t)}</b><small>${tr(...d)}</small></span><span class="chev">›</span></button>`).join('')}</div>`;
+}
+async function doReset(k){
+  const r=RESETS.find(x=>x[0]===k);if(!r)return;
+  if(k==='all'){$('d-reset').close();ACT.reset();return}
+  if(!await ask(tr(`${r[3][0]}? ${r[4][0]} · ย้อนกลับไม่ได้`,`${r[3][1]}? ${r[4][1]} This cannot be undone.`),tr('รีเซ็ต','Reset')))return;
+  if(k==='habits'){state.habits=[];state.bonusDays={}}
+  else if(k==='records'){state.habits.forEach(h=>{h.logs={};h.notes={}});state.bonusDays={};state.flameFrom=''}
+  else if(k==='rewards'){state.rewards=[];state.claimedRewards=[]}
+  else if(k==='flame'){const t=today();state.flameFrom=perfect(t)?addDays(t,1):t}
+  else if(k==='coins'){state.coins=0;state.totalEarned=0;state.skips=0}
+  else if(k==='groups'){state.groups=[];state.habits.forEach(h=>h.group='');state.selectedGroup='All'}
+  save();renderAll();if(tab==='stats')renderStats();buzz();toast(tr(`${r[3][0]}แล้ว`,`${r[3][1]} done`));
+}
+/* navigation */
+const HOME_SVG=IC('<rect x="4" y="4" width="16" height="16" rx="4" stroke-width="2"/><path d="m8.5 12 2.5 2.5 4.5-5"/>');
+function setTab(t){
+  tab=t;['habits','stats','rewards','mood','focus'].forEach(k=>{$('tab-'+k).hidden=k!==t;const n=$('n-'+k);t===k?n.setAttribute('aria-current','page'):n.removeAttribute('aria-current')});
+  $('week').hidden=t!=='habits';if(t==='habits'){animList=true;renderHabits()}
+  if(t==='stats')renderStats();if(t==='mood'){moodPick=null;renderMood()}if(t==='focus')renderFocus();window.scrollTo(0,0);
+}
+function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();renderRewards();renderSettings();if(tab==='stats')renderStats();moodPick=null;if(tab==='mood')renderMood();save()}
+
+const ACT={
+  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fMin=+v;state.focus.min=fMin;renderFocusUI()}},
+  goF:()=>{const r=state.focusRun;
+    if(!r){state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
+    else if(r.end){r.left=Math.max(0,r.end-Date.now());r.end=0}else r.end=Date.now()+r.left;
+    save();renderFocusUI();renderFocus()},
+  stopF:async()=>{if(!state.focusRun)return;if(!await ask(tr('หยุดโฟกัส? เวลาที่ทำไปแล้ว (ถ้าเกิน 5 นาที) จะถูกบันทึก','Stop focusing? Time so far (5+ min) will be saved'),tr('หยุด','Stop')))return;
+    const r=state.focusRun;if(!r)return;const m=Math.floor((r.total-fLeft())/60000);if(m>=5)logFocus(m);
+    state.focusRun=null;clearInterval(ftick);document.title='HabitFlow';save();renderFocus();renderFocusUI();toast(m>=5?tr(`บันทึก ${m} นาที`,`Saved ${m} min`):tr('ยกเลิกแล้ว','Cancelled'))},
+  addFcat:()=>{$('fc-name').value='';$('fc-e').value='⭐';$('d-fcat').showModal();$('fc-name').focus()},
+  saveFcat:()=>{const n=$('fc-name').value.trim();if(!n){toast(tr('กรุณากรอกชื่อโหมด','Please enter a mode name'),true);return}
+    state.focus.cats.push({id:'c_'+Date.now(),name:n,e:$('fc-e').value.trim()||'⭐'});save();$('d-fcat').close();renderFocus();toast(tr('เพิ่มโหมดแล้ว','Mode added'))},
+  rmFcat:async id=>{if(await ask(tr('ลบโหมดนี้? ประวัติเวลาโฟกัสยังอยู่','Delete this mode? Focus history is kept'),tr('ลบ','Delete'))){state.focus.cats=state.focus.cats.filter(c=>c.id!==id);save();renderFocus()}},note:id=>openNote(id),noteAt:(id,el)=>openNote(id,el.dataset.d),pickPh:()=>$('nt-file').click(),rmPh:i=>{notePh.splice(+i,1);renderPh()},
+  saveNote:()=>{const t=$('nt-text').value.trim();if(!t&&!notePh.length)delete noteH.notes[noteD];else noteH.notes[noteD]={text:t,photos:[...notePh]};
+    save();$('d-note').close();renderHabits();if($('d-detail').open)renderDetail();toast(tr('บันทึกแล้ว','Saved'))},pickMood:k=>{moodPick=k;renderMoodGrid()},saveMood:()=>{if(!moodPick){toast(tr('เลือกอารมณ์ก่อน','Pick a mood first'),true);return}state.moods[today()]={m:moodPick,note:$('mood-note').value.trim(),t:new Date().toISOString()};save();renderMood();toast(tr('บันทึกอารมณ์แล้ว','Mood saved'))},pick:d=>{if(d===sel)return;sel=d;animList=true;renderWeek();renderHabits()},
+  week:n=>{sel=addDays(sel,+n);animList=true;renderWeek();renderHabits();if(tab==='stats')renderStats()},
+  group:g=>{state.selectedGroup=g;store.set(KEY,JSON.stringify(state));renderGroups();renderHabits()},
+  toolGo:k=>{toolName=k;toolEdit=null;renderTool()},
+  tool:k=>{toolName=k;toolEdit=null;renderTool();$('d-tool').showModal()},toolBack:()=>{if(toolEdit!==null){toolEdit=null;renderTool()}else $('d-tool').close()},toolAdd:()=>{toolEdit='new';renderTool()},
+  tSave:()=>toolSave(),tDel:()=>toolDel(),tOpen:id=>{toolEdit=id;renderTool()},gStep:(id,el)=>goalStep(id,+el.dataset.d),jMood:k=>{jMood=jMood===k?'':k;document.querySelectorAll('.jm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===jMood))},
+  openRemind:()=>{renderRemind();$('d-remind').showModal()},askNotif:async()=>{try{await Notification.requestPermission()}catch(e){}renderRemind()},icsOut,syncOut,syncIn:()=>$('sync-file').click(),
+  openHabits:()=>{renderHabitList();$('d-habits').showModal()},
+  bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
+  openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
+  detail:id=>{detailId=id;detailMonth=null;renderDetail();$('d-detail').showModal()},
+  editHabit:()=>openHabitForm(detailId),
+  formIcon:k=>{formIcon=k;renderIconPicker()},saveHabit,
+  delHabit:async()=>{if(await ask(tr('ลบกิจวัตรนี้? ประวัติจะถูกซ่อนจากแอป','Delete this habit? Its history will be hidden'),tr('ลบ','Delete'))){const h=state.habits.find(x=>x.id===$('f-id').value);if(h)h.archived=true;$('d-habit').close();$('d-detail').close();renderAll();toast(tr('ลบกิจวัตรแล้ว','Habit deleted'))}},
+  mode:m=>{mode=m;renderStats()},
+  smonth:n=>{const d=new Date(statsMonth.y,statsMonth.m+ +n,1);statsMonth={y:d.getFullYear(),m:d.getMonth()};renderStats()},
+  dmonth:n=>{const d=new Date(detailMonth.y,detailMonth.m+ +n,1);detailMonth={y:d.getFullYear(),m:d.getMonth()};renderDetail()},
+  rtab:t=>{rtab=t;renderRewards()},claim,
+  newReward:()=>{$('presets').innerHTML=Object.entries(PRESETS).map(([k,v])=>`<h4>${state.lang==='en'?PRE_EN[k]||k:k}</h4><div class="picks">${v.map(p=>`<button class="pick" data-act="preset" data-id="${esc(p[0])}"><span class="e">${p[2]}</span><span><div class="t">${esc(tn(p[0]))}</div><div class="cost">${p[1]} ${tr('เหรียญ','coins')}</div></span></button>`).join('')}</div>`).join('');$('d-picker').showModal()},
+  preset:t=>{for(const v of Object.values(PRESETS)){const p=v.find(x=>x[0]===t);if(p){addReward(p[0],p[1],p[2]);$('d-picker').close();break}}},
+  customReward:()=>{$('d-picker').close();$('r-title').value='';$('r-cost').value=5;$('r-emoji').value='🎁';$('d-reward').showModal();$('r-title').focus()},
+  saveReward:()=>{const t=$('r-title').value.trim();if(!t){toast(tr('กรุณากรอกชื่อรางวัล','Please enter a reward name'),true);$('r-title').focus();return}
+    addReward(t,Math.max(1,parseInt($('r-cost').value)||5),$('r-emoji').value.trim()||'🎁');$('d-reward').close()},
+  rmReward:async id=>{if(await ask(tr('ลบรางวัลนี้ออกจากรายการ?','Remove this reward?'),tr('ลบ','Delete'))){state.rewards=state.rewards.filter(r=>r.id!==id);save();renderRewards()}},
+  settings:()=>{renderSettings();$('d-settings').showModal()},
+  theme:()=>{state.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';save();applyTheme()},
+  weekStart:v=>{state.startWeekOnSunday=v==='1';save();renderSettings();renderWeek();if(tab==='stats')renderStats()},
+  sound:v=>{state.soundEnabled=v==='1';save();renderSettings()},
+  toggleSound:()=>{state.soundEnabled=!state.soundEnabled;save();renderSettings();sound.play([660])},
+  toggleHap:()=>{state.hapticEnabled=!state.hapticEnabled;save();renderSettings();haptic()},
+  pickAv:()=>$('av-file').click(),
+  profile:()=>{renderSettings();$('d-profile').showModal()},
+  goSettings:()=>{$('d-profile').close();renderSettings();$('d-settings').showModal()},
+  lang:v=>{if(state.lang===v)return;state.lang=v;applyLang();save();renderAll();if(tab==='focus')renderFocus();if($('d-focus').open){$('fo-title').textContent=(fCat(fSel)[2]||'')+' '+fCat(fSel)[1];renderFocusUI()}if($('d-detail').open)renderDetail();toast(v==='en'?'Language: English':'ภาษา: ไทย')},
+  rmAv:()=>{state.profile.avatar='';save();renderProfile();toast(tr('ลบรูปโปรไฟล์แล้ว','Photo removed'))},
+  attachPh:id=>{openNote(id);if(notePh.length<3)$('nt-file').click()},
+  addGroup:()=>{const g=$('s-newgroup').value.trim();if(!g)return;if(state.groups.includes(g)){toast('มีหมวดหมู่นี้แล้ว',true);return}
+    state.groups.push(g);$('s-newgroup').value='';save();renderSettings();renderGroups()},
+  export:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state)],{type:'application/json'}));
+    state.lastBackup=new Date().toISOString();store.set(KEY,JSON.stringify(state));a.download=`HabitFlow_Backup_${today()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast(tr('สำรองข้อมูลแล้ว','Backup saved'))},
+  import:()=>$('s-file').click(),
+  reset:async()=>{if(await ask(tr('รีเซ็ตข้อมูลทั้งหมดกลับเป็นค่าเริ่มต้น? การกระทำนี้ย้อนกลับไม่ได้','Reset all data to defaults? This cannot be undone'),tr('รีเซ็ต','Reset'))){store.del(KEY);state=normalize(null);sel=today();applyTheme();$('d-settings').close();renderAll();toast(tr('รีเซ็ตข้อมูลแล้ว','Data reset'))}},
+  close:(_,el)=>el.closest('dialog').close()
+};
+document.addEventListener('click',e=>{
+  if(e.target.tagName==='DIALOG'&&!['d-confirm','d-note'].includes(e.target.id)){e.target.close();return}
+  const t=e.target.closest('[data-act]');if(t&&ACT[t.dataset.act])ACT[t.dataset.act](t.dataset.id,t);
+});
+document.addEventListener('change',e=>{if(e.target.id==='s-theme'){state.theme=e.target.value;save();applyTheme()}});
+$('nt-file').addEventListener('change',async e=>{
+  const fs=[...e.target.files].slice(0,3-notePh.length);
+  for(const f of fs){try{notePh.push(await shrink(f))}catch(err){toast(tr('เปิดรูปนี้ไม่ได้','Couldn\'t open this image'),true)}}
+  e.target.value='';renderPh();
+});
+$('av-file').addEventListener('change',async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{state.profile.avatar=await shrink(f,256,.82,true);save();renderProfile();toast(tr('เปลี่ยนรูปโปรไฟล์แล้ว','Photo updated'))}catch(err){toast(tr('เปิดรูปนี้ไม่ได้','Couldn\'t open this image'),true)}
+});
+$('s-name').addEventListener('input',e=>{state.profile.name=e.target.value.trim();save();renderProfile()});
+$('s-name').addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur()});
+/* swipe down on a bottom sheet's header to close it */
+document.querySelectorAll('dialog:not(#d-settings):not(#d-profile):not(#d-habits):not(#d-confirm)').forEach(d=>{
+  let y0=null,dy=0;
+  d.addEventListener('touchstart',e=>{const t=e.target;if(!t.closest('.dh')&&t!==d)return;if(t.closest('input,textarea,select'))return;y0=e.touches[0].clientY;dy=0;d.classList.add('drag')},{passive:true});
+  d.addEventListener('touchmove',e=>{if(y0===null)return;dy=Math.max(0,e.touches[0].clientY-y0);d.style.transform=`translateY(${dy}px)`},{passive:true});
+  d.addEventListener('touchend',()=>{if(y0===null)return;y0=null;d.classList.remove('drag');d.style.transition='transform .25s ease';
+    if(dy>90){d.style.transform='translateY(100%)';setTimeout(()=>{d.close();d.style.transform='';d.style.transition=''},200);haptic()}
+    else{d.style.transform='';setTimeout(()=>d.style.transition='',260)}});
+});
+/* focus cards: hold to open — vibration ramps through 3 levels while held */
+(()=>{const grid=$('f-grid'),T=[0,320,640],OPEN=950,PULSE=[[35],[70,40,70],[120,40,120,40,120]];let h=null;
+  const stop=()=>{if(!h)return;h.tm.forEach(clearTimeout);h.el.classList.remove('holding','l1','l2','l3');try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}h=null};
+  grid.addEventListener('pointerdown',e=>{const el=e.target.closest('[data-hold]');if(!el||e.button>0)return;stop();
+    const tm=T.map((t,i)=>setTimeout(()=>{el.classList.add('l'+(i+1));vib(PULSE[i])},t));
+    tm.push(setTimeout(()=>{const id=el.dataset.hold;stop();buzz();openFocus(id)},OPEN));
+    el.classList.add('holding');h={el,tm,x:e.clientX,y:e.clientY}});
+  grid.addEventListener('pointermove',e=>{if(h&&Math.hypot(e.clientX-h.x,e.clientY-h.y)>12)stop()});
+  ['pointerup','pointercancel','pointerleave'].forEach(t=>grid.addEventListener(t,e=>{if(!h)return;const el=h.el,quick=!el.classList.contains('l2');stop();
+    if(quick&&t==='pointerup'){el.classList.remove('nudge');void el.offsetWidth;el.classList.add('nudge');toast(tr('กดค้างไว้เพื่อเปิดโหมดโฟกัส','Press and hold to open focus'))}}));
+  grid.addEventListener('contextmenu',e=>{if(e.target.closest('[data-hold]'))e.preventDefault()});
+  grid.addEventListener('keydown',e=>{const el=e.target.closest('[data-hold]');if(el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openFocus(el.dataset.hold)}});
+})();
+/* focus: long-press the timer ring to start / pause / resume */
+(()=>{const el=$('fo-hold');let tm=null;
+  let lv=[];const cancel=()=>{clearTimeout(tm);tm=null;lv.forEach(clearTimeout);lv=[];el.classList.remove('holding','l1','l2','l3');try{canVib&&navigator.vibrate(0)}catch(e){}};
+  const fire=()=>{buzz(el);ACT.goF()};
+  el.addEventListener('pointerdown',e=>{if(e.button>0)return;el.classList.remove('buzz');el.classList.add('holding');lv=[[0,[35]],[320,[70,40,70]],[640,[120,40,120,40,120]]].map(([t,p],i)=>setTimeout(()=>{el.classList.add('l'+(i+1));vib(p)},t));tm=setTimeout(()=>{tm=null;lv=[];el.classList.remove('holding','l1','l2','l3');fire()},950)});
+  ['pointerup','pointerleave','pointercancel'].forEach(t=>el.addEventListener(t,()=>{if(tm)cancel()}));
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fire()}});
+})();
+$('nt-text').addEventListener('focus',e=>setTimeout(()=>e.target.scrollIntoView({block:'center',behavior:'smooth'}),350));
+$('s-newgroup').addEventListener('keydown',e=>{if(e.key==='Enter')ACT.addGroup()});
+['f-name','f-target','f-unit'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')saveHabit()}));
+$('s-file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const p=JSON.parse(r.result);if(!p||!Array.isArray(p.habits))throw 0;state=normalize(p);sel=today();save();applyTheme();renderAll();toast(tr('นำเข้าข้อมูลแล้ว','Data imported'))}catch(err){toast(tr('ไฟล์สำรองไม่ถูกต้อง','Invalid backup file'),true)}e.target.value=''};
+  r.readAsText(f);
+});
+
+state.selectedDate=sel;
+if(state.selectedGroup!=='All'&&!state.groups.includes(state.selectedGroup))state.selectedGroup='All';
+collectStatic();applyLang();applyTheme();setTab('habits');animList=true;renderAll();if(state.focusRun)startTick();
+</script>
+</body>
+</html>
