@@ -527,6 +527,10 @@ dialog.drag{transition:none!important}
 .rmt{width:auto;min-width:96px;text-align:center}
 .wnav{display:flex;gap:2px}.sbar{margin-top:16px}
 dialog .ib:focus:not(:focus-visible){outline:none}
+/* iOS Safari: keep every page at least the large-viewport height so the toolbar doesn't collapse/expand (and drag the nav) when switching tabs */
+main{min-height:100vh;min-height:100lvh}
+html{scrollbar-gutter:stable}
+nav{bottom:0;padding-bottom:max(env(safe-area-inset-bottom),0px)}
 /* bottom nav: keep buttons still when pressed — only the icon reacts */
 nav{will-change:transform;-webkit-transform:translateZ(0)}
 nav button,nav button:active{transform:none!important}
@@ -1417,7 +1421,7 @@ const HOME_SVG=IC('<rect x="4" y="4" width="16" height="16" rx="4" stroke-width=
 function setTab(t){
   tab=t;['habits','stats','rewards','mood','focus'].forEach(k=>{$('tab-'+k).hidden=k!==t;const n=$('n-'+k);t===k?n.setAttribute('aria-current','page'):n.removeAttribute('aria-current')});
   $('week').hidden=t!=='habits';if(t==='habits'){animList=true;renderHabits()}
-  if(t==='stats')renderStats();if(t==='mood'){moodPick=null;renderMood()}if(t==='focus')renderFocus();window.scrollTo({top:0,behavior:'instant'});
+  if(t==='stats')renderStats();if(t==='mood'){moodPick=null;renderMood()}if(t==='focus')renderFocus();if(scrollY>0)window.scrollTo({top:0,behavior:'instant'});
 }
 function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();renderRewards();renderSettings();if(tab==='stats')renderStats();moodPick=null;if(tab==='mood')renderMood();save()}
 
