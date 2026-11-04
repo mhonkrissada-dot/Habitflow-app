@@ -800,6 +800,10 @@ nav button[hidden]{display:none!important}
 .top .hi[hidden]{display:none!important}
 .top .bar{justify-content:space-between}
 .top .tools{width:100%;justify-content:flex-start;gap:8px}.top .tools .gear{margin-left:auto}
+
+/* header always visible: solid background, no blur */
+.top{background:var(--bg)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;position:relative!important;top:auto;z-index:4;padding-top:calc(10px + env(safe-area-inset-top))!important}
+.top .bar{display:flex!important;align-items:center;min-height:44px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -819,7 +823,6 @@ nav button[hidden]{display:none!important}
   <div id="fixcard"></div>
   <div class="hero slim"><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><b class="hpct" id="hpct">0%</b><div class="hbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hbarw" aria-label="ความคืบหน้าวันนี้"><i id="hbar"></i></div><div id="flow" hidden></div></div>
   <div class="tabs" id="groups" hidden></div>
-  <div class="tseg" role="tablist" id="tseg"><button role="tab" data-act="tview" data-id="todo">ต้องทำ</button><button role="tab" data-act="tview" data-id="done">เสร็จแล้ว</button><button role="tab" data-act="tview" data-id="prog">กำลังทำ</button></div>
   <div class="list" id="habits"></div>
 </section>
 
@@ -988,7 +991,7 @@ nav button[hidden]{display:none!important}
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v4.6</p>
+    <p class="ver">HabitFlow v4.7</p>
   </div>
 </dialog>
 
@@ -1340,18 +1343,9 @@ function renderHabits(){renderFix();
   setRing(pct);
   $('day-sub').textContent=list.length?tr(`${n} จาก ${list.length} เสร็จแล้ว`,`${n} of ${list.length} done`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
   $('habits').classList.toggle('anim',animList);animList=false;
-  const tv=state.todoView||'todo',vv=h=>{const v=val(h,sel);return v>=h.target?'done':v>0?'prog':'todo'};
-  document.querySelectorAll('#tseg button').forEach(x=>{const k=x.dataset.id,c=list.filter(h=>vv(h)===k).length;x.setAttribute('aria-selected',k===tv);x.innerHTML=`${{todo:'○',done:'✓',prog:'◐'}[k]} ${{todo:tr('ต้องทำ','To do'),done:tr('เสร็จแล้ว','Completed'),prog:tr('กำลังทำ','In progress')}[k]}<span class="tc">${c}</span>`});
-  const shown=list.filter(h=>vv(h)===tv);let idx=0;
-  const row=h=>{const v=val(h,sel),ok=v>=h.target,j=popId===h.id,k=streaks(d=>done(h,d)).cur;
-    const meta=[k?`🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}`:'',h.target>1?`${v}/${h.target} ${esc(tn(h.unit||'ครั้ง'))}`:'',h.remind?`⏰ ${h.remind}`:''].filter(Boolean).join(' · ');
-    return `<div class="trow${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--i:${idx++}"><button class="tck" data-act="bump" data-id="${h.id}" role="checkbox" aria-checked="${ok}" aria-label="${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':v>0?`<i style="--p:${Math.round(v/h.target*100)}%"></i>`:''}</button><button class="go" data-act="detail" data-id="${h.id}"><span class="te">${icon(h.iconKey)}</span><span class="tt"><span class="t">${esc(tn(h.title))}</span>${meta?`<small>${meta}</small>`:''}</span></button></div>`};
-  const G=[['morning','🌅',tr('เช้า','Morning')],['day','☀️',tr('ระหว่างวัน','Daytime')],['night','🌙',tr('กลางคืน','Night')]];
-  const col=state.todoCollapsed||{};
-  $('habits').innerHTML=!list.length?`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`
-   :!shown.length?`<div class="empty tempty">${{todo:tr('🎉 ไม่มีอะไรค้างแล้ว เยี่ยมมาก!','🎉 Nothing left to do — great job!'),done:tr('ยังไม่มีรายการที่เสร็จ เริ่มติ๊กอันแรกกัน','Nothing completed yet — tick your first one'),prog:tr('ไม่มีรายการที่ทำค้างไว้','Nothing in progress')}[tv]}</div>`
-   :`<div class="tlistc">${G.map(([g,e,n])=>{const it=shown.filter(h=>todOf(h)===g);if(!it.length)return '';const c=!!col[g];
-      return `<div class="tgrp${c?' col':''}"><button class="tgh" data-act="tgrp" data-id="${g}" aria-expanded="${!c}"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg>${e} ${n}<span>${it.length}</span></button><div class="tgb">${it.map(row).join('')}</div></div>`}).join('')}</div>`;
+  $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
+    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}${(()=>{const k=streaks(d=>done(h,d)).cur;return k?` <span class="hs">🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}</span>`:''})()}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${state.a11y&&state.a11y.labels?`<span class="pl">${ok?tr('เสร็จ','Done'):tr('ทำ','Do')}</span>`:''}${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
+  :`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`;
   popId=null;
 }
 function pay(n){state.coins=Math.max(0,state.coins+n);state.totalEarned=Math.max(0,state.totalEarned+n)}

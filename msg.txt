@@ -1,0 +1,10 @@
+v4.7: restore card-style Today list; keep header visible on iOS
+
+- Today goes back to the habit card list (round check, streak badge,
+  progress bar); to-do filter tabs removed
+- Header no longer sticks to the top: on iOS Safari a sticky header slid
+  under the status bar when the toolbar collapsed, hiding flame/coins/
+  settings
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01VxsubRA7f96vpmjzoCaNKn
