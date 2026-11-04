@@ -804,6 +804,15 @@ nav button[hidden]{display:none!important}
 /* header always visible: solid background, no blur */
 .top{background:var(--bg)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;position:relative!important;top:auto;z-index:4;padding-top:calc(10px + env(safe-area-inset-top))!important}
 .top .bar{display:flex!important;align-items:center;min-height:44px}
+
+/* compact top on Today */
+.top.slimtop{padding:0!important;height:env(safe-area-inset-top);min-height:0;border:0}.top.slimtop .bar{display:none!important}
+main{padding-top:6px}
+.thead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin:2px 2px 10px}
+.thl{min-width:0}.thr .tools{display:flex;align-items:center;gap:6px;width:auto!important;justify-content:flex-end;padding-top:4px}
+.thead h1{font-size:30px}
+.tdrow{margin-top:2px}
+.hero.slim{margin:4px 0 12px;padding:12px 16px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -819,7 +828,7 @@ nav button[hidden]{display:none!important}
 
 <main>
 <section id="tab-habits">
-  <div class="thead"><h1 id="t-title">วันนี้</h1><div class="tdrow"><label class="tdate"><span id="t-date"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg><input type="date" id="t-pick" aria-label="เลือกวันที่"></label><button class="tback" id="t-back" data-act="pick" hidden>วันนี้</button></div></div>
+  <div class="thead"><div class="thl"><h1 id="t-title">วันนี้</h1><div class="tdrow"><label class="tdate"><span id="t-date"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg><input type="date" id="t-pick" aria-label="เลือกวันที่"></label><button class="tback" id="t-back" data-act="pick" hidden>วันนี้</button></div></div><div class="thr" id="thr"></div></div>
   <div id="fixcard"></div>
   <div class="hero slim"><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><b class="hpct" id="hpct">0%</b><div class="hbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hbarw" aria-label="ความคืบหน้าวันนี้"><i id="hbar"></i></div><div id="flow" hidden></div></div>
   <div class="tabs" id="groups" hidden></div>
@@ -1882,6 +1891,9 @@ function fixFlame(){const o=fixOffer();if(!o||!o.can)return;o.days.forEach(d=>st
   state.fixRun={start:o.start,used:(state.fixRun&&state.fixRun.start===o.start?state.fixRun.used:0)+o.g};flameUp=true;save();renderHabits();buzz();
   if(window.confetti&&document.documentElement.dataset.motion!=='reduce')confetti({particleCount:50,spread:60,origin:{y:.25},colors:TIERS[tierOf(flames())].c});
   toast(tr(`กู้ไฟสำเร็จ! 🔥 ${flames()} วัน`,`Flame restored! 🔥 ${flames()} days`))}
+/* on Today the flame/coins/settings sit beside the title (saves vertical space) */
+function placeTools(t){const tools=document.querySelector('.tools'),top=document.querySelector('.top');if(!tools)return;
+  if(t==='habits'){$('thr').appendChild(tools);top.classList.add('slimtop')}else{top.querySelector('.bar').appendChild(tools);top.classList.remove('slimtop')}}
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
@@ -1924,7 +1936,7 @@ async function doReset(k){
 }
 /* navigation */
 const HOME_SVG=IC('<rect x="4" y="4" width="16" height="16" rx="4" stroke-width="2"/><path d="m8.5 12 2.5 2.5 4.5-5"/>');
-function setTab(t){
+function setTab(t){placeTools(arguments[0]);
   tab=t;['habits','stats','rewards','mood','focus'].forEach(k=>{$('tab-'+k).hidden=k!==t;const n=$('n-'+k);t===k?n.setAttribute('aria-current','page'):n.removeAttribute('aria-current')});
   $('week').hidden=t!=='habits';if(t==='habits'){animList=true;renderHabits()}
   if(t==='stats')renderStats();if(t==='mood'){moodPick=null;moodDay=today();renderMood()}if(t==='rewards')renderRewards();if(t==='focus')renderFocus();if(scrollY>0)window.scrollTo({top:0,behavior:'instant'});
