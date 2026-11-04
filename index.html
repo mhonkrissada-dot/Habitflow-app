@@ -15,7 +15,7 @@
 <title>HabitFlow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Mitr:wght@300;400;500&family=Noto+Sans+Thai+Looped:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F3F6FC;--surf:#fff;--ink:#17203A;--mute:#667291;--line:#E1E7F3;--soft:#E9EEF9;--acc:#3B63F0;--onacc:#fff;--coin:#B7791F;--bad:#C0392B;--hd:#F3F6FC;color-scheme:light}
 [data-theme=dark]{--bg:#0E1424;--surf:#172037;--ink:#EEF2FF;--mute:#8F9BBD;--line:#25304D;--soft:#202B47;--acc:#7C9BFF;--onacc:#0B1226;--coin:#F0B84A;--bad:#F0817A;--hd:#0E1424;color-scheme:dark}
@@ -544,6 +544,76 @@ textarea{font:inherit;color:inherit}
 .mcell[data-act]{cursor:pointer}.mcell[data-act]:active .mfe{transform:scale(.9)}.mfe{transition:transform .15s var(--ease)}
 .mcell.sel .mfe{box-shadow:0 0 0 2.5px var(--acc)}
 .mback{display:inline-block;margin:4px 0 0;font-size:13px;color:var(--acc);font-weight:500}
+
+/* ================= CUTE PASTEL THEME (v4) ================= */
+:root{--bg:#F6F4FC;--surf:#FFFFFF;--ink:#2B2D42;--mute:#8E92A8;--line:#ECEAF5;--soft:#F1EEFA;--acc:#4FBF94;--acc2:#A98BEA;--onacc:#fff;--coin:#F2B33D;--bad:#F07C8A;--hd:#F6F4FC;
+  --plus:#E4E0F2;--plusI:#B7B2CC;--sh:0 6px 20px -8px rgba(120,100,190,.22),0 1px 3px rgba(120,100,190,.08);--grad:linear-gradient(120deg,#6ED3AA,#A98BEA)}
+[data-theme=dark]{--bg:#1D1B2B;--surf:#28253A;--ink:#F4F2FB;--mute:#A19DBA;--line:#36324C;--soft:#332F48;--acc:#6ED3AA;--acc2:#B9A0F5;--hd:#1D1B2B;--plus:#3E3957;--plusI:#8E89A8;--coin:#F5C35C;--bad:#F59AA6;
+  --sh:0 8px 24px -10px rgba(0,0,0,.55)}
+body{font-family:'Nunito','Noto Sans Thai Looped',-apple-system,'SF Pro Rounded',system-ui,sans-serif;letter-spacing:0;background:var(--bg)}
+h1,h2,h3,.hero h2,.t,.lbl{font-family:'Nunito','Mitr','Noto Sans Thai Looped',sans-serif}
+h2{font-weight:800}
+/* header */
+.top{background:color-mix(in srgb,var(--hd) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:0}
+.av{box-shadow:0 0 0 2.5px var(--surf),0 0 0 4.5px #CDBDF5;background:var(--grad)}
+.hn b{font-weight:800;font-size:16px}.hn small{font-weight:600}
+.coins{border:0;background:#FFF4DA;color:#C98A0C;font-weight:800;height:28px}[data-theme=dark] .coins{background:#40371F;color:var(--coin)}
+.fl{background:#FFEDE6;border-radius:99px;padding:3px 9px 3px 6px}[data-theme=dark] .fl{background:#40292A}
+.ib.gear{background:var(--surf);border-radius:50%;box-shadow:var(--sh)}
+.day{border-radius:14px;border-width:2px}.day b{font-weight:800}
+.day[aria-pressed=true]{background:var(--surf);border-color:transparent;box-shadow:var(--sh)}
+.day[aria-pressed=true] b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.day.today span{color:var(--acc2)}
+/* hero: big gradient ring */
+.hero{position:relative;flex-direction:column;justify-content:center;background:var(--surf);color:var(--ink);border-radius:28px;padding:18px 16px 16px;margin:8px 0 16px;box-shadow:var(--sh);text-align:center;gap:8px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:-40% -20% auto auto;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(169,139,234,.18),transparent 70%)}
+.hero::after{content:'';position:absolute;inset:auto auto -45% -15%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(110,211,170,.2),transparent 70%)}
+.ring{width:158px;height:158px;position:relative;color:var(--ink)}
+.ring svg{width:158px;height:158px;transform:rotate(-90deg);display:block}
+.ring circle{fill:none;stroke-width:11;stroke-linecap:round}.ring .bg{stroke:var(--soft)!important}.ring .fg{stroke:url(#rg)!important;filter:drop-shadow(0 4px 8px rgba(169,139,234,.35));transition:stroke-dashoffset 1s cubic-bezier(.3,1.2,.5,1)}
+.ring .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ring .rc b{font-size:38px;font-weight:900;line-height:1;font-family:'Nunito',sans-serif;color:var(--ink)}
+.ring .rc small{font-size:12.5px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ring span{display:none}
+.hero .hl{position:relative;z-index:1}
+.hero h2{font-size:16px;font-weight:800;color:var(--ink);margin:0}.hero .sub{color:var(--mute);font-size:13px;font-weight:600}
+.spark{position:absolute;color:#C7B3F7;font-size:14px;animation:tw 2.6s ease-in-out infinite;pointer-events:none}
+.spark.s1{top:22px;left:26%}.spark.s2{top:40%;right:18%;color:#8FDDBD;font-size:18px;animation-delay:.8s}.spark.s3{bottom:58px;left:18%;font-size:11px;animation-delay:1.6s}
+@keyframes tw{0%,100%{opacity:.25;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+/* habit cards */
+.list{gap:12px}
+.item.hb,.item.hb.ok{background:var(--surf)!important;box-shadow:var(--sh);border-radius:22px;padding:10px 12px 10px 10px}
+.hb .tile,.item.hb.ok .tile{background:color-mix(in srgb,var(--c) 16%,var(--surf))!important;border-radius:16px;width:50px;height:50px;font-size:25px}
+.item.hb.ok .t{color:var(--ink)}.item.hb.ok .m{color:var(--mute)}
+.hb .t{font-weight:800;font-size:15.5px}.hb .m{font-weight:600;font-size:12.5px}
+.hs{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;background:#FFEFE8;color:#E0703E;font-weight:800;font-size:11px}[data-theme=dark] .hs{background:#40292A;color:#FF9B6E}
+.hpb{height:6px;border-radius:9px;background:var(--soft);margin-top:6px;overflow:hidden;max-width:170px}.hpb i{display:block;height:100%;border-radius:9px;background:var(--c);transition:width .5s var(--ease)}
+.plus{width:38px;height:38px;border-radius:50%!important;border:2.5px solid var(--plus)!important;color:var(--plusI)!important;background:transparent}
+.hb.ok .plus{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important;box-shadow:0 4px 12px -4px var(--c)}
+.plus svg{stroke-width:3}
+.item.just:not(.ok){animation:none}
+.item.ok.just .plus{animation:pop .45s var(--ease)}
+/* nav: floating pill with labels */
+nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));border-radius:26px;background:color-mix(in srgb,var(--surf) 92%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 10px 30px -10px rgba(120,100,190,.35);padding-bottom:0;border:0}
+nav button{height:62px;font-size:10.5px;font-weight:800;gap:2px;flex-direction:column;display:flex;align-items:center;justify-content:center}
+nav svg{width:20px;height:20px;padding:5px 14px;border-radius:99px;border:0!important}
+nav button[aria-current=page]{color:var(--acc)}nav button[aria-current=page] svg{background:color-mix(in srgb,var(--acc) 16%,transparent)!important}
+main{padding-bottom:calc(100px + env(safe-area-inset-bottom))}.toast{bottom:calc(90px + env(safe-area-inset-bottom));border-radius:99px;font-weight:700}
+/* buttons, inputs, sheets */
+.btn{border-radius:99px;font-weight:800}.btn.pri{background:var(--grad);color:#fff;border:0;box-shadow:0 8px 18px -8px rgba(110,180,170,.8)}
+.in{border-radius:16px;background:var(--surf);border:1.5px solid var(--line)}.in:focus{border-color:var(--acc2);outline:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--acc2) 18%,transparent)}
+dialog{background:var(--bg)}dialog.full{border-radius:30px 30px 0 0}
+.dh h3{font-weight:800}
+.icons button{border-radius:16px;background:var(--surf);box-shadow:var(--sh)}.icons button[aria-pressed=true]{box-shadow:0 0 0 2.5px var(--acc),var(--sh);background:color-mix(in srgb,var(--acc) 12%,var(--surf))}
+/* cards everywhere */
+.card,.ccard,.grp,.pst,.kpi,.tcard,.gcard,.ncard,.rwarn,.ropt,.ftier,.fsum,.stat,.pick{box-shadow:var(--sh);border:0}
+.ccard{border-radius:22px}.kpi{border-radius:20px}
+.cch b{color:var(--ink);font-weight:800}
+.chart .cl{stroke:var(--acc2)}
+.sk b{font-weight:900}
+.fc{border-radius:22px;box-shadow:var(--sh)}
+.seg{border-radius:99px}.seg button{border-radius:99px;font-weight:700}
+.empty{color:var(--mute);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -559,7 +629,7 @@ textarea{font:inherit;color:inherit}
 
 <main>
 <section id="tab-habits">
-  <div class="hero"><div class="ring" id="flow" role="img" aria-label="ความคืบหน้าวันนี้"></div><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div></div>
+  <div class="hero"><div class="ring" id="flow" role="img" aria-label="ความคืบหน้าวันนี้"></div><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span></div>
   <div class="tabs" id="groups" hidden></div>
   <div class="list" id="habits"></div>
 </section>
@@ -706,7 +776,7 @@ textarea{font:inherit;color:inherit}
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v3.2</p>
+    <p class="ver">HabitFlow v4.0 ✿</p>
   </div>
 </dialog>
 
@@ -880,7 +950,7 @@ const mq=matchMedia('(prefers-color-scheme: dark)');
 function applyTheme(){
   const dark=state.theme==='system'?mq.matches:state.theme!=='light';
   document.documentElement.dataset.theme=dark?'dark':'light';
-  document.querySelector('meta[name=theme-color]').content=dark?'#1C2025':'#F4F5F7';
+  document.querySelector('meta[name=theme-color]').content=dark?'#1D1B2B':'#F6F4FC';
   $('s-theme').value=state.theme;
 }
 mq.addEventListener('change',applyTheme);
@@ -1030,12 +1100,14 @@ function renderTier(){
   $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+</i></span>`).join('')}</div>
    <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):tr('ระดับสูงสุดแล้ว 👑','Top level reached 👑')}</p>`;
 }
-const RC=Math.PI*42;
+const RC=2*Math.PI*52;
 function setRing(pct){
-  const el=$('flow'),d='M8 50A42 42 0 0 1 92 50';
-  if(!el.querySelector('.fg')){el.innerHTML=`<svg viewBox="0 0 100 56" width="96" height="54" aria-hidden="true"><path class="bg" d="${d}"/><path class="fg" d="${d}" stroke-dasharray="${RC}" stroke-dashoffset="${RC}"/></svg><span></span>`;void el.offsetWidth}
+  const el=$('flow');
+  if(!el.querySelector('.fg')){el.innerHTML=`<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FD8B4"/><stop offset="1" stop-color="#B79BF2"/></linearGradient></defs><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" cx="60" cy="60" r="52" stroke="url(#rg)" stroke-dasharray="${RC}" stroke-dashoffset="${RC}"/></svg><div class="rc"><b></b><small></small></div>`;void el.offsetWidth}
   requestAnimationFrame(()=>{el.querySelector('.fg').style.strokeDashoffset=RC*(1-pct/100)});
-  el.querySelector('span').textContent=pct+'%';el.setAttribute('aria-label',tr(`ความคืบหน้า ${pct}%`,`Progress ${pct}%`));
+  el.querySelector('b').textContent=pct+'%';
+  el.querySelector('small').textContent=pct>=100?tr('เยี่ยมมาก! 🎉','Amazing! 🎉'):pct>=50?tr('ไปได้สวย ✨','Great progress ✨'):pct>0?tr('เริ่มแล้ว สู้ๆ 🌱','Keep it going 🌱'):tr('มาเริ่มกัน 💪','Let\'s begin 💪');
+  el.setAttribute('aria-label',tr(`ความคืบหน้า ${pct}%`,`Progress ${pct}%`));
 }
 function renderHabits(){
   const hr=new Date().getHours();
@@ -1048,7 +1120,7 @@ function renderHabits(){
   $('day-sub').textContent=list.length?tr(`สำเร็จ ${n} จาก ${list.length}`,`${n} of ${list.length} completed`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
   $('habits').classList.toggle('anim',animList);animList=false;
   $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
-    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}</div></span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
+    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}${(()=>{const k=streaks(d=>done(h,d)).cur;return k?` <span class="hs">🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}</span>`:''})()}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
   :`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`;
   popId=null;
 }
@@ -1226,7 +1298,7 @@ function moveHabit(ids){
   addEventListener('keydown',e=>{if(e.key==='Tab')kb=true});addEventListener('pointerdown',()=>{kb=false});
   HTMLDialogElement.prototype.showModal=function(){sm.call(this);if(!kb){const a=document.activeElement;if(a&&this.contains(a)&&a.tagName!=='INPUT'&&a.tagName!=='TEXTAREA')a.blur()}}})();
 /* ===== charts ===== */
-const C_ACC='var(--acc)';
+const C_ACC='var(--acc)',C_LAV='#A98BEA';
 function lineChart(vals,labels,o={}){
   const W=320,H=o.h||140,pl=30,pr=8,pt=10,pb=20,n=vals.length,mx=o.max||Math.max(1,...vals),col=o.color||C_ACC,id='lg'+(++gid);
   if(!n)return '';
@@ -1251,7 +1323,7 @@ function statsCharts(y,m,{days,full,any,miss,sum,s}){
   const per=hs.map(h=>{let c=0;for(let d=1;d<=days;d++)if(done(h,`${y}-${pad(m+1)}-${pad(d)}`))c++;return{l:tn(h.title),e:icon(h.iconKey),v:c,max:days||1,c:hex(h),txt:(days?Math.round(c/days*100):0)+'%'}});
   return `<div class="crow">${card(tr('อัตราสำเร็จ','Success rate'),donut(rate,C_ACC,Math.round(rate*100)+'%',tr(`${days} วัน`,`${days} days`)))}
    ${card(tr('สตรีค','Streak'),`<div class="sk"><div><b>${s.cur}</b><small>${tr('ปัจจุบัน','Current')}</small></div><div><b>${s.best}</b><small>${tr('ยาวที่สุด','Best')}</small></div><div><b>${flames()}</b><small>🔥 ${tr('ไฟ','Flames')}</small></div></div>`)}</div>
-   ${card(tr('ความสำเร็จรายวัน (%)','Daily completion (%)'),lineChart(vals,labs,{max:100,fmt:v=>Math.round(v)}))}
+   ${card(tr('ความสำเร็จรายวัน (%)','Daily completion (%)'),lineChart(vals,labs,{max:100,fmt:v=>Math.round(v),color:C_LAV}))}
    ${card(tr('สรุปวันในเดือนนี้','Days this month'),barChart([any,full,miss],[tr('ทำสำเร็จ','Active'),tr('ทำครบ','Perfect'),tr('พลาด','Missed')],{h:120}))}
    ${per.length?card(tr('แต่ละกิจวัตร','By habit'),hbars(per)):''}`;
 }
@@ -1315,7 +1387,7 @@ function renderOverview(b){
   const kpi=(v,l,c)=>`<div class="kpi"><b style="color:${c}">${v}</b><small>${l}</small></div>`;
   b.innerHTML=`<div class="kpis">${kpi('🔥 '+flames(),tr('ไฟต่อเนื่อง','Flames'),'#FF6A3D')}${kpi(totDone,tr('ทำสำเร็จทั้งหมด','Completions'),'var(--acc)')}${kpi(state.totalEarned,tr('เหรียญสะสม','Coins earned'),'var(--coin)')}${kpi((totF/60).toFixed(1)+tr(' ชม.','h'),tr('เวลาโฟกัส','Focus time'),'#5B9BF0')}</div>
    <div class="crow">${card(tr('อัตราสำเร็จ 30 วัน','30-day rate'),donut(rate30,C_ACC,Math.round(rate30*100)+'%'))}${card(tr('อารมณ์ 30 วัน','Mood, 30 days'),mtot?hbars(Object.keys(MOODS).filter(k=>mc[k]).map(k=>({l:MOODS[k][1],e:MOODS[k][0],v:mc[k],max:mtot,c:FC[k]}))):`<p class="m">${tr('ยังไม่มีบันทึกอารมณ์','No moods yet')}</p>`)}</div>
-   ${card(tr('ความสำเร็จ 30 วันล่าสุด (%)','Completion, last 30 days (%)'),lineChart(pct,D30.map(sd),{max:100,h:160}))}
+   ${card(tr('ความสำเร็จ 30 วันล่าสุด (%)','Completion, last 30 days (%)'),lineChart(pct,D30.map(sd),{max:100,h:160,color:C_LAV}))}
    ${card(tr('กิจวัตรที่ทำได้ 7 วัน','Habits done, 7 days'),barChart(cnt7,D7.map(d=>WD[parse(d).getDay()])))}
    ${card(tr('เวลาโฟกัส 7 วัน (นาที)','Focus minutes, 7 days'),barChart(foc7,D7.map(d=>WD[parse(d).getDay()]),{color:'#5B9BF0'}))}
    ${hs.length?card(tr('แต่ละกิจวัตร (30 วัน)','By habit (30 days)'),hbars(hs.map(h=>{const c=D30.filter(d=>done(h,d)).length;return{l:tn(h.title),e:icon(h.iconKey),v:c,max:30,c:hex(h),txt:Math.round(c/30*100)+'%'}}))):''}
