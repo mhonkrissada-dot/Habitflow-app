@@ -649,6 +649,13 @@ nav button[aria-current=page],.link,.mback,.pick.hp.on .m,.gp,.cch .link,.ncard 
 [data-labels=on] .plus .pl{display:inline;font-size:12px;font-weight:800}
 [data-labels=on] .plus svg{width:16px;height:16px}
 #s-size button{min-width:40px}
+.gcard2{background:var(--surf);border-radius:22px;padding:18px;box-shadow:var(--sh);text-align:center}
+.gico{font-size:40px;margin-bottom:6px}.gcard2>b{font-size:16px;font-weight:800}.gcard2 p.m{font-size:13px;margin:6px 0 14px;line-height:1.5}
+.gbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;height:48px;border-radius:99px;background:#fff;color:#1F1F1F;border:1.5px solid #DADCE0;font-weight:700;font-size:15px;font-family:'Roboto','Nunito',sans-serif}
+.gbtn:active{background:#F2F2F2}.gout{color:#B3261E;font-weight:700}[data-theme=dark] .gout{color:#F59AA6}.gbtn[disabled]{opacity:.6}
+.gacc{display:flex;align-items:center;gap:12px;text-align:left}.gacc img,.gacc .av{width:48px;height:48px;border-radius:50%;flex:none}.gacc b{display:block;font-size:16px}.gacc small{font-size:12.5px}
+.gst{display:flex;justify-content:space-between;margin-top:14px;padding:10px 12px;background:var(--soft);border-radius:14px;font-size:13px}.gst span{color:var(--mute)}
+.gerr{color:var(--bad);font-size:13px;margin:10px 0 0;font-weight:600}[data-theme=light] .gerr,:root .gerr{color:#B3261E}[data-theme=dark] .gerr{color:#F59AA6}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -787,6 +794,11 @@ nav button[aria-current=page],.link,.mback,.pick.hp.on .m,.gp,.cch .link,.ncard 
   <div class="db" id="rm-body"></div>
 </dialog>
 
+<dialog id="d-google" class="full" aria-labelledby="gg-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="กลับ"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><h3 id="gg-title"></h3><span style="width:36px;flex:none"></span></div>
+  <div class="db" id="gg-body"></div>
+</dialog>
+
 <dialog id="d-settings" aria-labelledby="ds-title">
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db">
@@ -810,6 +822,7 @@ nav button[aria-current=page],.link,.mback,.pick.hp.on .m,.gp,.cch .link,.ncard 
     </div>
     <h4>ข้อมูล</h4>
     <div class="grp">
+      <button class="set" data-act="openGoogle"><span class="row sl"><span class="si" style="background:#fff;box-shadow:inset 0 0 0 1px #E3E3E8"><svg viewBox="0 0 48 48" style="stroke:none"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></span><span><span class="gtl">สำรองด้วย Google</span><small class="m" id="s-gsub" style="display:block;font-size:11.5px"></small></span></span><span class="chev">›</span></button>
       <button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
       <button class="set" data-act="syncOut"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></span>ส่งข้อมูลไปเครื่องอื่น</span><span class="chev">›</span></button>
       <button class="set" data-act="syncIn"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><path d="M8 7l4-4 4 4M12 3v12M5 13v6h14v-6"/></svg></span>รวมข้อมูลจากเครื่องอื่น</span><span class="chev">›</span></button><input type="file" id="sync-file" accept=".json,application/json" hidden>
@@ -894,7 +907,7 @@ function normalize(p){
   s.selectedGroup='All';
   if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
   s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
-  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
   s.version=VER;return s;
 }
 let state;
@@ -923,7 +936,7 @@ const tn=x=>{x=String(x??'');return state&&state.lang==='en'?(N_EN[x]||x):(N_TH[
 const PRE_EN={'ของรางวัลเล็ก ๆ':'Small treats','รางวัลดี ๆ':'Nice rewards','รางวัลใหญ่':'Big rewards','รางวัลในฝัน':'Dream rewards'};
 const MOOD_N={happy:['มีความสุข','Happy'],calm:['สงบ','Calm'],excited:['ตื่นเต้น','Excited'],tired:['เหนื่อย','Tired'],sad:['เศร้า','Sad'],anxious:['กังวล','Anxious']};
 const FCAT_N={work:'Work',study:'Study',read:'Reading',focus:'Focus',exercise:'Exercise',walk:'Walk',cook:'Cooking',rest:'Rest',sleep:'Sleep',game:'Gaming',fun:'Entertainment',skin:'Skincare',baby:'Childcare',family:'Family'};
-const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
+const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "สำรองด้วย Google": "Back up with Google", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
 const I18N=[];
 function collectStatic(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
@@ -953,7 +966,7 @@ function streaks(pred){
   while(c<=730&&pred(x)){c++;x=addDays(x,-1)}
   return{cur:c,best};
 }
-function save(){if(store.set(KEY,JSON.stringify(state))===false)toast(tr('พื้นที่เก็บข้อมูลเต็ม ลองลบรูปเก่าออก','Storage full — try removing old photos'),true);const ce=$('coins');if(ce.textContent!==String(state.coins)){ce.textContent=state.coins;const b=ce.parentElement;b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}$('bal').textContent=state.coins;$('skips').textContent=state.skips;const L=Math.floor(state.totalEarned/10)+1;$('lvl').textContent=tr(`เลเวล ${L} · สะสมรวม ${state.totalEarned} เหรียญ`,`Level ${L} · ${state.totalEarned} coins earned`);$('lvg').innerHTML=gauge((state.totalEarned%10)/10,112,12,'var(--coin)')+`<b>Lv ${L}</b>`}
+function save(){queueGSync();if(store.set(KEY,JSON.stringify(state))===false)toast(tr('พื้นที่เก็บข้อมูลเต็ม ลองลบรูปเก่าออก','Storage full — try removing old photos'),true);const ce=$('coins');if(ce.textContent!==String(state.coins)){ce.textContent=state.coins;const b=ce.parentElement;b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}$('bal').textContent=state.coins;$('skips').textContent=state.skips;const L=Math.floor(state.totalEarned/10)+1;$('lvl').textContent=tr(`เลเวล ${L} · สะสมรวม ${state.totalEarned} เหรียญ`,`Level ${L} · ${state.totalEarned} coins earned`);$('lvg').innerHTML=gauge((state.totalEarned%10)/10,112,12,'var(--coin)')+`<b>Lv ${L}</b>`}
 
 /* ui helpers */
 let confirmResolve=null;
@@ -1295,7 +1308,7 @@ function claim(id){
 
 /* settings */
 function renderSettings(){
-  renderHabitList();$('s-hcount').textContent=active().length;$('s-gcount').textContent=state.goals.length;$('s-rcount').textContent=active().filter(h=>h.remind).length;$('s-ncount').textContent=state.notesList.length;
+  renderHabitList();renderGoogleUI();$('s-hcount').textContent=active().length;$('s-gcount').textContent=state.goals.length;$('s-rcount').textContent=active().filter(h=>h.remind).length;$('s-ncount').textContent=state.notesList.length;
   document.querySelectorAll('#s-week button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.id==='1')===state.startWeekOnSunday));
   $('s-sound').setAttribute('aria-checked',state.soundEnabled);$('s-hap').setAttribute('aria-checked',state.hapticEnabled);
   $('p-streak').textContent=flames();renderTier();$('p-coins').textContent=state.coins;$('p-lv').textContent=Math.floor(state.totalEarned/10)+1;
@@ -1421,6 +1434,7 @@ function toolSave(){
 async function toolDel(){
   if(!await ask(tr('ลบรายการนี้?','Delete this item?'),tr('ลบ','Delete')))return;const k=toolName,id=toolEdit;
   if(k==='notes')state.notesList=state.notesList.filter(x=>x.id!==id);else if(k==='goals')state.goals=state.goals.filter(x=>x.id!==id);else delete state.journal[id&&id!=='new'?id:today()];
+  state.tomb[k==='journal'?'j:'+(id&&id!=='new'?id:today()):id]=Date.now();
   toolEdit=null;save();renderSettings();renderTool();toast(tr('ลบแล้ว','Deleted'));
 }
 function goalStep(id,d){const g=state.goals.find(x=>x.id===id);if(!g)return;const was=g.cur>=g.target;g.cur=Math.max(0,+(g.cur+d).toFixed(2));save();renderTool();haptic();
@@ -1493,7 +1507,8 @@ function mergeState(o){
   Object.entries(o.moods).forEach(([d,e])=>{a.moods[d]=newer(a.moods[d],e,'t')});
   Object.entries(o.journal).forEach(([d,e])=>{a.journal[d]=newer(a.journal[d],e,'updated')});
   a.notesList=byId(a.notesList,o.notesList,(x,y)=>newer(x,y,'updated'));
-  a.goals=byId(a.goals,o.goals,(x,y)=>x.cur>=y.cur?x:y);
+  Object.assign(a.tomb,o.tomb||{});const T=a.tomb;a.notesList=a.notesList.filter(x=>!T[x.id]);a.rewards=a.rewards.filter(x=>!T[x.id]);Object.keys(a.journal).forEach(d=>{if(T['j:'+d]&&(!a.journal[d].updated||new Date(a.journal[d].updated)<T['j:'+d]))delete a.journal[d]});
+  a.goals=byId(a.goals,o.goals,(x,y)=>x.cur>=y.cur?x:y).filter(x=>!(a.tomb||{})[x.id]);
   const fk=new Set(a.focus.sessions.map(x=>x.t+x.c));o.focus.sessions.forEach(x=>{if(!fk.has(x.t+x.c))a.focus.sessions.push(x)});
   a.focus.cats=byId(a.focus.cats,o.focus.cats,x=>x);
   Object.assign(a.bonusDays,o.bonusDays);o.groups.forEach(g=>{if(!a.groups.includes(g))a.groups.push(g)});
@@ -1505,6 +1520,77 @@ $('sync-file').addEventListener('change',e=>{const f=e.target.files[0];e.target.
 /* weekly backup nudge */
 if(!state.lastBackup){state.lastBackup=new Date().toISOString();store.set(KEY,JSON.stringify(state))}
 setTimeout(()=>{const lb=new Date(state.lastBackup);if(state.habits.length&&Date.now()-lb>7*864e5)toast(tr('💾 ไม่ได้สำรองข้อมูลเกิน 7 วัน — ตั้งค่า → ส่งข้อมูล/สำรอง','💾 No backup in 7+ days — Settings → Send/Back up'))},4000);
+
+/* ===== Google sign-in backup: Drive appDataFolder (private, app-only) + auto sync ===== */
+const GCID_BUILTIN='';                       // ← put the OAuth Web Client ID here to ship it built-in
+const GSCOPE='https://www.googleapis.com/auth/drive.appdata openid email profile';
+const GFILE='habitflow.json';
+var gTok=null,gExp=0,gBusy=false,gTimer=null,gErr='';
+const gcid=()=>GCID_BUILTIN||store.get('habitflow_gcid')||'';
+const gOn=()=>!!(state.google&&state.google.email);
+const gLive=()=>gTok&&Date.now()<gExp-60000;
+function loadGIS(){return new Promise((ok,no)=>{if(window.google&&google.accounts&&google.accounts.oauth2)return ok();
+  const x=document.querySelector('script[data-gis]');if(x){x.addEventListener('load',ok);x.addEventListener('error',no);return}
+  const sc=document.createElement('script');sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.dataset.gis='1';sc.onload=ok;sc.onerror=()=>no(new Error('gis'));document.head.appendChild(sc)})}
+async function gToken(prompt){
+  if(gLive())return gTok;if(!gcid())throw new Error('noclient');await loadGIS();
+  return new Promise((ok,no)=>{const c=google.accounts.oauth2.initTokenClient({client_id:gcid(),scope:GSCOPE,
+      callback:r=>{if(r.error)return no(new Error(r.error));gTok=r.access_token;gExp=Date.now()+(+r.expires_in||3600)*1000;ok(gTok)},
+      error_callback:e=>no(new Error(e&&e.type||'popup'))});
+    c.requestAccessToken({prompt:prompt||'',login_hint:state.google&&state.google.email||undefined})});
+}
+async function gFetch(url,opt={}){
+  const r=await fetch(url,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+gTok}});
+  if(r.status===401){gTok=null;throw new Error('auth')}if(!r.ok)throw new Error('http '+r.status);return r}
+async function gFind(){const q=encodeURIComponent(`name='${GFILE}'`);const r=await gFetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,modifiedTime)&pageSize=1`);return (await r.json()).files[0]||null}
+async function gUpload(id,data){
+  const fd=new FormData();fd.append('metadata',new Blob([JSON.stringify(id?{}:{name:GFILE,parents:['appDataFolder']})],{type:'application/json'}));
+  fd.append('file',new Blob([JSON.stringify(data)],{type:'application/json'}));
+  const u=id?`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=multipart&fields=id`:'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id';
+  return (await gFetch(u,{method:id?'PATCH':'POST',body:fd})).json()}
+const gPayload=()=>{const c=JSON.parse(JSON.stringify(state));delete c.google;delete c.notified;delete c.focusRun;return c};
+async function gSync(interactive){
+  if(gBusy||!gOn()&&!interactive)return;gBusy=true;gErr='';renderGoogleUI();
+  try{
+    if(!gLive()){if(!interactive)throw new Error('needtap');await gToken('')}
+    const f=await gFind();
+    if(f){const remote=await (await gFetch(`https://www.googleapis.com/drive/v3/files/${f.id}?alt=media`)).json();if(remote&&Array.isArray(remote.habits))mergeState(normalize(remote))}
+    await gUpload(f&&f.id,gPayload());
+    state.google.last=new Date().toISOString();state.google.pending=false;state.lastBackup=state.google.last;
+    store.set(KEY,JSON.stringify(state));renderAll();
+  }catch(e){gErr=e.message;if(state.google)state.google.pending=true;store.set(KEY,JSON.stringify(state))}
+  finally{gBusy=false;renderGoogleUI()}
+}
+function queueGSync(){if(gBusy||!gOn()||state.google.auto===false)return;state.google.pending=true;clearTimeout(gTimer);if(gLive())gTimer=setTimeout(()=>gSync(false),4000)}
+async function gSignIn(){
+  try{await gToken('consent');const u=await (await gFetch('https://www.googleapis.com/oauth2/v3/userinfo')).json();
+    state.google={email:u.email,name:u.name||'',pic:u.picture||'',auto:true,last:null,pending:true};
+    if(!state.profile.name&&u.name)state.profile.name=u.name.slice(0,24);
+    store.set(KEY,JSON.stringify(state));await gSync(true);buzz();toast(tr('เชื่อมบัญชี Google แล้ว ✓','Google account connected ✓'))}
+  catch(e){gErr=e.message;renderGoogleUI();if(e.message!=='popup_closed')toast(gMsg(e.message),true)}
+}
+function gSignOut(){try{if(gTok&&window.google)google.accounts.oauth2.revoke(gTok,()=>{})}catch(e){}gTok=null;state.google=null;save();renderGoogleUI();renderSettings();toast(tr('ออกจากระบบ Google แล้ว (ข้อมูลในเครื่องยังอยู่)','Signed out of Google (data on this device is kept)'))}
+const gMsg=m=>({noclient:tr('ยังไม่ได้ใส่ Client ID','Client ID not set yet'),needtap:tr('แตะ "ซิงก์ตอนนี้" เพื่อเชื่อมต่ออีกครั้ง','Tap "Sync now" to reconnect'),gis:tr('โหลดระบบ Google ไม่ได้ ตรวจอินเทอร์เน็ต','Could not load Google sign-in — check your connection'),popup_failed_to_open:tr('เบราว์เซอร์บล็อกหน้าต่างล็อกอิน','The browser blocked the sign-in window'),auth:tr('สิทธิ์หมดอายุ แตะซิงก์อีกครั้ง','Session expired — tap Sync again'),access_denied:tr('ไม่ได้อนุญาตการเข้าถึง','Access was not allowed')}[m]||(m.startsWith('http')?tr('เชื่อมต่อ Google Drive ไม่สำเร็จ ','Google Drive error ')+m:m));
+function renderGoogleUI(){
+  const sub=$('s-gsub');if(sub)sub.textContent=gOn()?(state.google.email+(gBusy?' · '+tr('กำลังซิงก์…','syncing…'):state.google.pending?' · '+tr('รอซิงก์','pending'):'')):tr('ยังไม่ได้เชื่อม','Not connected');
+  const b=$('gg-body');if(!b||!$('d-google').open)return;$('gg-title').textContent=tr('สำรองด้วย Google','Back up with Google');
+  const fmt=d=>d?new Date(d).toLocaleString(state.lang==='en'?'en-GB':'th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
+  if(!gcid()){b.innerHTML=`<div class="rwarn"><b>${tr('ตั้งค่าครั้งแรก','First-time setup')}</b><br><small class="m">${tr('วาง Google OAuth Client ID (ประเภท Web) ที่สร้างจาก Google Cloud Console','Paste a Google OAuth Client ID (Web type) created in Google Cloud Console')}</small>
+     <input class="in" id="g-cid" style="margin-top:10px" placeholder="xxxxxxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false"><button class="btn pri" style="width:100%;margin-top:10px" data-act="gSaveCid">${tr('บันทึก Client ID','Save Client ID')}</button>
+     <small class="m" style="display:block;margin-top:8px">${tr('ต้องเพิ่ม','Add')} <b>${esc(location.origin)}</b> ${tr('ใน Authorized JavaScript origins','to Authorized JavaScript origins')}</small></div>`;return}
+  if(!gOn()){b.innerHTML=`<div class="gcard2"><div class="gico">☁️</div><b>${tr('เก็บข้อมูลไว้บน Google Drive ของคุณ','Keep your data in your Google Drive')}</b><p class="m">${tr('ซิงก์อัตโนมัติทุกเครื่องที่ล็อกอินบัญชีเดียวกัน ข้อมูลเก็บในพื้นที่ส่วนตัวของแอป ไม่ปะปนกับไฟล์ใน Drive','Syncs automatically on every device signed in to the same account. Stored in a private app folder, separate from your Drive files.')}</p>
+     <button class="gbtn" data-act="gSignIn"${gBusy?' disabled':''}><svg viewBox="0 0 48 48" width="20" height="20"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg>${tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
+     ${gErr?`<p class="gerr">${esc(gMsg(gErr))}</p>`:''}</div><button class="link" style="margin-top:14px" data-act="gResetCid">${tr('เปลี่ยน Client ID','Change Client ID')}</button>`;return}
+  const g=state.google;
+  b.innerHTML=`<div class="gcard2"><div class="gacc">${g.pic?`<img src="${esc(g.pic)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${esc((g.name||g.email)[0].toUpperCase())}</span>`}<div><b>${esc(g.name||g.email)}</b><small class="m">${esc(g.email)}</small></div></div>
+    <div class="gst"><span>${tr('ซิงก์ล่าสุด','Last synced')}</span><b>${gBusy?tr('กำลังซิงก์…','Syncing…'):fmt(g.last)}</b></div>
+    ${gErr?`<p class="gerr">${esc(gMsg(gErr))}</p>`:''}
+    <button class="btn pri" style="width:100%;margin-top:12px" data-act="gSyncNow"${gBusy?' disabled':''}>🔄 ${tr('ซิงก์ตอนนี้','Sync now')}</button></div>
+   <div class="grp" style="margin-top:12px"><div class="set"><span class="row sl">${tr('ซิงก์อัตโนมัติเมื่อมีการเปลี่ยนแปลง','Auto-sync when data changes')}</span><button class="sw" role="switch" aria-checked="${g.auto!==false}" data-act="gAuto" aria-label="${tr('ซิงก์อัตโนมัติ','Auto-sync')}"></button></div>
+    <button class="set" data-act="gSignOut"><span class="row sl gout">${tr('ออกจากระบบ Google','Sign out of Google')}</span></button></div>
+   <p class="hhint" style="margin-top:10px">${tr('ข้อมูลจากหลายเครื่องจะรวมกัน ไม่ทับกัน · การล็อกอินมีอายุ 1 ชั่วโมง ถ้าหมดอายุแตะ "ซิงก์ตอนนี้"','Data from several devices is merged, never overwritten · Sign-in lasts 1 hour; when it expires tap "Sync now"')}</p>`;
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&gOn()&&gLive())gSync(false)});
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
@@ -1575,6 +1661,10 @@ const ACT={
   tSave:()=>toolSave(),tDel:()=>toolDel(),tOpen:id=>{toolEdit=id;renderTool()},gStep:(id,el)=>goalStep(id,+el.dataset.d),jMood:k=>{jMood=jMood===k?'':k;document.querySelectorAll('.jm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===jMood))},
   openRemind:()=>{renderRemind();$('d-remind').showModal()},askNotif:async()=>{try{await Notification.requestPermission()}catch(e){}renderRemind()},icsOut,syncOut,syncIn:()=>$('sync-file').click(),
   a11ySize:v=>{state.a11y.size=+v;save();applyA11y();haptic()},a11yT:k=>{state.a11y[k]=!state.a11y[k];save();applyA11y();haptic();if(k==='labels')renderHabits()},
+  openGoogle:()=>{renderGoogleUI();$('d-google').showModal();renderGoogleUI()},gSignIn,gSignOut,gSyncNow:()=>gSync(true),
+  gAuto:()=>{state.google.auto=state.google.auto===false;save();renderGoogleUI()},
+  gSaveCid:()=>{const v=$('g-cid').value.trim();if(!/\.apps\.googleusercontent\.com$/.test(v)){toast(tr('Client ID ไม่ถูกต้อง','Invalid Client ID'),true);return}store.set('habitflow_gcid',v);renderGoogleUI();toast(tr('บันทึกแล้ว','Saved'))},
+  gResetCid:()=>{store.set('habitflow_gcid','');renderGoogleUI()},
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
   bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
@@ -1591,7 +1681,7 @@ const ACT={
   customReward:()=>{$('d-picker').close();$('r-title').value='';$('r-cost').value=5;$('r-emoji').value='🎁';$('d-reward').showModal();$('r-title').focus()},
   saveReward:()=>{const t=$('r-title').value.trim();if(!t){toast(tr('กรุณากรอกชื่อรางวัล','Please enter a reward name'),true);$('r-title').focus();return}
     addReward(t,Math.max(1,parseInt($('r-cost').value)||5),$('r-emoji').value.trim()||'🎁');$('d-reward').close()},
-  rmReward:async id=>{if(await ask(tr('ลบรางวัลนี้ออกจากรายการ?','Remove this reward?'),tr('ลบ','Delete'))){state.rewards=state.rewards.filter(r=>r.id!==id);save();renderRewards()}},
+  rmReward:async id=>{if(await ask(tr('ลบรางวัลนี้ออกจากรายการ?','Remove this reward?'),tr('ลบ','Delete'))){state.rewards=state.rewards.filter(r=>r.id!==id);state.tomb[id]=Date.now();save();renderRewards()}},
   settings:()=>{renderSettings();$('d-settings').showModal()},
   theme:()=>{state.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';save();applyTheme()},
   weekStart:v=>{state.startWeekOnSunday=v==='1';save();renderSettings();renderWeek();if(tab==='stats')renderStats()},
