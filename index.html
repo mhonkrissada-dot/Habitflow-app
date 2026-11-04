@@ -787,6 +787,14 @@ nav button[hidden]{display:none!important}
 .trow .go:active{background:var(--soft);transform:none!important}
 .tempty{background:var(--surf);border-radius:22px;box-shadow:var(--sh);padding:28px 16px;text-align:center;font-weight:600}
 .seg.wide{display:grid;grid-template-columns:repeat(3,1fr);width:100%}.seg.wide button{height:38px;font-size:13px}
+
+.fixc{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;padding:14px;border-radius:20px;margin-bottom:12px;background:var(--surf);box-shadow:var(--sh);border:1.5px solid color-mix(in srgb,#FF6A3D 35%,transparent);animation:rise .4s var(--spring)}
+.fixc.t-purple{border-color:color-mix(in srgb,#9B6BFF 40%,transparent)}.fixc.t-blue{border-color:color-mix(in srgb,#3AA8FF 40%,transparent)}.fixc.t-gold{border-color:color-mix(in srgb,#FFC233 50%,transparent)}
+.fxi{position:relative;width:44px;height:44px;display:grid;place-items:center;grid-row:span 2}.fxi .flame{width:38px;height:38px;filter:grayscale(.55);animation:flick 1.6s ease-in-out infinite}
+.fxb{position:absolute;right:-4px;bottom:-2px;font-size:16px}
+@keyframes flick{50%{transform:scale(.9) rotate(-4deg);opacity:.75}}
+.fxt b{display:block;font-size:15px}.fxt small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px;line-height:1.4}
+.fxa{grid-column:2;display:flex;align-items:center;gap:12px;margin-top:6px}.fxa .btn{height:36px;padding:0 16px}.fxa .link{font-size:13px;color:var(--mute)!important}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -803,6 +811,7 @@ nav button[hidden]{display:none!important}
 <main>
 <section id="tab-habits">
   <div class="thead"><h1 id="t-title">วันนี้</h1><div class="tdrow"><label class="tdate"><span id="t-date"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg><input type="date" id="t-pick" aria-label="เลือกวันที่"></label><button class="tback" id="t-back" data-act="pick" hidden>วันนี้</button></div></div>
+  <div id="fixcard"></div>
   <div class="hero slim"><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><b class="hpct" id="hpct">0%</b><div class="hbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hbarw" aria-label="ความคืบหน้าวันนี้"><i id="hbar"></i></div><div id="flow" hidden></div></div>
   <div class="tabs" id="groups" hidden></div>
   <div class="tseg" role="tablist" id="tseg"><button role="tab" data-act="tview" data-id="todo">ต้องทำ</button><button role="tab" data-act="tview" data-id="done">เสร็จแล้ว</button><button role="tab" data-act="tview" data-id="prog">กำลังทำ</button></div>
@@ -974,7 +983,7 @@ nav button[hidden]{display:none!important}
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v4.5</p>
+    <p class="ver">HabitFlow v4.6</p>
   </div>
 </dialog>
 
@@ -1050,7 +1059,7 @@ function normalize(p){
   s.selectedGroup='All';
   if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
   s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
-  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.pro||typeof s.pro!=='object')s.pro=null;if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.flameFix||typeof s.flameFix!=='object')s.flameFix={};if(!s.fixRun||typeof s.fixRun!=='object')s.fixRun={start:'',used:0};if(!s.pro||typeof s.pro!=='object')s.pro=null;if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
   s.version=VER;return s;
 }
 let state;
@@ -1281,7 +1290,7 @@ const allDone=d=>{const a=active();return a.length>0&&a.every(h=>done(h,d))};
 const FLAME_NEED=4;
 const flameNeed=()=>Math.min(FLAME_NEED,active().length);
 const doneCount=d=>active().filter(h=>done(h,d)).length;
-const perfect=d=>(!state.flameFrom||d>=state.flameFrom)&&flameNeed()>0&&doneCount(d)>=flameNeed();
+const perfect=d=>(!state.flameFrom||d>=state.flameFrom)&&flameNeed()>0&&(doneCount(d)>=flameNeed()||!!(state.flameFix&&state.flameFix[d]));
 const flames=()=>streaks(perfect).cur;
 const TIERS=[
  {min:0,  k:'off',   c:['#5E656D','#8D949B'], n:['ยังไม่มีไฟ','No flame']},
@@ -1305,8 +1314,8 @@ function setFlame(){
 function renderTier(){
   const n=flames(),ti=tierOf(n),nx=TIERS[ti+1];
   $('p-fl').innerHTML=flameSVG(n);
-  $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+</i></span>`).join('')}</div>
-   <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):tr('ระดับสูงสุดแล้ว 👑','Top level reached 👑')}</p>`;
+  $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+ · ♻️${FIX_ALLOW[TIERS.indexOf(x)]}</i></span>`).join('')}</div>
+   <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${tr('กู้ไฟเมื่อพลาด: แดง 1 · ม่วง 2 · ฟ้า 4 · ทอง 7 ครั้ง','Restores when you miss: red 1 · purple 2 · blue 4 · gold 7')}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):tr('ระดับสูงสุดแล้ว 👑','Top level reached 👑')}</p>`;
 }
 const RC=2*Math.PI*52;
 function setRing(pct){
@@ -1316,7 +1325,7 @@ function setRing(pct){
 const PTOD={read:'night',learn:'day',english:'day',review:'night',plan:'morning',target:'day',nophone:'night',check:'night',water:'day',weight:'morning',zzz:'night',smoke:'day',money:'night',save:'day',ai:'day',rocket:'day',cardio:'morning',sleep:'night',mind:'morning',run:'morning'};
 const todOf=h=>h.tod||(h.remind?(+h.remind.slice(0,2)<12?'morning':+h.remind.slice(0,2)<18?'day':'night'):PTOD[h.iconKey]||'day');
 var formTod='day';const setFTod=()=>document.querySelectorAll('#f-tod button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===formTod));
-function renderHabits(){
+function renderHabits(){renderFix();
   const hr=new Date().getHours();
   const list=active().filter(h=>state.selectedGroup==='All'||h.group===state.selectedGroup);
   const n=list.filter(h=>done(h,sel)).length,pct=list.length?Math.round(n/list.length*100):0;
@@ -1847,6 +1856,28 @@ function renderPro(){
 }
 setTimeout(()=>proValidate(false),3000);
 $('t-pick').addEventListener('change',e=>{const v=e.target.value;if(!v)return;sel=v>today()?today():v;animList=true;renderWeek();renderHabits();haptic()});
+
+/* ===== Flame restore: red 1 · purple 2 · blue 4 · gold 7 restores per flame run ===== */
+const FIX_ALLOW=[0,1,2,4,7];
+function fixOffer(){
+  const t=today(),y=addDays(t,-1);let g=0,d=y;
+  while(g<8&&!perfect(d)){g++;d=addDays(d,-1)}
+  if(!g||g>7)return null;const end=d;let k=0,x=end;while(perfect(x)&&k<400){k++;x=addDays(x,-1)}
+  if(!k)return null;const start=addDays(end,-(k-1)),ti=tierOf(k);
+  const used=state.fixRun&&state.fixRun.start===start?state.fixRun.used:0,left=FIX_ALLOW[ti]-used;
+  if(state.fixSkip===y+'|'+start)return null;
+  return {g,k,ti,start,left,can:left>=g,days:[...Array(g)].map((_,i)=>addDays(y,-i))};
+}
+function renderFix(){const el=$('fixcard');if(!el)return;const o=sel===today()?fixOffer():null;if(!o){el.innerHTML='';return}
+  const T=TIERS[o.ti];
+  el.innerHTML=`<div class="fixc t-${T.k}"><div class="fxi">${flameSVG(o.k)}<span class="fxb">💔</span></div><div class="fxt"><b>${tr(`ไฟดับ! ${T.n[0]} ${o.k} วัน`,`Flame out! ${T.n[1]}, ${o.k} days`)}</b>
+    <small>${o.can?tr(`พลาด ${o.g} วัน · กู้ได้อีก ${o.left} ครั้ง (${T.n[0]}กู้ได้ ${FIX_ALLOW[o.ti]} ครั้ง)`,`Missed ${o.g} day${o.g>1?'s':''} · ${o.left} restore${o.left!==1?'s':''} left (${T.n[1].toLowerCase()}: ${FIX_ALLOW[o.ti]})`)
+      :tr(`พลาด ${o.g} วัน แต่กู้ได้อีกแค่ ${Math.max(0,o.left)} ครั้ง`,`Missed ${o.g} days but only ${Math.max(0,o.left)} restore${o.left===1?'':'s'} left`)}</small></div>
+    <div class="fxa">${o.can?`<button class="btn pri sm" data-act="fixFlame">${tr(`กู้ไฟ${o.g>1?` (${o.g} ครั้ง)`:''}`,`Restore${o.g>1?` (${o.g})`:''}`)}</button>`:''}<button class="link" data-act="fixSkip">${tr('ปล่อยไป','Let it go')}</button></div></div>`}
+function fixFlame(){const o=fixOffer();if(!o||!o.can)return;o.days.forEach(d=>state.flameFix[d]=1);
+  state.fixRun={start:o.start,used:(state.fixRun&&state.fixRun.start===o.start?state.fixRun.used:0)+o.g};flameUp=true;save();renderHabits();buzz();
+  if(window.confetti&&document.documentElement.dataset.motion!=='reduce')confetti({particleCount:50,spread:60,origin:{y:.25},colors:TIERS[tierOf(flames())].c});
+  toast(tr(`กู้ไฟสำเร็จ! 🔥 ${flames()} วัน`,`Flame restored! 🔥 ${flames()} days`))}
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
@@ -1926,6 +1957,7 @@ const ACT={
   openPro:()=>openPro(''),proPick:k=>{proPick=k;renderPro()},proAct:()=>proActivate($('pro-key').value),proCheck:()=>proValidate(true),proRemove,
   goTab:t=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());setTab(t)},
   tview:k=>{state.todoView=k;save();animList=true;renderHabits()},tgrp:g=>{state.todoCollapsed=state.todoCollapsed||{};state.todoCollapsed[g]=!state.todoCollapsed[g];save();renderHabits()},fTod:k=>{formTod=k;setFTod()},
+  fixFlame,fixSkip:()=>{const o=fixOffer();if(o){state.fixSkip=addDays(today(),-1)+'|'+o.start;save()}renderFix()},
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
   bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
