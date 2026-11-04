@@ -795,12 +795,17 @@ nav button[hidden]{display:none!important}
 @keyframes flick{50%{transform:scale(.9) rotate(-4deg);opacity:.75}}
 .fxt b{display:block;font-size:15px}.fxt small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px;line-height:1.4}
 .fxa{grid-column:2;display:flex;align-items:center;gap:12px;margin-top:6px}.fxa .btn{height:36px;padding:0 16px}.fxa .link{font-size:13px;color:var(--mute)!important}
+
+/* header without profile block: stats left, settings right */
+.top .hi[hidden]{display:none!important}
+.top .bar{justify-content:space-between}
+.top .tools{width:100%;justify-content:flex-start;gap:8px}.top .tools .gear{margin-left:auto}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <header class="top"><div class="bar">
-  <div class="hi"><button class="av" id="av" data-act="profile" aria-label="โปรไฟล์"></button><span class="hn"><small id="greet"></small><b id="hname"></b></span></div>
+  <div class="hi" hidden><button class="av" id="av" data-act="profile" aria-label="โปรไฟล์"></button><span class="hn"><small id="greet"></small><b id="hname"></b></span></div>
   <div class="tools">
     <button class="fl" id="fl" data-act="profile" title="ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง"><span id="fl-ic"></span><b id="hs">0</b></button>
     <button class="coins" data-act="tab" data-id="rewards" aria-label="เหรียญสะสม">🪙 <span id="coins">0</span></button>
@@ -953,7 +958,7 @@ nav button[hidden]{display:none!important}
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db">
     <button class="probar" id="s-pro" data-act="openPro"></button>
-    <div class="grp" style="margin-top:12px"><button class="set" data-act="goTab" data-id="rewards"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg></span>รางวัลและภารกิจ</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="focus"><span class="row sl"><span class="si" style="background:#5B9BF0"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg></span>โหมดโฟกัส</span><span class="chev">›</span></button></div>
+    <div class="grp" style="margin-top:12px"><button class="set" data-act="profile"><span class="row sl"><span class="si" style="background:#A98BEA"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.6"/><path d="M5 19.5c1.4-3.2 4-4.6 7-4.6s5.6 1.4 7 4.6"/></svg></span>โปรไฟล์</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="rewards"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg></span>รางวัลและภารกิจ</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="focus"><span class="row sl"><span class="si" style="background:#5B9BF0"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg></span>โหมดโฟกัส</span><span class="chev">›</span></button></div>
     <div class="grp" style="margin-top:12px"><button class="set" data-act="tool" data-id="overview" data-pro><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="goals" data-pro><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal" data-pro><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes" data-pro><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button></div>
     <h4>การตั้งค่า</h4>
     <div class="grp">
