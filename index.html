@@ -713,6 +713,25 @@ nav button svg{transition:transform .28s var(--spring),background-color .2s}nav 
 /* bottom nav: solid surface + a fade that hides content scrolling beneath it */
 nav{background:var(--surf)!important;-webkit-backdrop-filter:none;backdrop-filter:none;z-index:6}
 body::after{content:'';position:fixed;left:0;right:0;bottom:0;height:calc(96px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 0%,transparent),var(--bg) 42%);z-index:5;pointer-events:none}
+.probar{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border-radius:20px;text-align:left;color:#fff;background:linear-gradient(120deg,#2E9E74,#7B5BD6);box-shadow:0 10px 24px -12px rgba(90,90,200,.8)}
+.probar.on{background:linear-gradient(120deg,#3A2E12,#6B4E12);color:#FFE7A8}
+.pb-ic{font-size:26px}.pb-t{flex:1;min-width:0}.pb-t b{display:block;font-size:15px}.pb-t small{display:block;font-size:12px;opacity:.9}
+.pb-go{background:rgba(255,255,255,.22);padding:6px 12px;border-radius:99px;font-weight:700;font-size:13px}.probar .chev{color:inherit}
+[data-pro].locked>.row.sl::after{content:'🔒';font-size:12px;margin-left:4px}
+.prohero{text-align:center;padding:22px 16px;border-radius:24px;background:linear-gradient(140deg,#E9FBF3,#F1EAFF);margin-bottom:12px}[data-theme=dark] .prohero{background:linear-gradient(140deg,#1F3A30,#30264D)}
+.prohero.on{background:linear-gradient(140deg,#FFF4DA,#F6EAFF)}[data-theme=dark] .prohero.on{background:linear-gradient(140deg,#40371F,#352B55)}
+.crown{font-size:42px;animation:bob 2.2s ease-in-out infinite}.prohero b{display:block;font-size:20px;font-weight:800;margin-top:4px}.prohero small{display:block;color:var(--mute);font-size:13px;margin-top:4px}
+.pfeat{list-style:none;margin:0;padding:6px 14px;background:var(--surf);border-radius:20px;box-shadow:var(--sh)}
+.pfeat li{display:grid;grid-template-columns:28px 1fr auto;align-items:center;column-gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}.pfeat li:last-child{border:0}
+.pfeat li>span{font-size:18px}.pfeat b{font-size:14px;font-weight:600}.pfeat small{grid-column:2;font-size:11.5px;color:var(--mute)}.pfeat i{grid-row:1;grid-column:3;font-style:normal;color:var(--accT);font-weight:800}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.plan{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:18px 6px 12px;border-radius:18px;background:var(--surf);box-shadow:var(--sh);border:2px solid transparent}
+.plan.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,var(--surf));transform:translateY(-3px)}
+.plan em{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:#7B5BD6;color:#fff}
+.plan b{font-size:13px}.plan .pp{font-size:20px;font-weight:800}.plan small{font-size:11px;color:var(--mute)}
+.pbuy{display:flex;align-items:center;justify-content:center;width:100%;height:50px;margin-top:14px;font-size:15.5px;text-decoration:none}
+.pkey{display:flex;gap:8px;margin-top:6px}.pkey .in{flex:1;font-family:ui-monospace,Menlo,monospace!important;text-transform:uppercase;font-size:14px!important}.pkey .btn{flex:none}
+#pr-body .grp .set b,#pr-body code{font-weight:700}#pr-body a.set{text-decoration:none;color:inherit}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -858,10 +877,16 @@ body::after{content:'';position:fixed;left:0;right:0;bottom:0;height:calc(96px +
   <div class="db" id="gg-body"></div>
 </dialog>
 
+<dialog id="d-pro" class="full" aria-labelledby="pr-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h3 id="pr-title">HabitFlow Pro</h3><span style="width:36px;flex:none"></span></div>
+  <div class="db" id="pr-body"></div>
+</dialog>
+
 <dialog id="d-settings" aria-labelledby="ds-title">
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db">
-    <div class="grp" style="margin-top:4px"><button class="set" data-act="tool" data-id="overview"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="goals"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes"><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button></div>
+    <button class="probar" id="s-pro" data-act="openPro"></button>
+    <div class="grp" style="margin-top:12px"><button class="set" data-act="tool" data-id="overview" data-pro><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="goals" data-pro><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal" data-pro><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes" data-pro><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button></div>
     <h4>การตั้งค่า</h4>
     <div class="grp">
       <div class="set"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></svg></span>ภาษา</span><div class="seg" id="s-lang"><button data-act="lang" data-id="th">ไทย</button><button data-act="lang" data-id="en">EN</button></div></div>
@@ -881,8 +906,8 @@ body::after{content:'';position:fixed;left:0;right:0;bottom:0;height:calc(96px +
     </div>
     <h4>ข้อมูล</h4>
     <div class="grp">
-      <button class="set" data-act="openGoogle"><span class="row sl"><span class="si" style="background:#fff;box-shadow:inset 0 0 0 1px #E3E3E8"><svg viewBox="0 0 48 48" style="stroke:none"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></span><span><span class="gtl">สำรองด้วย Google</span><small class="m" id="s-gsub" style="display:block;font-size:11.5px"></small></span></span><span class="chev">›</span></button>
-      <button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
+      <button class="set" data-act="openGoogle" data-pro><span class="row sl"><span class="si" style="background:#fff;box-shadow:inset 0 0 0 1px #E3E3E8"><svg viewBox="0 0 48 48" style="stroke:none"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></span><span><span class="gtl">สำรองด้วย Google</span><small class="m" id="s-gsub" style="display:block;font-size:11.5px"></small></span></span><span class="chev">›</span></button>
+      <button class="set" data-act="openRemind" data-pro><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
       <button class="set" data-act="syncOut"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></span>ส่งข้อมูลไปเครื่องอื่น</span><span class="chev">›</span></button>
       <button class="set" data-act="syncIn"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><path d="M8 7l4-4 4 4M12 3v12M5 13v6h14v-6"/></svg></span>รวมข้อมูลจากเครื่องอื่น</span><span class="chev">›</span></button><input type="file" id="sync-file" accept=".json,application/json" hidden>
       <button class="set" data-act="export"><span class="row sl"><span class="si" style="background:#2FB283"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>สำรองข้อมูล</span><span class="chev">›</span></button>
@@ -966,7 +991,7 @@ function normalize(p){
   s.selectedGroup='All';
   if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
   s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
-  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.pro||typeof s.pro!=='object')s.pro=null;if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
   s.version=VER;return s;
 }
 let state;
@@ -1338,6 +1363,7 @@ function openHabitForm(id){
 }
 function saveHabit(){
   const id=$('f-id').value,name=$('f-name').value.trim();
+  if(!id&&!canAddHabit())return;
   if(!name){toast(tr('กรุณากรอกชื่อกิจกรรม','Please enter a habit name'),true);$('f-name').focus();return}
   const target=Math.max(1,parseInt($('f-target').value)||1),unit=$('f-unit').value.trim()||tr('ครั้ง','times'),group=$('f-group').value||(state.groups[0]||'สุขภาพ');
   if(id){const h=state.habits.find(x=>x.id===id);if(h){if(h.iconKey!==formIcon)h.color=colorFor(formIcon);Object.assign(h,{title:name,group,target,unit,iconKey:formIcon,remind:$('f-remind').value})}}
@@ -1367,7 +1393,7 @@ function claim(id){
 
 /* settings */
 function renderSettings(){
-  renderHabitList();renderGoogleUI();$('s-hcount').textContent=active().length;$('s-gcount').textContent=state.goals.length;$('s-rcount').textContent=active().filter(h=>h.remind).length;$('s-ncount').textContent=state.notesList.length;
+  renderHabitList();renderGoogleUI();renderPro();$('s-hcount').textContent=active().length;$('s-gcount').textContent=state.goals.length;$('s-rcount').textContent=active().filter(h=>h.remind).length;$('s-ncount').textContent=state.notesList.length;
   document.querySelectorAll('#s-week button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.id==='1')===state.startWeekOnSunday));
   $('s-sound').setAttribute('aria-checked',state.soundEnabled);$('s-hap').setAttribute('aria-checked',state.hapticEnabled);
   $('p-streak').textContent=flames();renderTier();$('p-coins').textContent=state.coins;$('p-lv').textContent=Math.floor(state.totalEarned/10)+1;
@@ -1687,6 +1713,68 @@ document.addEventListener('pointerdown',e=>{if(document.documentElement.dataset.
   const r=t.getBoundingClientRect(),sz=Math.max(r.width,r.height)*1.6,rp=document.createElement('span');rp.className='rip';
   rp.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
   if(t.matches('.av,.ib,.wb,.x,.fl,.coins,.grip,.plus'))return;if(getComputedStyle(t).position==='static')t.style.position='relative';const ov=t.style.overflow;t.style.overflow='hidden';t.appendChild(rp);setTimeout(()=>{rp.remove();t.style.overflow=ov},600)},{passive:true});
+
+/* ===== HabitFlow Pro: in-app unlock (monthly / yearly / lifetime) via Lemon Squeezy license keys ===== */
+const PRO_CFG={                      // ← fill in after creating products in Lemon Squeezy
+  checkout:{monthly:'',yearly:'',lifetime:''},          // checkout URLs (Share → Checkout link)
+  price:{monthly:'฿49',yearly:'฿390',lifetime:'฿990'},  // shown in the app
+  portal:'https://app.lemonsqueezy.com/my-orders'};
+const FREE_HABITS=5,GRACE=10*864e5,RECHECK=3*864e5;
+const LS='https://api.lemonsqueezy.com/v1/licenses/';
+const PRO_FEATS=[['♾️','กิจวัตรไม่จำกัด','Unlimited habits',`ฟรีได้ ${FREE_HABITS} อย่าง`,`Free: ${FREE_HABITS}`],['☁️','สำรองและซิงก์ด้วย Google','Google backup & sync','',''],['📊','ภาพรวมทั้งหมดแบบกราฟ','Full overview dashboard','',''],['🎯','เป้าหมาย','Goals','',''],['📔','บันทึกประจำวัน','Journal','',''],['📝','โน้ต','Notes','',''],['⏰','แจ้งเตือนตามเวลา + ปฏิทิน','Timed reminders + Calendar','','']];
+function isPro(){const p=state.pro;if(!p||p.status!=='active')return false;
+  if(p.exp&&Date.now()>new Date(p.exp).getTime())return false;
+  if(Date.now()-(p.checked||0)>GRACE&&p.plan!=='lifetime')return false;return true}
+const planOf=(meta,lk)=>{const v=((meta&&meta.variant_name)||'')+' '+((meta&&meta.product_name)||'');
+  if(/life|ถาวร|forever|one/i.test(v)||!lk.expires_at)return /month|เดือน/i.test(v)?'monthly':/year|annual|ปี/i.test(v)?'yearly':'lifetime';
+  return /year|annual|ปี/i.test(v)?'yearly':'monthly'};
+async function lsPost(ep,body){const r=await fetch(LS+ep,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(body)});
+  let j={};try{j=await r.json()}catch(e){}return j}
+async function proActivate(key){
+  key=key.trim();if(key.length<8){toast(tr('คีย์ไม่ถูกต้อง','Invalid key'),true);return}
+  proBusy=true;renderPro();
+  try{const j=await lsPost('activate',{license_key:key,instance_name:'HabitFlow · '+(navigator.platform||'web')+' · '+new Date().toISOString().slice(0,10)});
+    if(!j.activated&&!(j.license_key&&j.license_key.status==='active')){throw new Error(j.error||'invalid')}
+    const lk=j.license_key||{};state.pro={key,instance:j.instance&&j.instance.id||'',status:lk.status||'active',exp:lk.expires_at||null,plan:planOf(j.meta,lk),checked:Date.now()};
+    save();renderPro();renderSettings();buzz();if(window.confetti&&document.documentElement.dataset.motion!=='reduce')confetti({particleCount:90,spread:80,origin:{y:.7}});toast(tr('ปลดล็อก Pro แล้ว ขอบคุณที่สนับสนุน 💚','Pro unlocked — thank you for your support 💚'))}
+  catch(e){proErr=e.message;toast(proMsg(e.message),true)}finally{proBusy=false;renderPro()}
+}
+async function proValidate(force){const p=state.pro;if(!p||!p.key)return;if(!force&&Date.now()-(p.checked||0)<RECHECK)return;
+  try{const j=await lsPost('validate',{license_key:p.key,instance_id:p.instance||''});if(j&&j.license_key){p.status=j.valid?j.license_key.status:(j.license_key.status||'inactive');p.exp=j.license_key.expires_at||null;p.checked=Date.now();save();renderSettings();renderPro()}
+    else if(j&&j.error&&/not found|invalid/i.test(j.error)){p.status='invalid';save();renderSettings()}}catch(e){/* offline: keep within grace */}}
+async function proRemove(){if(!await ask(tr('ยกเลิกการใช้คีย์บนเครื่องนี้? (ใช้คีย์เดิมกับเครื่องอื่นได้)','Remove the key from this device? (You can use it on another device)'),tr('ยกเลิกคีย์','Remove key')))return;
+  const p=state.pro;try{if(p&&p.instance)await lsPost('deactivate',{license_key:p.key,instance_id:p.instance})}catch(e){}state.pro=null;save();renderPro();renderSettings();toast(tr('นำคีย์ออกแล้ว','Key removed'))}
+var proBusy=false,proErr='',proPick='yearly';
+const proMsg=m=>/limit/i.test(m)?tr('คีย์นี้ใช้ครบจำนวนเครื่องแล้ว','This key has reached its device limit'):/expired/i.test(m)?tr('คีย์หมดอายุแล้ว','This key has expired'):/disabled/i.test(m)?tr('คีย์ถูกปิดใช้งาน','This key is disabled'):/fetch|network/i.test(m)?tr('เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต','Could not connect — check your internet'):tr('คีย์ไม่ถูกต้อง ตรวจอีกครั้ง','Key not recognised — please check it');
+function canAddHabit(){if(isPro()||active().length<FREE_HABITS)return true;openPro('habits');return false}
+function openPro(feat){proFeat=feat||'';if(!$('d-pro').open)$('d-pro').showModal();renderPro()}
+var proFeat='';
+function renderPro(){
+  const bar=$('s-pro');if(bar){const on=isPro(),p=state.pro;bar.className='probar'+(on?' on':'');
+    bar.innerHTML=on?`<span class="pb-ic">👑</span><span class="pb-t"><b>HabitFlow Pro</b><small>${{monthly:tr('รายเดือน','Monthly'),yearly:tr('รายปี','Yearly'),lifetime:tr('ถาวร','Lifetime')}[p.plan]}${p.exp?' · '+tr('ถึง','until')+' '+new Date(p.exp).toLocaleDateString(state.lang==='en'?'en-GB':'th-TH',{day:'numeric',month:'short',year:'numeric'}):''}</small></span><span class="chev">›</span>`
+      :`<span class="pb-ic">✨</span><span class="pb-t"><b>${tr('อัปเกรดเป็น Pro','Upgrade to Pro')}</b><small>${tr('ซิงก์ Google · ไม่จำกัดกิจวัตร · เป้าหมาย & บันทึก','Google sync · unlimited habits · goals & journal')}</small></span><span class="pb-go">${tr('ดู','View')}</span>`}
+  document.querySelectorAll('[data-pro]').forEach(e=>e.classList.toggle('locked',!isPro()));
+  const b=$('pr-body');if(!b||!$('d-pro').open&&!proBusy)return;
+  const P=PRO_CFG,on=isPro(),st=state.pro;
+  const fname={habits:tr(`ฟรีเพิ่มกิจวัตรได้ ${FREE_HABITS} อย่าง`,`Free plan includes ${FREE_HABITS} habits`),google:tr('สำรองด้วย Google เป็นฟีเจอร์ Pro','Google backup is a Pro feature'),overview:tr('ภาพรวมทั้งหมดเป็นฟีเจอร์ Pro','The overview is a Pro feature'),goals:tr('เป้าหมายเป็นฟีเจอร์ Pro','Goals are a Pro feature'),journal:tr('บันทึกประจำวันเป็นฟีเจอร์ Pro','Journal is a Pro feature'),notes:tr('โน้ตเป็นฟีเจอร์ Pro','Notes are a Pro feature'),remind:tr('แจ้งเตือนตามเวลาเป็นฟีเจอร์ Pro','Reminders are a Pro feature')}[proFeat];
+  if(on){b.innerHTML=`<div class="prohero on"><div class="crown">👑</div><b>${tr('คุณเป็นสมาชิก Pro','You\'re a Pro member')}</b><small>${tr('ขอบคุณที่สนับสนุนการพัฒนาแอป','Thank you for supporting HabitFlow')}</small></div>
+    <div class="grp" style="margin-top:12px"><div class="set"><span>${tr('แพ็กเกจ','Plan')}</span><b>${{monthly:tr('รายเดือน','Monthly'),yearly:tr('รายปี','Yearly'),lifetime:tr('ถาวร','Lifetime')}[st.plan]}</b></div>
+     <div class="set"><span>${st.plan==='lifetime'?tr('สถานะ','Status'):tr('ต่ออายุ / หมดอายุ','Renews / expires')}</span><b>${st.plan==='lifetime'?tr('ใช้ได้ตลอดไป','Forever'):st.exp?new Date(st.exp).toLocaleDateString(state.lang==='en'?'en-GB':'th-TH',{day:'numeric',month:'short',year:'numeric'}):tr('ต่ออายุอัตโนมัติ','Auto-renews')}</b></div>
+     <div class="set"><span>${tr('คีย์','Key')}</span><code>${esc(st.key.slice(0,4)+'••••'+st.key.slice(-4))}</code></div>
+     <a class="set" href="${P.portal}" target="_blank" rel="noopener"><span>${tr('จัดการการสมัคร / ใบเสร็จ','Manage subscription / receipts')}</span><span class="chev">›</span></a>
+     <button class="set" data-act="proCheck"><span>${tr('ตรวจสอบสถานะอีกครั้ง','Refresh status')}</span><span class="chev">↻</span></button>
+     <button class="set" data-act="proRemove"><span class="gout">${tr('นำคีย์ออกจากเครื่องนี้','Remove key from this device')}</span></button></div>`;return}
+  const plans=[['monthly',tr('รายเดือน','Monthly'),tr('/เดือน','/month'),''],['yearly',tr('รายปี','Yearly'),tr('/ปี','/year'),tr('คุ้มสุด · ประหยัด ~34%','Best value · save ~34%')],['lifetime',tr('ถาวร','Lifetime'),tr('จ่ายครั้งเดียว','one-time'),tr('ใช้ได้ตลอดไป','Yours forever')]];
+  const link=P.checkout[proPick];
+  b.innerHTML=`<div class="prohero"><div class="crown">✨</div><b>HabitFlow Pro</b><small>${fname?esc(fname)+' · ':''}${tr('ปลดล็อกเครื่องมือพัฒนาตัวเองครบชุด','Unlock the complete self-growth toolkit')}</small></div>
+   <ul class="pfeat">${PRO_FEATS.map(f=>`<li><span>${f[0]}</span><b>${tr(f[1],f[2])}</b>${f[3]?`<small>${tr(f[3],f[4])}</small>`:''}<i>✓</i></li>`).join('')}</ul>
+   <div class="plans" role="radiogroup" aria-label="${tr('เลือกแพ็กเกจ','Choose a plan')}">${plans.map(([k,n,per,tag])=>`<button class="plan${proPick===k?' on':''}" role="radio" aria-checked="${proPick===k}" data-act="proPick" data-id="${k}">${tag?`<em>${tag}</em>`:''}<b>${n}</b><span class="pp">${P.price[k]}</span><small>${per}</small></button>`).join('')}</div>
+   ${link?`<a class="btn pri pbuy" href="${esc(link)}" target="_blank" rel="noopener">${tr('ซื้อแพ็กเกจ','Buy')} ${plans.find(x=>x[0]===proPick)[1]} · ${P.price[proPick]}</a>`:`<div class="rwarn" style="margin-top:12px"><small class="m">${tr('ยังไม่เปิดขาย (ผู้พัฒนายังไม่ได้ใส่ลิงก์ชำระเงิน)','Not on sale yet — checkout links have not been set')}</small></div>`}
+   <p class="hhint" style="text-align:center;margin-top:8px">${tr('หลังชำระเงิน คุณจะได้รับคีย์ทางอีเมล นำมาใส่ด้านล่าง','After paying you\'ll receive a key by email — enter it below')}</p>
+   <div class="pkey"><input class="in" id="pro-key" placeholder="${tr('ใส่คีย์ เช่น XXXX-XXXX-XXXX','Enter key, e.g. XXXX-XXXX-XXXX')}" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="${tr('คีย์ปลดล็อก','License key')}"><button class="btn" data-act="proAct"${proBusy?' disabled':''}>${proBusy?tr('กำลังตรวจ…','Checking…'):tr('ปลดล็อก','Unlock')}</button></div>
+   <p class="hhint" style="text-align:center">${tr('รายเดือน/รายปี ยกเลิกได้ทุกเมื่อ · ฟีเจอร์ฟรีใช้ได้ตลอด ข้อมูลของคุณไม่หายเมื่อหมดอายุ','Cancel monthly/yearly anytime · Free features stay free · Your data is never lost when a plan ends')}</p>`;
+}
+setTimeout(()=>proValidate(false),3000);
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
@@ -1696,6 +1784,7 @@ function renderHPick(){
 function addPreset(k){
   for(const [g,items] of HPRE){const it=items.find(x=>x[0]===k);if(!it)continue;
     if(active().some(h=>h.title===it[1]||h.title===it[2])){toast(tr('มีกิจวัตรนี้แล้ว','Already added'));return}
+    if(!canAddHabit())return;
     const title=tr(it[1],it[2]);if(!state.groups.includes(g[0]))state.groups.push(g[0]);
     state.habits.push({id:'h_'+Date.now(),title,group:g[0],target:1,unit:tr('ครั้ง','times'),iconKey:k,color:ICONS[k].c,archived:false,logs:{},notes:{}});
     save();haptic();renderAll();renderHPick();toast(tr(`เพิ่ม "${title}" แล้ว`,`Added "${title}"`));return}
@@ -1762,6 +1851,7 @@ const ACT={
   gSaveCid:()=>{const v=$('g-cid').value.trim();if(!/\.apps\.googleusercontent\.com$/.test(v)){toast(tr('Client ID ไม่ถูกต้อง','Invalid Client ID'),true);return}store.set('habitflow_gcid',v);renderGoogleUI();toast(tr('บันทึกแล้ว','Saved'))},
   gResetCid:()=>{store.set('habitflow_gcid','');renderGoogleUI()},
   checkIn:(id,el)=>checkIn(el),claimQ:(id,el)=>claimQ(id,el),openChest:(id,el)=>openChest(el),
+  openPro:()=>openPro(''),proPick:k=>{proPick=k;renderPro()},proAct:()=>proActivate($('pro-key').value),proCheck:()=>proValidate(true),proRemove,
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
   bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
@@ -1799,6 +1889,10 @@ const ACT={
   reset:async()=>{if(await ask(tr('รีเซ็ตข้อมูลทั้งหมดกลับเป็นค่าเริ่มต้น? การกระทำนี้ย้อนกลับไม่ได้','Reset all data to defaults? This cannot be undone'),tr('รีเซ็ต','Reset'))){store.del(KEY);state=normalize(null);sel=today();applyTheme();$('d-settings').close();renderAll();toast(tr('รีเซ็ตข้อมูลแล้ว','Data reset'))}},
   close:(_,el)=>el.closest('dialog').close()
 };
+/* Pro gates (free features stay untouched) */
+(()=>{const gate=(k,feat,test)=>{const f=ACT[k];ACT[k]=(...a)=>(isPro()||(test&&!test(...a)))?f(...a):openPro(typeof feat==='function'?feat(...a):feat)};
+  gate('tool',id=>id);gate('openGoogle','google');gate('openRemind','remind');gate('toolGo',id=>id);
+  const ah=ACT.addHabit;ACT.addHabit=(...a)=>{if(!isPro()&&active().length>=FREE_HABITS)return openPro('habits');ah(...a)};})();
 document.addEventListener('click',e=>{
   if(e.target.tagName==='DIALOG'&&!['d-confirm','d-note'].includes(e.target.id)){e.target.close();return}
   const t=e.target.closest('[data-act]');if(t&&ACT[t.dataset.act])ACT[t.dataset.act](t.dataset.id,t);
