@@ -614,6 +614,41 @@ dialog{background:var(--bg)}dialog.full{border-radius:30px 30px 0 0}
 .fc{border-radius:22px;box-shadow:var(--sh)}
 .seg{border-radius:99px}.seg button{border-radius:99px;font-weight:700}
 .empty{color:var(--mute);font-weight:600}
+
+/* ============ UNIVERSAL DESIGN (WCAG 2.2 AA) ============ */
+:root{--mute:#62667D;--coin:#8A5A00;--accT:#1E8660;--lavT:#6F4FCF}
+.mcell.now i{background:var(--accT)!important;color:#fff}.fsum b,.fsum strong{color:var(--accT)!important}[data-theme=dark] .mcell.now i{background:#1E8660!important}
+[data-theme=dark]{--mute:#B3AFCB;--coin:#F5C35C;--accT:#7EE0B8;--lavT:#C8B2FF}
+.coins{color:var(--coin)!important}.cost,.bal,.big-coin{color:var(--coin)!important}
+.day.today span,.day[aria-pressed=true] span{color:var(--lavT)!important}
+.day[aria-pressed=true] b,.ring .rc small{background:linear-gradient(120deg,var(--accT),var(--lavT));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav button[aria-current=page],.link,.mback,.pick.hp.on .m,.gp,.cch .link,.ncard .m[style*=acc]{color:var(--accT)!important}
+.hs{color:#B4471A}[data-theme=dark] .hs{color:#FFB38F}
+.fl.t-red{color:#C93A1A}.fl.t-purple{color:#7B3FD6}.fl.t-blue{color:#1466C9}.fl.t-gold{color:#9A6A00}.fl.t-off{color:var(--mute)}
+[data-theme=dark] .fl.t-red{color:#FF8A66}[data-theme=dark] .fl.t-purple{color:#CFA6FF}[data-theme=dark] .fl.t-blue{color:#7CC3FF}[data-theme=dark] .fl.t-gold{color:#FFD36B}
+.btn.pri{background:linear-gradient(120deg,#2E9E74,#7B5BD6)}
+/* larger hit areas (≥44px) without changing the look */
+.av,.ib,.wb,.x,.fl,.coins,.day,.mcell[data-act],.grip{position:relative}
+.av::before,.ib::before,.wb::before,.x::before,.fl::before,.coins::before{content:'';position:absolute;inset:-7px}
+.wb::before{inset:-10px -12px}
+/* keyboard focus is always visible */
+:focus-visible{outline:3px solid var(--lavT)!important;outline-offset:2px;border-radius:12px}
+/* high contrast */
+[data-contrast=high]{--mute:#3A3D52;--line:#9A97B0;--plus:#6E6A88;--plusI:#3A3D52;--soft:#E2DEF0}
+[data-contrast=high][data-theme=dark]{--mute:#E2DFF0;--line:#8A86A6;--plus:#B3AFCB;--plusI:#E2DFF0;--soft:#45405F;--surf:#141220;--bg:#000}
+[data-contrast=high] .item.hb,[data-contrast=high] .card,[data-contrast=high] .ccard,[data-contrast=high] .grp,[data-contrast=high] .kpi,[data-contrast=high] .fc,[data-contrast=high] .hero{box-shadow:none!important;outline:2px solid var(--line);outline-offset:-2px}
+[data-contrast=high] .spark,[data-contrast=high] .hero::before,[data-contrast=high] .hero::after{display:none}
+[data-contrast=high] .ring .rc small,[data-contrast=high] .day[aria-pressed=true] b{background:none;color:var(--ink)}
+[data-contrast=high] .hb.ok .plus{outline:2px solid var(--ink)}
+/* reduce motion */
+[data-motion=reduce] *,[data-motion=reduce] *::before,[data-motion=reduce] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+[data-motion=reduce] .spark{display:none}
+/* text labels on round buttons */
+.plus .pl{display:none}
+[data-labels=on] .plus{width:auto!important;min-width:52px;border-radius:99px!important;padding:0 10px;gap:4px;display:inline-flex;align-items:center;justify-content:center}
+[data-labels=on] .plus .pl{display:inline;font-size:12px;font-weight:800}
+[data-labels=on] .plus svg{width:16px;height:16px}
+#s-size button{min-width:40px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -629,7 +664,7 @@ dialog{background:var(--bg)}dialog.full{border-radius:30px 30px 0 0}
 
 <main>
 <section id="tab-habits">
-  <div class="hero"><div class="ring" id="flow" role="img" aria-label="ความคืบหน้าวันนี้"></div><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span></div>
+  <div class="hero"><div class="ring" id="flow" role="img" aria-label="ความคืบหน้าวันนี้"></div><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><span class="spark s1" aria-hidden="true">✦</span><span class="spark s2" aria-hidden="true">✧</span><span class="spark s3" aria-hidden="true">✦</span></div>
   <div class="tabs" id="groups" hidden></div>
   <div class="list" id="habits"></div>
 </section>
@@ -766,6 +801,13 @@ dialog{background:var(--bg)}dialog.full{border-radius:30px 30px 0 0}
     </div>
     <div id="s-groups" hidden></div>
     <div hidden><input id="s-newgroup"></div>
+    <h4>การเข้าถึง</h4>
+    <div class="grp">
+      <div class="set"><span class="row sl"><span class="si" style="background:#6E6BDE"><svg viewBox="0 0 24 24"><path d="M4 19 9 5l5 14M6 14h6M15 19l3-8 3 8M16 16.5h4"/></svg></span>ขนาดตัวอักษร</span><div class="seg" id="s-size" role="group" aria-label="ขนาดตัวอักษร"><button data-act="a11ySize" data-id="0" aria-label="เล็ก">A-</button><button data-act="a11ySize" data-id="1" aria-label="ปกติ">A</button><button data-act="a11ySize" data-id="2" aria-label="ใหญ่">A+</button><button data-act="a11ySize" data-id="3" aria-label="ใหญ่มาก">A++</button></div></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#2B2D42"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="#fff"/></svg></span>คอนทราสต์สูง</span><button class="sw" id="s-hc" role="switch" data-act="a11yT" data-id="contrast" aria-label="คอนทราสต์สูง"></button></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><path d="M4 12h4l2-5 4 10 2-5h4"/></svg></span>ลดการเคลื่อนไหว</span><button class="sw" id="s-rm" role="switch" data-act="a11yT" data-id="motion" aria-label="ลดการเคลื่อนไหว"></button></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span>แสดงข้อความบนปุ่ม</span><button class="sw" id="s-lb" role="switch" data-act="a11yT" data-id="labels" aria-label="แสดงข้อความบนปุ่ม"></button></div>
+    </div>
     <h4>ข้อมูล</h4>
     <div class="grp">
       <button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
@@ -852,7 +894,7 @@ function normalize(p){
   s.selectedGroup='All';
   if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
   s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
-  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
   s.version=VER;return s;
 }
 let state;
@@ -881,7 +923,7 @@ const tn=x=>{x=String(x??'');return state&&state.lang==='en'?(N_EN[x]||x):(N_TH[
 const PRE_EN={'ของรางวัลเล็ก ๆ':'Small treats','รางวัลดี ๆ':'Nice rewards','รางวัลใหญ่':'Big rewards','รางวัลในฝัน':'Dream rewards'};
 const MOOD_N={happy:['มีความสุข','Happy'],calm:['สงบ','Calm'],excited:['ตื่นเต้น','Excited'],tired:['เหนื่อย','Tired'],sad:['เศร้า','Sad'],anxious:['กังวล','Anxious']};
 const FCAT_N={work:'Work',study:'Study',read:'Reading',focus:'Focus',exercise:'Exercise',walk:'Walk',cook:'Cooking',rest:'Rest',sleep:'Sleep',game:'Gaming',fun:'Entertainment',skin:'Skincare',baby:'Childcare',family:'Family'};
-const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
+const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
 const I18N=[];
 function collectStatic(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
@@ -921,9 +963,9 @@ $('c-no').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(fal
 $('d-confirm').addEventListener('cancel',()=>confirmResolve&&confirmResolve(false));
 function toast(msg,err){
   document.querySelectorAll('.toast').forEach(t=>t.remove());
-  const t=document.createElement('div');t.className='toast'+(err?' err':'');t.setAttribute('popover','manual');t.setAttribute('role','status');t.textContent=msg;
+  const t=document.createElement('div');t.className='toast'+(err?' err':'');t.setAttribute('popover','manual');t.setAttribute('role',err?'alert':'status');t.setAttribute('aria-live',err?'assertive':'polite');t.textContent=msg;
   document.body.appendChild(t);try{t.showPopover()}catch(e){}
-  setTimeout(()=>t.remove(),2400);
+  setTimeout(()=>t.remove(),err?4000:(state.a11y&&state.a11y.size>1?3600:2600));
 }
 /* real haptics: Vibration API on Android; on iPhone (iOS 18+) toggling a native <input switch> fires the Taptic Engine */
 const canVib=typeof navigator.vibrate==='function'&&!/iP(hone|ad|od)/.test(navigator.userAgent);
@@ -951,9 +993,15 @@ function applyTheme(){
   const dark=state.theme==='system'?mq.matches:state.theme!=='light';
   document.documentElement.dataset.theme=dark?'dark':'light';
   document.querySelector('meta[name=theme-color]').content=dark?'#1D1B2B':'#F6F4FC';
-  $('s-theme').value=state.theme;
+  $('s-theme').value=state.theme;applyA11y();
 }
-mq.addEventListener('change',applyTheme);
+/* Universal design: text size, high contrast, reduce motion, text labels on icons */
+const ZOOMS=[.9,1,1.15,1.3];
+function applyA11y(){const a=state.a11y||{},r=document.documentElement;
+  r.style.zoom=ZOOMS[a.size??1];r.dataset.contrast=a.contrast?'high':'';r.dataset.motion=a.motion||matchMedia('(prefers-reduced-motion: reduce)').matches?'reduce':'';r.dataset.labels=a.labels?'on':'';
+  const q=(id,v)=>{const e=$(id);if(e)e.setAttribute('aria-checked',!!v)};q('s-hc',a.contrast);q('s-rm',a.motion);q('s-lb',a.labels);
+  document.querySelectorAll('#s-size button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.id===(a.size??1)));}
+mq.addEventListener('change',applyTheme);matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',applyA11y);
 
 /* habits tab */
 let sel=today(),tab='habits',mode='heatmap',detailId=null,detailMonth=null,statsMonth=null,formIcon='weight',rtab='active';
@@ -1120,7 +1168,7 @@ function renderHabits(){
   $('day-sub').textContent=list.length?tr(`สำเร็จ ${n} จาก ${list.length}`,`${n} of ${list.length} completed`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
   $('habits').classList.toggle('anim',animList);animList=false;
   $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
-    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}${(()=>{const k=streaks(d=>done(h,d)).cur;return k?` <span class="hs">🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}</span>`:''})()}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
+    return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}${(()=>{const k=streaks(d=>done(h,d)).cur;return k?` <span class="hs">🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}</span>`:''})()}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${state.a11y&&state.a11y.labels?`<span class="pl">${ok?tr('เสร็จ','Done'):tr('ทำ','Do')}</span>`:''}${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
   :`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`;
   popId=null;
 }
@@ -1526,6 +1574,7 @@ const ACT={
   tool:k=>{toolName=k;toolEdit=null;renderTool();$('d-tool').showModal()},toolBack:()=>{if(toolEdit!==null){toolEdit=null;renderTool()}else $('d-tool').close()},toolAdd:()=>{toolEdit='new';renderTool()},
   tSave:()=>toolSave(),tDel:()=>toolDel(),tOpen:id=>{toolEdit=id;renderTool()},gStep:(id,el)=>goalStep(id,+el.dataset.d),jMood:k=>{jMood=jMood===k?'':k;document.querySelectorAll('.jm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===jMood))},
   openRemind:()=>{renderRemind();$('d-remind').showModal()},askNotif:async()=>{try{await Notification.requestPermission()}catch(e){}renderRemind()},icsOut,syncOut,syncIn:()=>$('sync-file').click(),
+  a11ySize:v=>{state.a11y.size=+v;save();applyA11y();haptic()},a11yT:k=>{state.a11y[k]=!state.a11y[k];save();applyA11y();haptic();if(k==='labels')renderHabits()},
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
   bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
