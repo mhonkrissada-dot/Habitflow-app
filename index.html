@@ -742,6 +742,21 @@ nav button[hidden]{display:none!important}
 .hpct{font-size:26px;font-weight:700;letter-spacing:-.02em;color:var(--accT)}
 .hbar{grid-column:1/-1;height:10px;border-radius:99px;background:var(--soft);overflow:hidden;margin-top:8px}
 .hbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#4FBF94,#A98BEA);transition:width .6s var(--spring)}
+
+/* ===== v4.4 · Today header (replaces week strip) ===== */
+#week{display:none!important}
+.top{padding-bottom:4px;border-bottom:0}
+.thead{margin:6px 2px 12px}
+.thead h1{font-size:32px;font-weight:700;letter-spacing:-.03em;margin:0;line-height:1.1}
+.tdrow{display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+.tdate{position:relative;display:inline-flex;align-items:center;gap:2px;color:var(--mute);font-size:15px;font-weight:500;cursor:pointer;min-height:32px}
+.tdate svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tdate input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer;font-size:16px!important}
+.tback{font-size:13px;font-weight:600;color:var(--accT);padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--acc) 12%,transparent);min-height:32px}
+.hero.slim #day-title{display:none}
+.hero.slim .sub{font-size:15px;font-weight:600;color:var(--ink);margin:0}
+.hero.slim .hpct{font-size:15px;font-weight:600;color:var(--mute)}
+.hero.slim .hbar{height:6px;margin-top:10px}.hero.slim .hbar i{background:linear-gradient(90deg,#F2A33A,#F5C35C)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -757,6 +772,7 @@ nav button[hidden]{display:none!important}
 
 <main>
 <section id="tab-habits">
+  <div class="thead"><h1 id="t-title">วันนี้</h1><div class="tdrow"><label class="tdate"><span id="t-date"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg><input type="date" id="t-pick" aria-label="เลือกวันที่"></label><button class="tback" id="t-back" data-act="pick" hidden>วันนี้</button></div></div>
   <div class="hero slim"><div class="hl"><h2 id="day-title"></h2><p class="sub" id="day-sub"></p></div><b class="hpct" id="hpct">0%</b><div class="hbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hbarw" aria-label="ความคืบหน้าวันนี้"><i id="hbar"></i></div><div id="flow" hidden></div></div>
   <div class="tabs" id="groups" hidden></div>
   <div class="list" id="habits"></div>
@@ -926,7 +942,7 @@ nav button[hidden]{display:none!important}
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v4.3</p>
+    <p class="ver">HabitFlow v4.4</p>
   </div>
 </dialog>
 
@@ -1031,7 +1047,7 @@ const tn=x=>{x=String(x??'');return state&&state.lang==='en'?(N_EN[x]||x):(N_TH[
 const PRE_EN={'ของรางวัลเล็ก ๆ':'Small treats','รางวัลดี ๆ':'Nice rewards','รางวัลใหญ่':'Big rewards','รางวัลในฝัน':'Dream rewards'};
 const MOOD_N={happy:['มีความสุข','Happy'],calm:['สงบ','Calm'],excited:['ตื่นเต้น','Excited'],tired:['เหนื่อย','Tired'],sad:['เศร้า','Sad'],anxious:['กังวล','Anxious']};
 const FCAT_N={work:'Work',study:'Study',read:'Reading',focus:'Focus',exercise:'Exercise',walk:'Walk',cook:'Cooking',rest:'Rest',sleep:'Sleep',game:'Gaming',fun:'Entertainment',skin:'Skincare',baby:'Childcare',family:'Family'};
-const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "รางวัลและภารกิจ": "Rewards & quests", "โหมดโฟกัส": "Focus mode", "ร้านรางวัล": "Reward shop", "สำรองด้วย Google": "Back up with Google", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
+const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "เลือกวันที่": "Choose a date", "รางวัลและภารกิจ": "Rewards & quests", "โหมดโฟกัส": "Focus mode", "ร้านรางวัล": "Reward shop", "สำรองด้วย Google": "Back up with Google", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
 const I18N=[];
 function collectStatic(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
@@ -1113,7 +1129,11 @@ mq.addEventListener('change',applyTheme);matchMedia('(prefers-reduced-motion: re
 
 /* habits tab */
 let sel=today(),tab='habits',mode='heatmap',detailId=null,detailMonth=null,statsMonth=null,formIcon='weight',rtab='active';
-function renderWeek(){
+function renderTHead(){const t=today(),d=parse(sel),isT=sel===t;
+  $('t-title').textContent=isT?tr('วันนี้','Today'):sel===addDays(t,-1)?tr('เมื่อวาน','Yesterday'):tr('ย้อนหลัง','Past day');
+  $('t-date').textContent=state.lang==='en'?`${WDL[d.getDay()]}, ${ML[d.getMonth()]} ${d.getDate()}`:`${WDL[d.getDay()]}ที่ ${d.getDate()} ${ML[d.getMonth()]}`;
+  const p=$('t-pick');p.max=t;p.value=sel;const b=$('t-back');b.hidden=isT;b.dataset.id=t;b.textContent=tr('‹ กลับวันนี้','‹ Back to today');}
+function renderWeek(){renderTHead();
   const ws=weekStart(sel),t=today();
   let h=`<button class="wb" data-act="week" data-id="-7" aria-label="${tr('สัปดาห์ก่อน','Previous week')}">‹</button>`;
   for(let i=0;i<7;i++){const d=addDays(ws,i),dt=parse(d);
@@ -1269,7 +1289,7 @@ function renderHabits(){
   setGreet();
   $('day-title').textContent=!list.length?tr('เริ่มจากกิจวัตรแรก','Start with your first habit'):pct===100?tr('ครบแล้ว เก่งมาก! 🎉','All done, great job! 🎉'):tr('ทำกิจวัตรให้ครบกันเถอะ! 🔥','Complete your habits now! 🔥');
   setRing(pct);
-  $('day-sub').textContent=list.length?tr(`สำเร็จ ${n} จาก ${list.length}`,`${n} of ${list.length} completed`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
+  $('day-sub').textContent=list.length?tr(`${n} จาก ${list.length} เสร็จแล้ว`,`${n} of ${list.length} done`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
   $('habits').classList.toggle('anim',animList);animList=false;
   $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
     return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}${(()=>{const k=streaks(d=>done(h,d)).cur;return k?` <span class="hs">🔥 ${k} ${tr('วัน','day'+(k>1?'s':''))}</span>`:''})()}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${state.a11y&&state.a11y.labels?`<span class="pl">${ok?tr('เสร็จ','Done'):tr('ทำ','Do')}</span>`:''}${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
@@ -1782,6 +1802,7 @@ function renderPro(){
    <p class="hhint" style="text-align:center">${tr('รายเดือน/รายปี ยกเลิกได้ทุกเมื่อ · ฟีเจอร์ฟรีใช้ได้ตลอด ข้อมูลของคุณไม่หายเมื่อหมดอายุ','Cancel monthly/yearly anytime · Free features stay free · Your data is never lost when a plan ends')}</p>`;
 }
 setTimeout(()=>proValidate(false),3000);
+$('t-pick').addEventListener('change',e=>{const v=e.target.value;if(!v)return;sel=v>today()?today():v;animList=true;renderWeek();renderHabits();haptic()});
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
