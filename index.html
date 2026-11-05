@@ -794,6 +794,28 @@ main{padding-top:6px}
 .thead h1{font-size:30px}
 .tdrow{margin-top:2px}
 .hero.slim{margin:4px 0 12px;padding:12px 16px}
+
+/* ===== onboarding ===== */
+.onb{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;animation:fade .3s ease}
+body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
+.onw{min-height:100%;max-width:440px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;text-align:center;box-sizing:border-box}
+.onl{align-self:flex-end;display:flex;gap:2px;background:var(--surf);border-radius:99px;padding:3px;box-shadow:var(--sh)}.onl button{height:30px;min-width:44px;border-radius:99px;font-size:13px;font-weight:600;color:var(--mute)}.onl button[aria-pressed=true]{background:var(--ink);color:var(--surf)}
+.onlogo{width:96px;height:96px;border-radius:26px;margin:32px 0 12px;box-shadow:0 14px 30px -12px rgba(80,120,170,.6);animation:bob 3s ease-in-out infinite}
+.onw h1{font-size:30px;font-weight:700;letter-spacing:-.02em;margin:6px 0 4px}.onw>p{color:var(--mute);font-size:15px;margin:0 0 4px;line-height:1.5}
+.onf{list-style:none;padding:0;margin:22px 0;display:grid;gap:10px;width:100%;text-align:left}.onf li{background:var(--surf);border-radius:16px;padding:13px 16px;box-shadow:var(--sh);font-size:14.5px;font-weight:500}
+.onb-act{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:12px}.onb-act small{font-size:12px}
+.onskip{height:48px;width:100%;background:var(--surf);border:1.5px solid var(--line);color:var(--ink);margin-top:10px}
+.onw.two{align-items:stretch;text-align:left}.onw.two h1,.onw.two>p{text-align:left}.onstep{color:var(--accT)!important;font-weight:700;font-size:13px!important;margin-top:18px!important}
+.onm{display:grid;gap:10px;margin:18px 0 8px}
+.onmc{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border-radius:20px;background:var(--surf);box-shadow:var(--sh);border:2px solid transparent}
+.onmc.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,var(--surf))}
+.ome{font-size:28px;flex:none;width:40px;text-align:center}.omt{flex:1;min-width:0}.omt b{display:block;font-size:15.5px}.omt small{display:block;color:var(--mute);font-size:12px;line-height:1.5;margin-top:3px}
+.omk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--plus);display:grid;place-items:center;font-weight:800;color:#fff;font-size:14px}
+.onmc.on .omk{background:var(--acc);border-color:var(--acc)}
+.onb-act.sticky{position:sticky;bottom:0;background:linear-gradient(to bottom,transparent,var(--bg) 30%);padding-bottom:4px;margin-top:8px}
+.onstart{height:52px;width:100%;font-size:16px}.onstart[disabled]{background:var(--soft)!important;color:var(--mute)!important;box-shadow:none}
+.pgback{display:inline-flex;align-items:center;gap:2px;height:40px;padding:0 14px 0 8px;margin:4px 0 6px -4px;border-radius:99px;font-size:15px;font-weight:600;color:var(--accT);background:var(--surf);box-shadow:var(--sh)}
+.pgback svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -825,6 +847,7 @@ main{padding-top:6px}
 </section>
 
 <section id="tab-rewards" hidden>
+  <button class="pgback" data-act="pgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>กลับ</span></button>
   <div class="row between" style="align-items:flex-start"><div><h2>รางวัล</h2><p class="sub">ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง</p></div><button class="btn sm" data-act="newReward">เพิ่มรางวัล</button></div>
   <div class="sec row between"><div><div class="bal"><span id="bal">0</span> <span style="font-size:15px;font-weight:500">เหรียญ</span></div><span class="lv" id="lvl"></span></div><div class="hg" id="lvg" role="img" aria-label="ความคืบหน้าเลเวล"></div></div><p class="sub" style="margin-top:8px">สิทธิ์ข้ามวัน <b id="skips">0</b> ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน</p>
   <div id="daily"></div>
@@ -843,6 +866,7 @@ main{padding-top:6px}
   <div class="sec"><span class="lbl">ประวัติ</span><div class="list" id="mood-list"></div></div>
 </section>
 <section id="tab-focus" hidden>
+  <button class="pgback" data-act="pgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>กลับ</span></button>
   <div class="row between" style="align-items:flex-start"><div><h2>โฟกัส</h2><p class="sub">เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ</p></div><button class="btn sm" data-act="addFcat">+ โหมด</button></div>
   <button class="frun" id="f-run" data-act="openRun" hidden></button>
   <div class="fsum"><div><b id="f-min">0</b> <span>นาทีวันนี้</span></div><div class="fwk" id="f-week"></div></div>
@@ -942,6 +966,8 @@ main{padding-top:6px}
   <div class="db" id="gg-body"></div>
 </dialog>
 
+<div id="onb" class="onb" hidden role="dialog" aria-modal="true" aria-labelledby="onb-h"></div>
+
 <dialog id="d-settings" aria-labelledby="ds-title">
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db">
@@ -972,12 +998,13 @@ main{padding-top:6px}
       
       <button class="set" data-act="syncOut"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></span>ส่งข้อมูลไปเครื่องอื่น</span><span class="chev">›</span></button>
       <button class="set" data-act="syncIn"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><path d="M8 7l4-4 4 4M12 3v12M5 13v6h14v-6"/></svg></span>รวมข้อมูลจากเครื่องอื่น</span><span class="chev">›</span></button><input type="file" id="sync-file" accept=".json,application/json" hidden>
+      <button class="set" data-act="replayOnb"><span class="row sl"><span class="si" style="background:#7B5BD6"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>เริ่มต้นใหม่ / เลือกโหมดกิจวัตร</span><span class="chev">›</span></button>
       <button class="set" data-act="export"><span class="row sl"><span class="si" style="background:#2FB283"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>สำรองข้อมูล</span><span class="chev">›</span></button>
       <button class="set" data-act="import"><span class="row sl"><span class="si" style="background:#3A8FE0"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg></span>นำเข้าข้อมูล</span><span class="chev">›</span></button>
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span>รีเซ็ตข้อมูล</span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v4.8</p>
+    <p class="ver">HabitFlow v4.9</p>
   </div>
 </dialog>
 
@@ -1008,6 +1035,7 @@ main{padding-top:6px}
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" async></script>
 <script>
+const FRESH_INSTALL=(()=>{try{return !localStorage.getItem('habitflow_app_state_v3')}catch(e){return false}})();var backTo=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const KEY='habitflow_app_state_v3',VER='3.2.0';
@@ -1082,7 +1110,7 @@ const tn=x=>{x=String(x??'');return state&&state.lang==='en'?(N_EN[x]||x):(N_TH[
 const PRE_EN={'ของรางวัลเล็ก ๆ':'Small treats','รางวัลดี ๆ':'Nice rewards','รางวัลใหญ่':'Big rewards','รางวัลในฝัน':'Dream rewards'};
 const MOOD_N={happy:['มีความสุข','Happy'],calm:['สงบ','Calm'],excited:['ตื่นเต้น','Excited'],tired:['เหนื่อย','Tired'],sad:['เศร้า','Sad'],anxious:['กังวล','Anxious']};
 const FCAT_N={work:'Work',study:'Study',read:'Reading',focus:'Focus',exercise:'Exercise',walk:'Walk',cook:'Cooking',rest:'Rest',sleep:'Sleep',game:'Gaming',fun:'Entertainment',skin:'Skincare',baby:'Childcare',family:'Family'};
-const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "บัญชี": "Account", "พัฒนาตัวเอง": "Self-growth", "รางวัลและความคืบหน้า": "Rewards & progress", "ต้องทำ": "To do", "เสร็จแล้ว": "Completed", "กำลังทำ": "In progress", "ช่วงเวลา": "Time of day", "🌅 เช้า": "🌅 Morning", "☀️ ระหว่างวัน": "☀️ Daytime", "🌙 กลางคืน": "🌙 Night", "เลือกวันที่": "Choose a date", "รางวัลและภารกิจ": "Rewards & quests", "โหมดโฟกัส": "Focus mode", "ร้านรางวัล": "Reward shop", "สำรองด้วย Google": "Back up with Google", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
+const STATIC={"โปรไฟล์": "Profile", "ทำต่อเนื่อง": "Streak", "ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง": "Flame streak: complete 4 habits a day to earn 1 flame", "เหรียญสะสม": "Coins", "ตั้งค่า": "Settings", "ความคืบหน้าวันนี้": "Today's progress", "สถิติ": "Stats", "ความคืบหน้าเลเวล": "Level progress", "แตะกิจวัตรเพื่อดูรายละเอียด": "Tap a habit for details", "มุมมอง": "View", "ภาพรวม": "Overview", "สัปดาห์": "Week", "เดือน": "Month", "รางวัล": "Rewards", "ทำกิจวัตรให้สำเร็จ แล้วแลกรางวัลให้ตัวเอง": "Complete habits, then treat yourself", "เพิ่มรางวัล": "Add reward", "เหรียญ": "coins", "สิทธิ์ข้ามวัน": "Skip passes", "ครั้ง · ได้ 1 เหรียญเมื่อทำครบเป้า และโบนัส +2 เมื่อครบทุกกิจวัตรในวัน": "· Earn 1 coin per goal met, +2 bonus when every habit is done", "รอแลก": "Available", "แลกแล้ว": "Claimed", "อารมณ์": "Mood", "วันนี้รู้สึกยังไง?": "How do you feel today?", "บันทึกเพิ่มเติม": "Notes", "เกิดอะไรขึ้นบ้างวันนี้ (ไม่บังคับ)": "What happened today? (optional)", "บันทึกอารมณ์": "Save mood", "ข้อมูลเชิงลึก": "Insights", "ประวัติ": "History", "โฟกัส": "Focus", "เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ": "Pick a mode, set a timer, focus · 25+ min earns +1 coin", "+ โหมด": "+ Mode", "นาทีวันนี้": "min today", "เมนูหลัก": "Main menu", "วันนี้": "Today", "กลับ": "Back", "แก้ไข": "Edit", "ปิด": "Close", "สร้างกิจวัตรเอง": "Create your own", "รีเซ็ตข้อมูล": "Reset Data", "ชื่อกิจกรรม": "Habit name", "เช่น ดื่มน้ำ, ยกเวท, อ่านหนังสือ": "e.g. Drink water, Lift weights, Read", "หมวดหมู่": "Category", "ต้องทำกี่ครั้งต่อวัน": "Times per day", "ลดจำนวน": "Decrease", "เพิ่มจำนวน": "Increase", "จำนวนครั้งต่อวัน": "Times per day", "หน่วยนับ": "Unit", "ไอคอน": "Icon", "ลบกิจวัตรนี้": "Delete this habit", "ยกเลิก": "Cancel", "บันทึก": "Save", "สร้างรางวัลเอง": "Create your own", "รางวัลใหม่": "New reward", "ชื่อรางวัล": "Reward name", "เช่น ดูหนัง 1 เรื่อง": "e.g. Watch a movie", "เหรียญที่ใช้": "Cost (coins)", "อีโมจิ": "Emoji", "เปลี่ยนรูปโปรไฟล์": "Change photo", "แตะเพื่อตั้งชื่อ": "Tap to set your name", "ชื่อของคุณ": "Your name", "ลบรูปโปรไฟล์": "Remove photo", "วันต่อเนื่อง": "Day streak", "ไฟต่อเนื่อง": "Flame streak", "เลเวล": "Level", "กิจวัตรของฉัน": "My habits", "เริ่มต้นใหม่ / เลือกโหมดกิจวัตร": "Start over / choose habit mode", "บัญชี": "Account", "พัฒนาตัวเอง": "Self-growth", "รางวัลและความคืบหน้า": "Rewards & progress", "ต้องทำ": "To do", "เสร็จแล้ว": "Completed", "กำลังทำ": "In progress", "ช่วงเวลา": "Time of day", "🌅 เช้า": "🌅 Morning", "☀️ ระหว่างวัน": "☀️ Daytime", "🌙 กลางคืน": "🌙 Night", "เลือกวันที่": "Choose a date", "รางวัลและภารกิจ": "Rewards & quests", "โหมดโฟกัส": "Focus mode", "ร้านรางวัล": "Reward shop", "สำรองด้วย Google": "Back up with Google", "การเข้าถึง": "Accessibility", "ขนาดตัวอักษร": "Text size", "เล็ก": "Small", "ปกติ": "Normal", "ใหญ่": "Large", "ใหญ่มาก": "Extra large", "คอนทราสต์สูง": "High contrast", "ลดการเคลื่อนไหว": "Reduce motion", "แสดงข้อความบนปุ่ม": "Show button labels", "แจ้งเตือนเวลา": "Reminder time", "เวลาแจ้งเตือน": "Reminder time", "การแจ้งเตือน": "Reminders", "ส่งข้อมูลไปเครื่องอื่น": "Send to another device", "รวมข้อมูลจากเครื่องอื่น": "Merge from another device", "ภาพรวมทั้งหมด": "Overview", "เป้าหมาย": "Goals", "บันทึกประจำวัน": "Journal", "โน้ต": "Notes", "ลากที่ ≡ เพื่อจัดลำดับ · แตะเพื่อแก้ไข": "Drag ≡ to reorder · tap to edit", "เพิ่มกิจวัตร": "Add habit", "การตั้งค่า": "Preferences", "ภาษา": "Language", "เริ่มสัปดาห์": "Week starts", "อา.": "Sun", "จ.": "Mon", "ธีม": "Theme", "ตามระบบ": "System", "มืด": "Dark", "สว่าง": "Light", "เสียงแจ้งเตือน": "Sounds", "การสั่น": "Haptics", "ข้อมูล": "Data", "สำรองข้อมูล": "Back up data", "นำเข้าข้อมูล": "Import data", "รีเซ็ตข้อมูลทั้งหมด": "Reset all data", "ยืนยัน": "Confirm", "วันนี้เป็นยังไงบ้าง? เช่น ท่าที่เล่น น้ำหนัก ระยะทาง ความรู้สึก": "How did it go? e.g. exercises, weight, distance, how you felt", "เสร็จสิ้น": "Done", "แนบรูป": "Attach photo", "กดค้างเพื่อเริ่มหรือพักโฟกัส": "Long-press to start or pause", "ระยะเวลา": "Duration", "หยุด": "Stop", "เริ่มโฟกัส": "Start focus", "โหมดโฟกัสใหม่": "New focus mode", "ชื่อโหมด": "Mode name", "เช่น ฝึกกีตาร์": "e.g. Guitar practice"};
 const I18N=[];
 function collectStatic(){
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
@@ -1716,8 +1744,8 @@ async function gSignIn(){
   try{await gToken('consent');const u=await (await gFetch('https://www.googleapis.com/oauth2/v3/userinfo')).json();
     state.google={email:u.email,name:u.name||'',pic:u.picture||'',auto:true,last:null,pending:true};
     if(!state.profile.name&&u.name)state.profile.name=u.name.slice(0,24);
-    store.set(KEY,JSON.stringify(state));await gSync(true);buzz();toast(tr('เชื่อมบัญชี Google แล้ว ✓','Google account connected ✓'))}
-  catch(e){gErr=e.message;renderGoogleUI();if(e.message!=='popup_closed')toast(gMsg(e.message),true)}
+    store.set(KEY,JSON.stringify(state));await gSync(true);buzz();toast(tr('เชื่อมบัญชี Google แล้ว ✓','Google account connected ✓'));return true}
+  catch(e){gErr=e.message;renderGoogleUI();if(e.message!=='popup_closed')toast(gMsg(e.message),true);return false}
 }
 function gSignOut(){try{if(gTok&&window.google)google.accounts.oauth2.revoke(gTok,()=>{})}catch(e){}gTok=null;state.google=null;save();renderGoogleUI();renderSettings();toast(tr('ออกจากระบบ Google แล้ว (ข้อมูลในเครื่องยังอยู่)','Signed out of Google (data on this device is kept)'))}
 const gMsg=m=>({noclient:tr('ยังไม่ได้ใส่ Client ID','Client ID not set yet'),needtap:tr('แตะ "ซิงก์ตอนนี้" เพื่อเชื่อมต่ออีกครั้ง','Tap "Sync now" to reconnect'),gis:tr('โหลดระบบ Google ไม่ได้ ตรวจอินเทอร์เน็ต','Could not load Google sign-in — check your connection'),popup_failed_to_open:tr('เบราว์เซอร์บล็อกหน้าต่างล็อกอิน','The browser blocked the sign-in window'),auth:tr('สิทธิ์หมดอายุ แตะซิงก์อีกครั้ง','Session expired — tap Sync again'),access_denied:tr('ไม่ได้อนุญาตการเข้าถึง','Access was not allowed')}[m]||(m.startsWith('http')?tr('เชื่อมต่อ Google Drive ไม่สำเร็จ ','Google Drive error ')+m:m));
@@ -1807,6 +1835,41 @@ function fixFlame(){const o=fixOffer();if(!o||!o.can)return;o.days.forEach(d=>st
 /* on Today the flame/coins/settings sit beside the title (saves vertical space) */
 function placeTools(t){const tools=document.querySelector('.tools'),top=document.querySelector('.top');if(!tools)return;
   if(t==='habits'){$('thr').appendChild(tools);top.classList.add('slimtop')}else{top.querySelector('.bar').appendChild(tools);top.classList.remove('slimtop')}}
+
+/* ===== First-run onboarding: Google sign-in (optional) → choose habit mode ===== */
+const GLOGO='<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg>';
+var onbStep=1,onbPick=new Set(),onbBusy=false;
+const hasRealData=st=>st.habits.some(h=>Object.keys(h.logs||{}).length)||!!(st.profile&&st.profile.name)||Object.keys(st.moods||{}).length>0||!!st.google;
+function renderOnb(){const el=$('onb');if(el.hidden)return;
+  const lang=`<div class="onl"><button data-act="onbLang" data-id="th" aria-pressed="${state.lang!=='en'}">ไทย</button><button data-act="onbLang" data-id="en" aria-pressed="${state.lang==='en'}">EN</button></div>`;
+  if(onbStep===1){el.innerHTML=`<div class="onw">${lang}<img class="onlogo" src="icon-192.png" alt="" onerror="this.style.display='none'"><h1 id="onb-h">HabitFlow</h1><p>${tr('สร้างนิสัยดีทีละวัน เห็นความก้าวหน้าชัดเจน','Build good habits one day at a time')}</p>
+    <ul class="onf"><li>✅ ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li>🔥 ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li>📊 ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
+    <div class="onb-act"><button class="gbtn" data-act="onbGoogle"${onbBusy?' disabled':''}>${GLOGO}${onbBusy?tr('กำลังเชื่อมต่อ…','Connecting…'):tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
+    <small class="m">${tr('สำรองข้อมูลอัตโนมัติ ใช้ได้หลายเครื่อง','Automatic backup across devices')}</small>
+    <button class="btn onskip" data-act="onbSkip">${tr('ใช้งานโดยไม่ล็อกอิน','Continue without signing in')}</button>
+    <small class="m">${tr('ข้อมูลเก็บในเครื่องนี้ · เชื่อม Google ภายหลังได้ในตั้งค่า','Data stays on this device · connect Google later in Settings')}</small></div></div>`;return}
+  el.innerHTML=`<div class="onw two">${lang}<p class="onstep">${tr('ขั้นตอนที่ 2 จาก 2','Step 2 of 2')}</p><h1 id="onb-h">${tr('เลือกโหมดกิจวัตร','Choose your habit mode')}</h1><p>${tr('เลือกได้มากกว่า 1 โหมด · ปรับเปลี่ยนได้ทีหลัง','Pick one or more · you can change them later')}</p>
+   <div class="onm">${HPRE.map(([g,items],i)=>`<button class="onmc${onbPick.has(i)?' on':''}" data-act="onbMode" data-id="${i}" role="checkbox" aria-checked="${onbPick.has(i)}"><span class="ome">${g[2]}</span><span class="omt"><b>${tr(g[0],g[1])}</b><small>${items.map(it=>icon(it[0])+' '+esc(tr(it[1],it[2]))).join(' · ')}</small></span><span class="omk">${onbPick.has(i)?'✓':''}</span></button>`).join('')}
+    <button class="onmc${onbPick.has('own')?' on':''}" data-act="onbMode" data-id="own" role="checkbox" aria-checked="${onbPick.has('own')}"><span class="ome">✏️</span><span class="omt"><b>${tr('เลือกเอง','Choose my own')}</b><small>${tr('เริ่มว่างๆ แล้วเพิ่มกิจวัตรที่ต้องการ','Start empty and add the habits you want')}</small></span><span class="omk">${onbPick.has('own')?'✓':''}</span></button></div>
+   <div class="onb-act sticky"><button class="btn pri onstart" data-act="onbStart"${onbPick.size?'':' disabled'}>${onbPick.size?tr(`เริ่มใช้งาน${onbCount()?` · ${onbCount()} กิจวัตร`:''}`,`Get started${onbCount()?` · ${onbCount()} habits`:''}`):tr('เลือกอย่างน้อย 1 โหมด','Pick at least one mode')}</button></div></div>`;
+}
+const onbCount=()=>[...onbPick].filter(x=>x!=='own').reduce((a,i)=>a+HPRE[i][1].length,0);
+function openOnb(){onbStep=1;onbPick=new Set();$('onb').hidden=false;document.body.classList.add('onbon');renderOnb()}
+function closeOnb(){$('onb').hidden=true;document.body.classList.remove('onbon');state.onboarded=true;save();renderAll()}
+async function onbGoogle(){if(!gcid()){toast(tr('ระบบ Google ยังตั้งค่าไม่เสร็จ — ใช้งานโดยไม่ล็อกอินไปก่อนได้','Google sign-in isn\'t set up yet — continue without signing in for now'),true);return}
+  if(FRESH_INSTALL&&!state.onboarded){state.habits=[];state.coins=0;state.totalEarned=0;state.bonusDays={};state.rewards=[];state.claimedRewards=[]}
+  onbBusy=true;renderOnb();const ok=await gSignIn();onbBusy=false;
+  if(ok&&active().length){toast(tr('ยินดีต้อนรับกลับ! ดึงข้อมูลเดิมแล้ว','Welcome back! Your data is restored'));closeOnb();return}
+  if(ok){onbStep=2}renderOnb()}
+function onbStart(){
+  const ids=[...onbPick].filter(x=>x!=='own'),t=Date.now();let n=0;
+  state.habits=[];state.coins=0;state.totalEarned=0;state.bonusDays={};state.flameFix={};state.fixRun={start:'',used:0};
+  ids.forEach(i=>{const [g,items]=HPRE[i];if(!state.groups.includes(g[0]))state.groups.push(g[0]);
+    items.forEach(([k,th,en])=>state.habits.push({id:'h_'+t+'_'+(n++),title:tr(th,en),group:g[0],target:1,unit:tr('ครั้ง','times'),tod:PTOD[k]||'day',iconKey:k,color:ICONS[k].c,archived:false,logs:{},notes:{}}))});
+  if(!state.rewards.length)state.rewards=normalize(null).rewards;
+  sel=today();closeOnb();buzz();if(window.confetti&&document.documentElement.dataset.motion!=='reduce')confetti({particleCount:70,spread:70,origin:{y:.6}});
+  if(!state.habits.length)setTimeout(()=>ACT.addHabit(),350);else toast(tr(`พร้อมแล้ว! เริ่มจาก ${state.habits.length} กิจวัตร 🌱`,`All set! Starting with ${state.habits.length} habits 🌱`));
+}
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
@@ -1849,7 +1912,7 @@ async function doReset(k){
 }
 /* navigation */
 const HOME_SVG=IC('<rect x="4" y="4" width="16" height="16" rx="4" stroke-width="2"/><path d="m8.5 12 2.5 2.5 4.5-5"/>');
-function setTab(t){placeTools(arguments[0]);
+function setTab(t){{const to=arguments[0],sub=['rewards','focus'].includes(to);if(!sub)backTo=null;else if(to!==tab&&!backTo)backTo=tab;}placeTools(arguments[0]);
   tab=t;['habits','stats','rewards','mood','focus'].forEach(k=>{$('tab-'+k).hidden=k!==t;const n=$('n-'+k);t===k?n.setAttribute('aria-current','page'):n.removeAttribute('aria-current')});
   $('week').hidden=t!=='habits';if(t==='habits'){animList=true;renderHabits()}
   if(t==='stats')renderStats();if(t==='mood'){moodPick=null;moodDay=today();renderMood()}if(t==='rewards')renderRewards();if(t==='focus')renderFocus();if(scrollY>0)window.scrollTo({top:0,behavior:'instant'});
@@ -1883,9 +1946,12 @@ const ACT={
   gSaveCid:()=>{const v=$('g-cid').value.trim();if(!/\.apps\.googleusercontent\.com$/.test(v)){toast(tr('Client ID ไม่ถูกต้อง','Invalid Client ID'),true);return}store.set('habitflow_gcid',v);renderGoogleUI();toast(tr('บันทึกแล้ว','Saved'))},
   gResetCid:()=>{store.set('habitflow_gcid','');renderGoogleUI()},
   checkIn:(id,el)=>checkIn(el),claimQ:(id,el)=>claimQ(id,el),openChest:(id,el)=>openChest(el),
-  goTab:t=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());setTab(t)},
+  goTab:t=>{const fromSet=$('d-settings').open;document.querySelectorAll('dialog[open]').forEach(d=>d.close());backTo=fromSet?'settings':tab;setTab(t)},
+  pgBack:()=>{const b=backTo||'habits';backTo=null;if(b==='settings'){setTab('habits');ACT.settings()}else setTab(b==='rewards'||b==='focus'?'habits':b)},
   tview:k=>{state.todoView=k;save();animList=true;renderHabits()},tgrp:g=>{state.todoCollapsed=state.todoCollapsed||{};state.todoCollapsed[g]=!state.todoCollapsed[g];save();renderHabits()},fTod:k=>{formTod=k;setFTod()},
   fixFlame,fixSkip:()=>{const o=fixOffer();if(o){state.fixSkip=addDays(today(),-1)+'|'+o.start;save()}renderFix()},
+  onbGoogle,onbSkip:()=>{onbStep=2;renderOnb()},onbMode:k=>{const v=k==='own'?'own':+k;if(onbPick.has(v))onbPick.delete(v);else{if(v==='own')onbPick.clear();else onbPick.delete('own');onbPick.add(v)}haptic();renderOnb()},onbStart,
+  onbLang:v=>{state.lang=v;applyLang();renderOnb()},replayOnb:async()=>{if(!await ask(tr('เริ่มต้นใหม่? กิจวัตรและเหรียญปัจจุบันจะถูกแทนที่ด้วยโหมดที่เลือก (บันทึก อารมณ์ เป้าหมาย ยังอยู่)','Start over? Your current habits and coins will be replaced by the mode you pick (notes, moods and goals are kept)'),tr('เริ่มใหม่','Start over')))return;document.querySelectorAll('dialog[open]').forEach(d=>d.close());openOnb()},
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
   bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
@@ -1982,6 +2048,7 @@ $('s-file').addEventListener('change',e=>{
 state.selectedDate=sel;
 if(state.selectedGroup!=='All'&&!state.groups.includes(state.selectedGroup))state.selectedGroup='All';
 collectStatic();applyLang();applyTheme();setTab('habits');animList=true;renderAll();if(state.focusRun)startTick();
+if(!state.onboarded){if(FRESH_INSTALL)openOnb();else{state.onboarded=true;save()}}
 </script>
 </body>
 </html>
