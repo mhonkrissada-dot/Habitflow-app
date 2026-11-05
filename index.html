@@ -873,6 +873,12 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
 .lof{font-size:15px;font-weight:600;color:var(--mute);margin-left:1px}
 .set.lay .seg button{padding:0 10px;min-width:0;font-size:12.5px}
 .set.lay{flex-wrap:wrap;gap:8px}
+
+.dh .dback{margin:0;flex:none;height:38px;box-shadow:none;background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.pgback{background:color-mix(in srgb,var(--acc) 12%,transparent);box-shadow:none}:root .pgback{color:#166B4C}[data-theme=dark] .pgback{color:var(--accT)}
+.dh .dsp{flex:none;width:76px}
+#d-tool .dh .dsp{display:none}
+.dh:has(.dback) h3{flex:1;text-align:center;padding-left:0!important;margin:0}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -1423,8 +1429,8 @@ function renderHabits(){renderFix();
     $('habits').innerHTML=list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,k=streaks(d=>done(h,d)).cur,j=popId===h.id;
       const ck=`<button class="lck${ok?' on':''}${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('ทำแล้ว','Done')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':h.target>1&&v?`<b>${v}</b>`:'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>'}</button>`;
       const st=`<span class="lst"><b>${v}<span class="lof">/${h.target}</span></b><small>${esc(tn(h.unit||'ครั้ง'))}</small></span>`;
-      return L==='tile'?`<div class="ltile${ok?' ok':''}" style="--c:${hex(h)};--i:${i}"><div class="lth">${st}${ck}</div><button class="lgo" data-act="detail" data-id="${h.id}"><span class="lic">${icon(h.iconKey)}</span><b>${esc(tn(h.title))}</b></button>${wk(h)}</div>`
-        :`<div class="lrow${ok?' ok':''}" style="--c:${hex(h)};--i:${i}">${ck}<button class="lgo" data-act="detail" data-id="${h.id}"><b>${icon(h.iconKey)} ${esc(tn(h.title))}</b>${wk(h)}</button>${st}</div>`}).join('')}
+      return L==='tile'?`<div class="ltile${ok?' ok':''}" style="--c:${hex(h)};--i:${i}"><div class="lth">${st}${ck}</div><button class="lgo" data-act="detail" data-id="${h.id}"><b>${esc(tn(h.title))}</b></button>${wk(h)}</div>`
+        :`<div class="lrow${ok?' ok':''}" style="--c:${hex(h)};--i:${i}">${ck}<button class="lgo" data-act="detail" data-id="${h.id}"><b>${esc(tn(h.title))}</b>${wk(h)}</button>${st}</div>`}).join('')}
   popId=null;
 }
 function pay(n){state.coins=Math.max(0,state.coins+n);state.totalEarned=Math.max(0,state.totalEarned+n)}
@@ -1952,6 +1958,12 @@ function onbStart(){
   sel=today();closeOnb();buzz();if(window.confetti&&document.documentElement.dataset.motion!=='reduce')confetti({particleCount:70,spread:70,origin:{y:.6}});
   if(!state.habits.length)setTimeout(()=>ACT.addHabit(),350);else toast(tr(`พร้อมแล้ว! เริ่มจาก ${state.habits.length} กิจวัตร 🌱`,`All set! Starting with ${state.habits.length} habits 🌱`));
 }
+/* one consistent back button for every submenu */
+(()=>{const BK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>'+'กลับ'+'</span>';
+  ['d-profile','d-habits','d-tool','d-reset','d-remind','d-google'].forEach(id=>{const d=$(id);if(!d)return;const h=d.querySelector('.dh');if(!h)return;
+    const old=[...h.querySelectorAll('.ib')];const act=(old.find(b=>b.dataset.act==='toolBack')||old[0]||{}).dataset?.act||'close';old.forEach(b=>b.remove());h.querySelectorAll('span[style*="width:36px"]').forEach(x=>x.remove());
+    const b=document.createElement('button');b.className='pgback dback';b.dataset.act=act;b.innerHTML=BK;h.insertBefore(b,h.firstChild);
+    if(!h.querySelector('.dsp')){const sp=document.createElement('span');sp.className='dsp';h.appendChild(sp)}});})();
 /* habit presets */
 function renderHPick(){
   const have=new Set(active().map(h=>h.title));
