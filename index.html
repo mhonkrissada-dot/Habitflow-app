@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" data-theme="dark" translate="no">
+<html lang="en" data-theme="dark" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -894,6 +894,19 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
 #hbar{width:100%!important;transform:scaleX(0);transform-origin:left center;transition:transform .6s var(--spring)!important;will-change:transform}
 .hbt b{animation:sgrow .8s var(--ease) both!important;transform-origin:left center}@keyframes sgrow{from{transform:scaleX(0)}}
 nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
+/* ===== focus tree: grows with the timer (paper-cut pine) ===== */
+.fo{flex:1}
+.ftree{margin-top:auto;width:100%;height:min(36dvh,250px);display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
+.ftree svg{height:100%;width:auto;overflow:visible}
+.ftree .tw{transform-box:view-box;transform-origin:100px 246px;transition:transform 1.2s cubic-bezier(.3,1.25,.5,1)}
+.ftree .tr{transform-box:fill-box;transform-origin:50% 0;transform:scale(0);opacity:0;transition:transform .7s cubic-bezier(.3,1.5,.5,1),opacity .3s}
+.ftree .tr.on{transform:none;opacity:1}
+.ftree.grow .tw>g{animation:sway 5s ease-in-out infinite;transform-box:view-box;transform-origin:100px 246px}
+@keyframes sway{50%{transform:rotate(1.2deg)}}
+.ftree.paused .tw{filter:saturate(.55)}
+.ftree.done .tw>g{animation:treepop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes treepop{40%{transform:scale(1.06)}}
+[data-motion=reduce] .ftree .tw>g{animation:none!important}
 </style>
 </head>
 <body>
@@ -916,7 +929,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 </section>
 
 <section id="tab-stats" hidden>
-  <div class="rhead"><div><p class="ryr" id="r-yr"></p><h2 class="rtitle">สถิติ<em>กิจวัตร</em></h2></div></div>
+  <div class="rhead"><div><p class="ryr" id="r-yr"></p><h2 class="rtitle">Habit <em>Stats</em></h2></div></div>
   <div id="stats" class="sec" style="margin-top:8px"></div>
 </section>
 
@@ -1051,7 +1064,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
     <div class="grp"><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="goals"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes"><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="goTab" data-id="focus"><span class="row sl"><span class="si" style="background:#5B9BF0"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg></span>โหมดโฟกัส</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="rewards"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg></span>รางวัลและภารกิจ</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="overview"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button></div>
     <h4>การตั้งค่า</h4>
     <div class="grp"><button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
-      <div class="set"><span class="row sl"><span class="si" style="background:#2FA7B8"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></svg></span>ภาษา</span><div class="seg" id="s-lang"><button data-act="lang" data-id="th">ไทย</button><button data-act="lang" data-id="en">EN</button></div></div>
+      
       <div class="set lay"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="5" rx="2"/><rect x="4" y="14" width="16" height="5" rx="2"/></svg></span>รูปแบบหน้าแรก</span><div class="seg" id="s-hlay"><button data-act="hlay" data-id="card">การ์ด</button><button data-act="hlay" data-id="tile">ช่อง</button><button data-act="hlay" data-id="row">แถบสี</button></div></div>
       <div class="set lay"><span class="row sl"><span class="si" style="background:#7B3FD6"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>รูปแบบหน้าสถิติ</span><div class="seg" id="s-rview"><button data-act="rview" data-id="grid">ตาราง</button><button data-act="rview" data-id="list">ยาว</button></div></div>
       <div class="set"><span class="row sl"><span class="si" style="background:#3A8FE0"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>เริ่มสัปดาห์</span><div class="seg" id="s-week"><button data-act="weekStart" data-id="1">อา.</button><button data-act="weekStart" data-id="0">จ.</button></div></div>
@@ -1099,7 +1112,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 <dialog id="d-focus" class="full" aria-labelledby="fo-title">
   <div class="dh"><h3 id="fo-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db fo"><div class="fring" id="fo-hold" role="button" tabindex="0" aria-label="กดค้างเพื่อเริ่มหรือพักโฟกัส"><svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fo-ring" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/><circle class="hold" cx="100" cy="100" r="98" stroke-dasharray="615.8"/></svg><div class="ft" id="fo-time">25:00</div></div>
-  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p></div>
+  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p><div class="ftree" id="fo-tree" aria-hidden="true"></div></div>
   <div class="df"><button class="btn" id="fo-stop" data-act="stopF">หยุด</button><button class="btn pri" id="fo-go" data-act="goF">เริ่มโฟกัส</button></div>
 </dialog>
 <dialog id="d-fcat" aria-labelledby="fc-title">
@@ -1157,7 +1170,7 @@ function normalize(p){
   s.selectedGroup='All';
   if(!s.profile||typeof s.profile!=='object')s.profile={name:'',avatar:''};
   s.profile.name=String(s.profile.name||'').slice(0,24);if(typeof s.profile.avatar!=='string'||!s.profile.avatar.startsWith('data:image/'))s.profile.avatar='';
-  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;if(s.lang!=='en')s.lang='th';if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.flameFix||typeof s.flameFix!=='object')s.flameFix={};if(!s.fixRun||typeof s.fixRun!=='object')s.fixRun={start:'',used:0};if(!s.pro||typeof s.pro!=='object')s.pro=null;if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
+  if(typeof s.hapticEnabled!=='boolean')s.hapticEnabled=true;s.lang='en';/* English-only app */if(typeof s.flameFrom!=='string')s.flameFrom='';if(!s.flameFix||typeof s.flameFix!=='object')s.flameFix={};if(!s.fixRun||typeof s.fixRun!=='object')s.fixRun={start:'',used:0};if(!s.pro||typeof s.pro!=='object')s.pro=null;if(!s.daily||typeof s.daily!=='object')s.daily={streak:0,last:'',q:{},chest:{}};if(!s.tomb||typeof s.tomb!=='object')s.tomb={};if(s.google&&typeof s.google!=='object')s.google=null;if(!s.a11y||typeof s.a11y!=='object')s.a11y={size:1,contrast:false,motion:false,labels:false};if(!Array.isArray(s.notesList))s.notesList=[];if(!Array.isArray(s.goals))s.goals=[];if(!s.journal||typeof s.journal!=='object')s.journal={};
   s.version=VER;return s;
 }
 let state;
@@ -1284,8 +1297,10 @@ function renderWeek(){renderTHead();
     h+=`<button class="day${d===t?' today':''}" data-act="pick" data-id="${d}" aria-pressed="${d===sel}" aria-label="${dlabel(d)}"><span>${WD[dt.getDay()]}</span><b>${dt.getDate()}</b><i class="dd${dayDone(d)?' on':''}"></i></button>`}
   $('week').innerHTML=h+`<button class="wb" data-act="week" data-id="7" aria-label="${tr('สัปดาห์ถัดไป','Next week')}">›</button>`;
 }
+/* English-only: built-in group names are stored in Thai, shown in English */
+const GN={'การงาน':'Work','พัฒนาตนเอง':'Self-improvement','สุขภาพ':'Health'};HPRE.forEach(([g])=>GN[g[0]]=g[1]);const gName=g=>GN[g]||g;
 function renderGroups(){
-  $('groups').innerHTML=['All',...state.groups].map(g=>`<button class="pill" data-act="group" data-id="${esc(g)}" aria-pressed="${state.selectedGroup===g}">${g==='All'?'ทั้งหมด':esc(g)}</button>`).join('');
+  $('groups').innerHTML=['All',...state.groups].map(g=>`<button class="pill" data-act="group" data-id="${esc(g)}" aria-pressed="${state.selectedGroup===g}">${g==='All'?'All':esc(gName(g))}</button>`).join('');
 }
 const MOODS={happy:['😊','มีความสุข','#8FD97A',5],calm:['😌','สงบ','#F2CF4E',4],excited:['🤩','ตื่นเต้น','#F58FA3',5],tired:['😴','เหนื่อย','#A99BEA',2],sad:['😢','เศร้า','#7FB5EE',1],anxious:['😰','กังวล','#F2956B',1]};
 let moodPick=null,moodDay=null;
@@ -1343,15 +1358,28 @@ function renderFocus(){
 }
 function updateRun(){const r=state.focusRun,b=$('f-run');b.hidden=!r;if(r){const c=fCat(r.c);b.textContent=`${c[2]} ${tr('กำลังโฟกัส','Focusing:')} ${c[1]} · ${mmss(fLeft())}${r.end?'':tr(' (พัก)',' (paused)')} — ${tr('แตะเพื่อเปิด','tap to open')}`}}
 function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.now()):r.left):fMin*60000}
+/* paper-cut pine: 6 tiers, light/dark halves along a centre fold; tiers pop in from the bottom as the session progresses */
+const TREE=(()=>{const T=[[206,62,80],[178,56,68],[151,50,57],[127,44,47],[106,38,37],[87,34,27]];
+  const half=(by,h,w,d)=>{const ty=by-h,x=k=>100+d*w*k;return `M100 ${ty}Q${x(.42)} ${ty+h*.55} ${x(1)} ${by}L${x(.7)} ${by-8}L${x(.5)} ${by+2}L${x(.28)} ${by-7}L${x(.1)} ${by}L100 ${by-3}Z`};
+  const tiers=T.map(([by,h,w],i)=>`<g class="tr" data-i="${i}"><path d="${half(by,h,w,-1)}" fill="#86B653"/><path d="${half(by,h,w,1)}" fill="#3E6B2C"/><path d="M100 ${by-h}V${by-3}" stroke="#2F5422" stroke-width="1.2"/></g>`).join('');
+  return `<svg viewBox="0 0 200 260"><ellipse cx="100" cy="248" rx="46" ry="6" fill="#000" opacity=".07"/><g class="tw"><g>
+    <path d="M100 238l-30 6h60z" fill="#E4E6EA"/><path d="M100 238l-16 9h32z" fill="#F7F8FA"/>
+    <rect x="92" y="170" width="8" height="72" fill="#8A4B2A"/><rect x="100" y="170" width="8" height="72" fill="#5E3019"/>${tiers}</g></g></svg>`})();
+var fDone=false,fTreeK='';
+function renderTree(r,total,left){const el=$('fo-tree');if(!el)return;if(!el.firstChild)el.innerHTML=TREE;
+  const p=fDone?1:r?Math.min(1,Math.max(0,1-left/(total||1))):0,n=fDone?6:1+Math.min(5,Math.floor(p*6)),sc=(.32+.68*p).toFixed(3);
+  const k=n+'|'+sc+'|'+(r?r.end?'g':'p':'')+(fDone?'d':'');if(k===fTreeK)return;fTreeK=k;
+  el.querySelector('.tw').style.transform=`scale(${sc})`;el.querySelectorAll('.tr').forEach(t=>t.classList.toggle('on',+t.dataset.i<n));
+  el.classList.toggle('grow',!!(r&&r.end));el.classList.toggle('paused',!!(r&&!r.end));el.classList.toggle('done',fDone)}
 function renderFocusUI(){
   const r=state.focusRun,total=r?r.total:fMin*60000,left=fLeft();
-  $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));
+  $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));renderTree(r,total,left);
   $('fo-dur').hidden=!!r;$('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} ${tr('น.','min')}</button>`).join('');
   $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('เริ่มโฟกัส','Start focus'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
-  $('fo-msg').textContent=!r?tr('👆 กดค้างที่วงเวลาเพื่อเริ่ม','👆 Long-press the timer to start'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
+  $('fo-msg').textContent=fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🌲 Your tree is fully grown! Long-press to plant another'):!r?tr('👆 กดค้างที่วงเวลาเพื่อเริ่ม','👆 Long-press the timer to start'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
 }
 function openFocus(id){
-  const r=state.focusRun;fSel=r?r.c:id;fMin=state.focus.min;
+  const r=state.focusRun;fDone=false;fSel=r?r.c:id;fMin=state.focus.min;
   const c=fCat(fSel);$('fo-title').textContent=c[2]+' '+c[1];renderFocusUI();$('d-focus').showModal();
 }
 function startTick(){clearInterval(ftick);ftick=setInterval(()=>{
@@ -1363,7 +1391,7 @@ function logFocus(m){state.focus.sessions.push({d:today(),c:state.focusRun.c,m,t
 function finishFocus(){
   const r=state.focusRun;if(!r)return;const m=Math.round(r.total/60000);let msg=tr(`โฟกัส ${fCat(r.c)[1]} ครบ ${m} นาที`,`${fCat(r.c)[1]}: ${m} min done`);
   logFocus(m);if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
-  state.focusRun=null;clearInterval(ftick);document.title='HabitFlow';sound.play([523,659,784,1047]);buzz($('fo-hold'));
+  state.focusRun=null;fDone=true;clearInterval(ftick);document.title='HabitFlow';sound.play([523,659,784,1047]);buzz($('fo-hold'));
   save();renderFocus();renderRewards();renderFocusUI();toast(msg);
 }
 function gauge(p,w,sw,col){const L=Math.PI*50,o=L*(1-Math.min(1,Math.max(0,p))),d='M10 62A50 50 0 0 1 110 62';return `<svg class="gg" viewBox="0 0 120 68" width="${w}" aria-hidden="true"><path d="${d}" fill="none" stroke="var(--soft)" stroke-width="${sw}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col||'var(--acc)'}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${L}" stroke-dashoffset="${o}" style="transition:stroke-dashoffset .5s"/></svg>`}
@@ -1555,7 +1583,7 @@ function renderIconPicker(){
 }
 function openHabitForm(id){
   const h=id&&state.habits.find(x=>x.id===id);
-  $('f-group').innerHTML=state.groups.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');
+  $('f-group').innerHTML=state.groups.map(g=>`<option value="${esc(g)}">${esc(gName(g))}</option>`).join('');
   $('f-id').value=h?h.id:'';$('f-name').value=h?h.title:'';$('f-target').value=h?h.target:1;$('f-unit').value=h?(tn(h.unit||'ครั้ง')):tr('ครั้ง','times');
   if(h)$('f-group').value=h.group;else if(state.groups.includes(state.selectedGroup))$('f-group').value=state.selectedGroup;
   formIcon=h?h.iconKey:'weight';$('f-remind').value=h&&h.remind||'';formTod=h?todOf(h):'day';setFTod();renderIconPicker();
@@ -1599,7 +1627,7 @@ function renderSettings(){
   $('s-sound').setAttribute('aria-checked',state.soundEnabled);$('s-hap').setAttribute('aria-checked',state.hapticEnabled);
   $('p-streak').textContent=flames();renderTier();$('p-coins').textContent=state.coins;$('p-lv').textContent=Math.floor(state.totalEarned/10)+1;
   renderProfile();
-  $('s-groups').innerHTML=state.groups.map(g=>`<span class="pill">${esc(g)}</span>`).join('');
+  $('s-groups').innerHTML=state.groups.map(g=>`<span class="pill">${esc(gName(g))}</span>`).join('');
 }
 
 /* my habits popup: tap to edit, drag the grip to reorder */
@@ -1955,7 +1983,7 @@ function renderOnb(){const el=$('onb');if(el.hidden)return;const a=document.acti
   if(onbShown!==onbStep){onbShown=onbStep;const h=$('onb-h');if(h)h.focus({preventScroll:true})}
   else if(fk){const b=[...el.querySelectorAll('[data-act]')].find(x=>x.dataset.act===fk[0]&&(x.dataset.id||'')===fk[1]);const t=b||$('onb-h');if(t)t.focus({preventScroll:true})}}
 function renderOnbView(el){
-  const lang=`<div class="onl" role="group" aria-label="ภาษา / Language"><button data-act="onbLang" data-id="th" lang="th" aria-pressed="${state.lang!=='en'}">ไทย</button><button data-act="onbLang" data-id="en" lang="en" aria-pressed="${state.lang==='en'}">EN</button></div>`;
+  const lang='';
   if(onbStep===1){el.innerHTML=`<div class="onw">${lang}<img class="onlogo" src="icon-192.png" alt="" onerror="this.style.display='none'"><p class="onstep">${tr('ขั้นตอนที่ 1 จาก 2','Step 1 of 2')}</p><h1 id="onb-h" tabindex="-1">HabitFlow</h1><p>${tr('สร้างนิสัยดีทีละวัน เห็นความก้าวหน้าชัดเจน','Build good habits one day at a time')}</p>
     <ul class="onf"><li><span aria-hidden="true">✅</span> ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li><span aria-hidden="true">🔥</span> ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li><span aria-hidden="true">📊</span> ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
     <div class="onb-act"><button class="gbtn" data-act="onbGoogle"${onbBusy?' aria-disabled="true" aria-busy="true"':''}${onbErr?' aria-describedby="onb-err"':''}>${GLOGO}${onbBusy?tr('กำลังเชื่อมต่อ…','Connecting…'):tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
@@ -1988,7 +2016,7 @@ function onbStart(){if(!onbPick.size){onbSay(tr('เลือกอย่าง�
   if(!state.habits.length)setTimeout(()=>ACT.addHabit(),350);else toast(tr(`พร้อมแล้ว! เริ่มจาก ${state.habits.length} กิจวัตร 🌱`,`All set! Starting with ${state.habits.length} habits 🌱`));
 }
 /* one consistent back button for every submenu */
-(()=>{const BK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>'+'กลับ'+'</span>';
+(()=>{const BK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>Back</span>';
   ['d-profile','d-habits','d-tool','d-reset','d-remind','d-google'].forEach(id=>{const d=$(id);if(!d)return;const h=d.querySelector('.dh');if(!h)return;
     const old=[...h.querySelectorAll('.ib')];const act=(old.find(b=>b.dataset.act==='toolBack')||old[0]||{}).dataset?.act||'close';old.forEach(b=>b.remove());h.querySelectorAll('span[style*="width:36px"]').forEach(x=>x.remove());
     const b=document.createElement('button');b.className='pgback dback';b.dataset.act=act;b.innerHTML=BK;h.insertBefore(b,h.firstChild);
@@ -2043,9 +2071,9 @@ function setTab(t){{const to=arguments[0],sub=['rewards','focus'].includes(to);i
 function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();renderRewards();renderSettings();if(tab==='stats')renderStats();moodPick=null;if(tab==='mood')renderMood();save()}
 
 const ACT={
-  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fMin=+v;state.focus.min=fMin;renderFocusUI()}},
+  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fDone=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
   goF:()=>{const r=state.focusRun;
-    if(!r){state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
+    if(!r){fDone=false;state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
     else if(r.end){r.left=Math.max(0,r.end-Date.now());r.end=0}else r.end=Date.now()+r.left;
     save();renderFocusUI();renderFocus()},
   stopF:async()=>{if(!state.focusRun)return;if(!await ask(tr('หยุดโฟกัส? เวลาที่ทำไปแล้ว (ถ้าเกิน 5 นาที) จะถูกบันทึก','Stop focusing? Time so far (5+ min) will be saved'),tr('หยุด','Stop')))return;
