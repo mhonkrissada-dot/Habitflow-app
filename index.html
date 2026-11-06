@@ -813,7 +813,17 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
 .omk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--plus);display:grid;place-items:center;font-weight:800;color:#fff;font-size:14px}
 .onmc.on .omk{background:var(--acc);border-color:var(--acc)}
 .onb-act.sticky{position:sticky;bottom:0;background:linear-gradient(to bottom,transparent,var(--bg) 30%);padding-bottom:4px;margin-top:8px}
-.onstart{height:52px;width:100%;font-size:16px}.onstart[disabled]{background:var(--soft)!important;color:var(--mute)!important;box-shadow:none}
+.onstart{height:52px;width:100%;font-size:16px}.onstart[disabled],.onstart[aria-disabled=true]{background:var(--soft)!important;color:var(--mute)!important;box-shadow:none}
+/* onboarding a11y (WCAG 2.2 AA) */
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.onw h1:focus{outline:none!important}
+.onl button{height:44px;min-width:48px}
+.onstep{color:#1A7554!important}[data-theme=dark] .onstep{color:var(--accT)!important}
+.onw:not(.two) .onstep{margin:8px 0 0!important}
+.omk{border-color:#8E89A8}
+.onmc.on{border-color:var(--accT)}.onmc.on .omk{background:var(--accT);border-color:var(--accT);color:#fff}[data-theme=dark] .onmc.on .omk{color:#0B1226}
+.gbtn[aria-disabled=true]{opacity:.6}
+.onerr{margin:2px 0 0;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--bad) 12%,var(--surf));color:var(--ink);font-size:13.5px;line-height:1.45;text-align:left}
 .pgback{display:inline-flex;align-items:center;gap:2px;height:40px;padding:0 14px 0 8px;margin:4px 0 6px -4px;border-radius:99px;font-size:15px;font-weight:600;color:var(--accT);background:var(--surf);box-shadow:var(--sh)}
 .pgback svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 
@@ -1026,7 +1036,7 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
   <div class="db" id="gg-body"></div>
 </dialog>
 
-<div id="onb" class="onb" hidden role="dialog" aria-modal="true" aria-labelledby="onb-h"></div>
+<div id="onb" class="onb" hidden role="dialog" aria-modal="true" aria-labelledby="onb-h"><div id="onb-c"></div><div id="onb-live" class="vh" aria-live="polite" aria-atomic="true"></div></div>
 
 <dialog id="d-settings" aria-labelledby="ds-title">
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
@@ -1926,30 +1936,39 @@ function placeTools(t){const tools=document.querySelector('.tools'),top=document
 
 /* ===== First-run onboarding: Google sign-in (optional) → choose habit mode ===== */
 const GLOGO='<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg>';
-var onbStep=1,onbPick=new Set(),onbBusy=false;
+var onbStep=1,onbPick=new Set(),onbBusy=false,onbShown=0,onbErr='';
+function onbSay(m){const l=$('onb-live');if(!l)return;l.textContent='';setTimeout(()=>{l.textContent=m},60)}
 const hasRealData=st=>st.habits.some(h=>Object.keys(h.logs||{}).length)||!!(st.profile&&st.profile.name)||Object.keys(st.moods||{}).length>0||!!st.google;
-function renderOnb(){const el=$('onb');if(el.hidden)return;
-  const lang=`<div class="onl"><button data-act="onbLang" data-id="th" aria-pressed="${state.lang!=='en'}">ไทย</button><button data-act="onbLang" data-id="en" aria-pressed="${state.lang==='en'}">EN</button></div>`;
-  if(onbStep===1){el.innerHTML=`<div class="onw">${lang}<img class="onlogo" src="icon-192.png" alt="" onerror="this.style.display='none'"><h1 id="onb-h">HabitFlow</h1><p>${tr('สร้างนิสัยดีทีละวัน เห็นความก้าวหน้าชัดเจน','Build good habits one day at a time')}</p>
-    <ul class="onf"><li>✅ ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li>🔥 ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li>📊 ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
-    <div class="onb-act"><button class="gbtn" data-act="onbGoogle"${onbBusy?' disabled':''}>${GLOGO}${onbBusy?tr('กำลังเชื่อมต่อ…','Connecting…'):tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
+/* re-render keeps keyboard / screen-reader focus on the same control; a new step moves focus to its heading */
+function renderOnb(){const el=$('onb');if(el.hidden)return;const a=document.activeElement,fk=a&&el.contains(a)&&a.dataset&&a.dataset.act?[a.dataset.act,a.dataset.id||'']:null;
+  renderOnbView($('onb-c'));
+  if(onbShown!==onbStep){onbShown=onbStep;const h=$('onb-h');if(h)h.focus({preventScroll:true})}
+  else if(fk){const b=[...el.querySelectorAll('[data-act]')].find(x=>x.dataset.act===fk[0]&&(x.dataset.id||'')===fk[1]);const t=b||$('onb-h');if(t)t.focus({preventScroll:true})}}
+function renderOnbView(el){
+  const lang=`<div class="onl" role="group" aria-label="ภาษา / Language"><button data-act="onbLang" data-id="th" lang="th" aria-pressed="${state.lang!=='en'}">ไทย</button><button data-act="onbLang" data-id="en" lang="en" aria-pressed="${state.lang==='en'}">EN</button></div>`;
+  if(onbStep===1){el.innerHTML=`<div class="onw">${lang}<img class="onlogo" src="icon-192.png" alt="" onerror="this.style.display='none'"><p class="onstep">${tr('ขั้นตอนที่ 1 จาก 2','Step 1 of 2')}</p><h1 id="onb-h" tabindex="-1">HabitFlow</h1><p>${tr('สร้างนิสัยดีทีละวัน เห็นความก้าวหน้าชัดเจน','Build good habits one day at a time')}</p>
+    <ul class="onf"><li><span aria-hidden="true">✅</span> ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li><span aria-hidden="true">🔥</span> ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li><span aria-hidden="true">📊</span> ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
+    <div class="onb-act"><button class="gbtn" data-act="onbGoogle"${onbBusy?' aria-disabled="true" aria-busy="true"':''}${onbErr?' aria-describedby="onb-err"':''}>${GLOGO}${onbBusy?tr('กำลังเชื่อมต่อ…','Connecting…'):tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
+    ${onbErr&&!onbBusy?`<p class="onerr" id="onb-err">${esc(onbErr)}</p>`:''}
     <small class="m">${tr('สำรองข้อมูลอัตโนมัติ ใช้ได้หลายเครื่อง','Automatic backup across devices')}</small>
     <button class="btn onskip" data-act="onbSkip">${tr('ใช้งานโดยไม่ล็อกอิน','Continue without signing in')}</button>
     <small class="m">${tr('ข้อมูลเก็บในเครื่องนี้ · เชื่อม Google ภายหลังได้ในตั้งค่า','Data stays on this device · connect Google later in Settings')}</small></div></div>`;return}
-  el.innerHTML=`<div class="onw two">${lang}<p class="onstep">${tr('ขั้นตอนที่ 2 จาก 2','Step 2 of 2')}</p><h1 id="onb-h">${tr('เลือกโหมดกิจวัตร','Choose your habit mode')}</h1><p>${tr('เลือกได้มากกว่า 1 โหมด · ปรับเปลี่ยนได้ทีหลัง','Pick one or more · you can change them later')}</p>
-   <div class="onm">${HPRE.map(([g,items],i)=>`<button class="onmc${onbPick.has(i)?' on':''}" data-act="onbMode" data-id="${i}" role="checkbox" aria-checked="${onbPick.has(i)}"><span class="ome">${g[2]}</span><span class="omt"><b>${tr(g[0],g[1])}</b><small>${items.map(it=>icon(it[0])+' '+esc(tr(it[1],it[2]))).join(' · ')}</small></span><span class="omk">${onbPick.has(i)?'✓':''}</span></button>`).join('')}
-    <button class="onmc${onbPick.has('own')?' on':''}" data-act="onbMode" data-id="own" role="checkbox" aria-checked="${onbPick.has('own')}"><span class="ome">✏️</span><span class="omt"><b>${tr('เลือกเอง','Choose my own')}</b><small>${tr('เริ่มว่างๆ แล้วเพิ่มกิจวัตรที่ต้องการ','Start empty and add the habits you want')}</small></span><span class="omk">${onbPick.has('own')?'✓':''}</span></button></div>
-   <div class="onb-act sticky"><button class="btn pri onstart" data-act="onbStart"${onbPick.size?'':' disabled'}>${onbPick.size?tr(`เริ่มใช้งาน${onbCount()?` · ${onbCount()} กิจวัตร`:''}`,`Get started${onbCount()?` · ${onbCount()} habits`:''}`):tr('เลือกอย่างน้อย 1 โหมด','Pick at least one mode')}</button></div></div>`;
+  el.innerHTML=`<div class="onw two">${lang}<p class="onstep">${tr('ขั้นตอนที่ 2 จาก 2','Step 2 of 2')}</p><h1 id="onb-h" tabindex="-1">${tr('เลือกโหมดกิจวัตร','Choose your habit mode')}</h1><p>${tr('เลือกได้มากกว่า 1 โหมด · ปรับเปลี่ยนได้ทีหลัง','Pick one or more · you can change them later')}</p>
+   <div class="onm">${HPRE.map(([g,items],i)=>`<button class="onmc${onbPick.has(i)?' on':''}" data-act="onbMode" data-id="${i}" role="checkbox" aria-checked="${onbPick.has(i)}"><span class="ome" aria-hidden="true">${g[2]}</span><span class="omt"><b>${tr(g[0],g[1])}</b><small>${items.map(it=>icon(it[0])+' '+esc(tr(it[1],it[2]))).join(' · ')}</small></span><span class="omk" aria-hidden="true">${onbPick.has(i)?'✓':''}</span></button>`).join('')}
+    <button class="onmc${onbPick.has('own')?' on':''}" data-act="onbMode" data-id="own" role="checkbox" aria-checked="${onbPick.has('own')}"><span class="ome" aria-hidden="true">✏️</span><span class="omt"><b>${tr('เลือกเอง','Choose my own')}</b><small>${tr('เริ่มว่างๆ แล้วเพิ่มกิจวัตรที่ต้องการ','Start empty and add the habits you want')}</small></span><span class="omk" aria-hidden="true">${onbPick.has('own')?'✓':''}</span></button></div>
+   <div class="onb-act sticky"><button class="btn pri onstart" data-act="onbStart"${onbPick.size?'':' aria-disabled="true"'}>${onbPick.size?tr(`เริ่มใช้งาน${onbCount()?` · ${onbCount()} กิจวัตร`:''}`,`Get started${onbCount()?` · ${onbCount()} habits`:''}`):tr('เลือกอย่างน้อย 1 โหมด','Pick at least one mode')}</button></div></div>`;
 }
 const onbCount=()=>[...onbPick].filter(x=>x!=='own').reduce((a,i)=>a+HPRE[i][1].length,0);
-function openOnb(){onbStep=1;onbPick=new Set();$('onb').hidden=false;document.body.classList.add('onbon');renderOnb()}
-function closeOnb(){$('onb').hidden=true;document.body.classList.remove('onbon');state.onboarded=true;save();renderAll()}
-async function onbGoogle(){if(!gcid()){toast(tr('ระบบ Google ยังตั้งค่าไม่เสร็จ — ใช้งานโดยไม่ล็อกอินไปก่อนได้','Google sign-in isn\'t set up yet — continue without signing in for now'),true);return}
+const onbBg=on=>document.querySelectorAll('body>header,body>main,body>nav').forEach(x=>{x.inert=on;if(on)x.setAttribute('aria-hidden','true');else x.removeAttribute('aria-hidden')});
+function openOnb(){onbStep=1;onbShown=0;onbErr='';onbPick=new Set();$('onb').hidden=false;document.body.classList.add('onbon');onbBg(true);renderOnb()}
+function closeOnb(){$('onb').hidden=true;document.body.classList.remove('onbon');onbBg(false);state.onboarded=true;save();renderAll()}
+async function onbGoogle(){if(onbBusy)return;if(!gcid()){onbErr=tr('ระบบ Google ยังตั้งค่าไม่เสร็จ — ใช้งานโดยไม่ล็อกอินไปก่อนได้','Google sign-in isn\'t set up yet — continue without signing in for now');renderOnb();toast(onbErr,true);return}
   if(FRESH_INSTALL&&!state.onboarded){state.habits=[];state.coins=0;state.totalEarned=0;state.bonusDays={};state.rewards=[];state.claimedRewards=[]}
-  onbBusy=true;renderOnb();const ok=await gSignIn();onbBusy=false;
+  onbBusy=true;onbErr='';renderOnb();onbSay(tr('กำลังเชื่อมต่อ Google…','Connecting to Google…'));const ok=await gSignIn();onbBusy=false;
+  onbErr=ok||gErr==='popup_closed'?'':gMsg(gErr);if(!ok&&gErr==='popup_closed')onbSay(tr('ยกเลิกการเข้าสู่ระบบ','Sign-in cancelled'));
   if(ok&&active().length){toast(tr('ยินดีต้อนรับกลับ! ดึงข้อมูลเดิมแล้ว','Welcome back! Your data is restored'));closeOnb();return}
   if(ok){onbStep=2}renderOnb()}
-function onbStart(){
+function onbStart(){if(!onbPick.size){onbSay(tr('เลือกอย่างน้อย 1 โหมดก่อนเริ่มใช้งาน','Pick at least one mode first'));return}
   const ids=[...onbPick].filter(x=>x!=='own'),t=Date.now();let n=0;
   state.habits=[];state.coins=0;state.totalEarned=0;state.bonusDays={};state.flameFix={};state.fixRun={start:'',used:0};
   ids.forEach(i=>{const [g,items]=HPRE[i];if(!state.groups.includes(g[0]))state.groups.push(g[0]);
