@@ -929,6 +929,43 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 /* settings: two-line rows */
 .set .st2{display:flex;flex-direction:column;gap:2px;line-height:1.25}.set .st2 small{color:var(--mute);font-size:12px;font-weight:500}
 #s-a11y>.set{border-top:1px solid var(--line)}
+/* update banner */
+.updbar{position:fixed;left:12px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--surf);border:1px solid var(--line);box-shadow:var(--sh);font-size:14px;font-weight:600;animation:rise .4s var(--ease) both}
+.updbar .btn{height:40px;padding:0 16px;flex:none}
+/* focus: leave-app rule */
+.fgr{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:4px}.fgr>span{font-size:12.5px;color:var(--mute)}
+.fgr .seg button{min-height:36px}
+/* journal & notes switch */
+.tsw{display:flex;margin:0 0 14px}.tsw button{flex:1}
+/* UI icons */
+.ui-i{width:1.15em;height:1.15em;vertical-align:-.2em;flex:none;display:inline-block}
+.coins .ui-i{width:18px;height:18px}.qe .ui-i{width:24px;height:24px;color:var(--acc)}.qe .flame{width:24px;height:24px}
+.tday span .ui-i{width:20px;height:20px}.ce .ui-i{width:30px;height:30px;color:var(--coin)}.gico .ui-i{width:34px;height:34px;color:var(--acc)}
+.onf li .ui-i,.onf li .flame{width:20px;height:20px;color:var(--acc);vertical-align:-.3em;margin-right:2px}.ome .ui-i{width:26px;height:26px}
+.cburst .ui-i{width:20px;height:20px}.fxb .ui-i{width:18px;height:18px;color:var(--bad)}.ins .ui-i{color:var(--coin)}
+/* ===== VIP ===== */
+.vipr{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;margin:0 0 6px;border-radius:18px;border:1px solid color-mix(in srgb,#F5C35C 45%,transparent);background:linear-gradient(120deg,color-mix(in srgb,#F5C35C 16%,var(--surf)),var(--surf));color:var(--ink);text-align:left;font:inherit}
+.vipr .vcr{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#F5C35C;color:#3A2A00;flex:none}.vipr .vcr .ui-i{width:22px;height:22px}
+.vipr .st2{flex:1;display:flex;flex-direction:column;gap:2px}.vipr small{color:var(--mute);font-size:12.5px}
+.rcal .btn[disabled]{opacity:.55;filter:saturate(.4)}.vipr b{font-size:15px}.vipr.on{border-color:#F5C35C}
+.vhero{text-align:center;padding:6px 8px 4px}.vhero h2{margin:10px 0 4px;font-size:24px}.vhero p{margin:0;color:var(--mute);font-size:14px;line-height:1.45}
+.vcrown{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:20px;background:linear-gradient(140deg,#FBD978,#E9A92A);color:#3A2A00;box-shadow:0 10px 30px -10px rgba(245,195,92,.6)}.vcrown .ui-i{width:34px;height:34px}
+.vstat{margin:16px 0 0;padding:14px 16px;border-radius:16px;background:color-mix(in srgb,#F5C35C 12%,var(--surf));border:1px solid color-mix(in srgb,#F5C35C 40%,transparent)}.vstat b{display:block;font-size:16px}.vstat small{color:var(--mute)}
+.vplans{display:grid;gap:10px;margin:18px 0 12px}
+.vplan{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"n p" "s s" "o o";align-items:baseline;gap:2px 10px;padding:16px;border-radius:18px;border:2px solid var(--line);background:var(--surf);color:var(--ink);text-align:left;font:inherit;min-height:44px}
+.vplan b{grid-area:n;font-size:16px}.vplan .vprice{grid-area:p;font-size:24px;font-weight:800}.vplan small{grid-area:s;color:var(--mute);font-size:12.5px}.vplan .vnote{grid-area:o}
+.vplan.on{border-color:#F5C35C;background:color-mix(in srgb,#F5C35C 10%,var(--surf))}
+.vtag{position:absolute;top:-10px;right:14px;padding:2px 10px;border-radius:99px;background:#F5C35C;color:#3A2A00;font-size:11.5px;font-weight:800}
+.vbuy{width:100%;height:54px;font-size:16px;background:linear-gradient(120deg,#FBD978,#E9A92A)!important;color:#2A1E00!important}
+.vmsg{min-height:1.2em;margin:8px 2px 0;font-size:13px;color:var(--ink);text-align:center}
+.vcmp{width:100%;border-collapse:collapse;margin:18px 0 6px;font-size:13.5px}.vcmp th,.vcmp td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:center}
+.vcmp th[scope=row]{text-align:left;font-weight:600}.vcmp thead th{font-size:12px;color:var(--mute);font-weight:700}.vcmp td.v{color:#F5C35C;font-weight:700}.vcmp .ui-i{width:18px;height:18px}.vcmp td .lk{color:var(--mute)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.vfine{font-size:12px;color:var(--mute);text-align:center;margin:10px 0}.vrest{display:block;margin:0 auto 10px;min-height:44px}
+.swat{display:flex;gap:8px}.swat button{position:relative;width:32px;height:32px;border-radius:50%;border:2px solid transparent;background:none;padding:2px}
+.swat button i{display:block;width:100%;height:100%;border-radius:50%;background:var(--sw)}.swat button[aria-pressed=true]{border-color:var(--ink)}
+.swat .lk{position:absolute;right:-4px;bottom:-4px;width:16px;height:16px;border-radius:50%;background:var(--surf);display:grid;place-items:center;color:var(--mute)}.swat .lk .ui-i{width:11px;height:11px}
+.omk .ui-i{width:14px;height:14px;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -936,7 +973,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
   <div class="hi" hidden><button class="av" id="av" data-act="profile" aria-label="โปรไฟล์"></button><span class="hn"><small id="greet"></small><b id="hname"></b></span></div>
   <div class="tools">
     <button class="fl" id="fl" data-act="profile" title="ไฟต่อเนื่อง: ทำครบ 4 กิจวัตรต่อวัน ได้ไฟ 1 ดวง"><span id="fl-ic"></span><b id="hs">0</b></button>
-    <button class="coins" data-act="tab" data-id="rewards" aria-label="เหรียญสะสม">🪙 <span id="coins">0</span></button>
+    <button class="coins" data-act="tab" data-id="rewards" aria-label="เหรียญสะสม"><svg class="ui-i coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="#F5C35C"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#C98A0C" stroke-width="1.6"/></svg> <span id="coins">0</span></button>
     <button class="ib gear" data-act="settings" aria-label="ตั้งค่า"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   </div>
 </div><div class="week" id="week"></div></header>
@@ -1004,7 +1041,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
     <label class="f" hidden><span>หมวดหมู่</span><select class="in" id="f-group"></select></label>
     <div class="g2"><div class="f"><span>ต้องทำกี่ครั้งต่อวัน</span><div class="step"><button type="button" data-act="tgt" data-id="-1" aria-label="ลดจำนวน"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><input class="in" id="f-target" type="number" min="1" max="999" inputmode="numeric" aria-label="จำนวนครั้งต่อวัน"><button type="button" data-act="tgt" data-id="1" aria-label="เพิ่มจำนวน"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
     <label class="f"><span>หน่วยนับ</span><input class="in" id="f-unit" maxlength="12"></label></div>
-    <div class="f"><span>ช่วงเวลา</span><div class="seg wide" id="f-tod" role="radiogroup" aria-label="ช่วงเวลา"><button type="button" data-act="fTod" data-id="morning">🌅 เช้า</button><button type="button" data-act="fTod" data-id="day">☀️ ระหว่างวัน</button><button type="button" data-act="fTod" data-id="night">🌙 กลางคืน</button></div></div>
+    <div class="f"><span>ช่วงเวลา</span><div class="seg wide" id="f-tod" role="radiogroup" aria-label="ช่วงเวลา"><button type="button" data-act="fTod" data-id="morning"><svg class="ui-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 18h16M7 18a5 5 0 0 1 10 0M12 4v4M5.6 9.6l1.4 1.4M18.4 9.6 17 11"/></svg> Morning</button><button type="button" data-act="fTod" data-id="day"><svg class="ui-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg> Daytime</button><button type="button" data-act="fTod" data-id="night"><svg class="ui-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg> Night</button></div></div>
     <label class="f"><span>แจ้งเตือนเวลา</span><input class="in" id="f-remind" type="time" aria-label="เวลาแจ้งเตือน"></label>
     <div class="f"><span>ไอคอน</span><div class="icons" id="f-icons"></div></div>
     <button class="btn bad sm" id="f-del" data-act="delHabit" hidden>ลบกิจวัตรนี้</button>
@@ -1080,15 +1117,17 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 <dialog id="d-settings" aria-labelledby="ds-title">
   <div class="dh"><h3 id="ds-title">ตั้งค่า</h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db">
+    <button class="vipr" id="s-vipr" data-act="openVip"><span class="vcr"><svg class="ui-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16l1-10-5 4-4-7-4 7-5-4z"/></svg></span><span class="st2"><b>HabitFlow VIP</b><small id="s-vipsub">Free plan</small></span><span class="chev">›</span></button>
     <h4 style="margin-top:4px">บัญชี</h4>
-    <div class="grp"><button class="set" data-act="profile"><span class="row sl"><span class="si" style="background:#A98BEA"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.6"/><path d="M5 19.5c1.4-3.2 4-4.6 7-4.6s5.6 1.4 7 4.6"/></svg></span>โปรไฟล์</span><span class="chev">›</span></button><button class="set" data-act="openGoogle"><span class="row sl"><span class="si" style="background:#fff;box-shadow:inset 0 0 0 1px #E3E3E8"><svg viewBox="0 0 48 48" style="stroke:none"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></span><span><span class="gtl">สำรองด้วย Google</span><small class="m" id="s-gsub" style="display:block;font-size:11.5px"></small></span></span><span class="chev">›</span></button></div>
+    <div class="grp"><button class="set" data-act="profile"><span class="row sl"><span class="si" style="background:#A98BEA"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.6"/><path d="M5 19.5c1.4-3.2 4-4.6 7-4.6s5.6 1.4 7 4.6"/></svg></span>โปรไฟล์</span><span class="chev">›</span></button><button class="set" data-act="openGoogle" id="s-grow"><span class="row sl"><span class="si" style="background:#fff;box-shadow:inset 0 0 0 1px #E3E3E8"><svg viewBox="0 0 48 48" style="stroke:none"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></span><span><span class="gtl">สำรองด้วย Google</span><small class="m" id="s-gsub" style="display:block;font-size:11.5px"></small></span></span><span class="chev">›</span></button></div>
     <h4>พัฒนาตัวเอง</h4>
-    <div class="grp"><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="goals"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>บันทึกประจำวัน</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="notes"><span class="row sl"><span class="si" style="background:#C59A2B"><svg viewBox="0 0 24 24"><path d="M5 4h14v11l-5 5H5zM14 20v-5h5M8 9h8M8 12h5"/></svg></span>โน้ต</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="goTab" data-id="focus"><span class="row sl"><span class="si" style="background:#5B9BF0"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg></span>โหมดโฟกัส</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="rewards"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg></span>รางวัลและภารกิจ</span><span class="chev">›</span></button><button class="set" data-act="tool" data-id="overview"><span class="row sl"><span class="si" style="background:#5B6CF0"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16v-5M12 16V6M17 16v-8"/></svg></span>ภาพรวมทั้งหมด</span><span class="chev">›</span></button></div>
+    <div class="grp"><button class="set" data-act="openHabits"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></span>กิจวัตรของฉัน</span><span class="m" style="flex:none"><span id="s-hcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="goals"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>เป้าหมาย</span><span class="m" style="flex:none"><span id="s-gcount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="tool" data-id="journal"><span class="row sl"><span class="si" style="background:#E89A2E"><svg viewBox="0 0 24 24"><path d="M6 4h11a1 1 0 0 1 1 1v15H7a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1zM5 18a2 2 0 0 1 2-2h11M9 8h6M9 11h4"/></svg></span>Journal &amp; notes</span><span class="m" style="flex:none"><span id="s-ncount">0</span> <span class="chev">›</span></span></button><button class="set" data-act="goTab" data-id="focus"><span class="row sl"><span class="si" style="background:#5B9BF0"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></svg></span>โหมดโฟกัส</span><span class="chev">›</span></button><button class="set" data-act="goTab" data-id="rewards"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/></svg></span>รางวัลและภารกิจ</span><span class="chev">›</span></button></div>
     <h4>การตั้งค่า</h4>
     <div class="grp"><button class="set" data-act="openRemind"><span class="row sl"><span class="si" style="background:#F2A33A"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M5 4 3 6M19 4l2 2"/></svg></span>การแจ้งเตือน</span><span class="m" style="flex:none"><span id="s-rcount">0</span> <span class="chev">›</span></span></button>
       
       <div class="set lay"><span class="row sl"><span class="si" style="background:#36B58A"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="5" rx="2"/><rect x="4" y="14" width="16" height="5" rx="2"/></svg></span>รูปแบบหน้าแรก</span><div class="seg" id="s-hlay"><button data-act="hlay" data-id="card">การ์ด</button><button data-act="hlay" data-id="tile">ช่อง</button><button data-act="hlay" data-id="row">แถบสี</button></div></div>
       <div class="set lay"><span class="row sl"><span class="si" style="background:#7B3FD6"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>รูปแบบหน้าสถิติ</span><div class="seg" id="s-rview"><button data-act="rview" data-id="grid">ตาราง</button><button data-act="rview" data-id="list">ยาว</button></div></div>
+      <div class="set"><span class="row sl"><span class="si" style="background:#E0609A"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="9.5" r="1.3"/><circle cx="14.5" cy="8.5" r="1.3"/><circle cx="16" cy="13" r="1.3"/></svg></span>Theme colour</span><div class="swat" id="s-accent" role="group" aria-label="Theme colour"></div></div>
       <div class="set"><span class="row sl"><span class="si" style="background:#3A8FE0"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>เริ่มสัปดาห์</span><div class="seg" id="s-week"><button data-act="weekStart" data-id="1">อา.</button><button data-act="weekStart" data-id="0">จ.</button></div></div>
       
       <div class="set"><span class="row sl"><span class="si" style="background:#E5544B"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></svg></span>เสียงแจ้งเตือน</span><button class="sw" id="s-sound" role="switch" data-act="toggleSound" aria-label="เสียงแจ้งเตือน"></button></div>
@@ -1115,8 +1154,13 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
       <button class="set" data-act="openReset"><span class="row sl"><span class="si" style="background:var(--bad)"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></span><span class="st2">Start over or reset<small>Pick a new habit mode or erase data</small></span></span><span class="chev">›</span></button>
     </div>
     <input type="file" id="s-file" accept=".json,application/json" hidden>
-    <p class="ver">HabitFlow v5.0</p>
+    <p class="ver" id="s-ver">HabitFlow v5.1</p>
   </div>
+</dialog>
+
+<dialog id="d-vip" class="full" aria-labelledby="vip-title">
+  <div class="dh"><button class="ib" data-act="close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><h3 id="vip-title">HabitFlow VIP</h3><span style="width:36px;flex:none"></span></div>
+  <div class="db" id="vip-body"></div>
 </dialog>
 
 <dialog id="d-confirm" style="max-width:380px;margin:auto;border-radius:16px">
@@ -1134,7 +1178,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 <dialog id="d-focus" class="full" aria-labelledby="fo-title">
   <div class="dh"><h3 id="fo-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="db fo"><div class="fring" id="fo-hold" role="button" tabindex="0" aria-label="กดค้างเพื่อเริ่มหรือพักโฟกัส"><svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fo-ring" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/><circle class="hold" cx="100" cy="100" r="98" stroke-dasharray="615.8"/></svg><div class="fscene" aria-hidden="true"><i class="soil"></i><i class="lip"></i><div class="ftree" id="fo-tree"></div></div></div><div class="ft" id="fo-time">25:00</div>
-  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p></div>
+  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><div class="fgr" id="fo-gr"><span id="fo-grl">If I leave the app, my tree withers after</span><div class="seg" id="fo-grace" role="group" aria-labelledby="fo-grl"></div></div><p class="fhint" id="fo-msg"></p></div>
   <div class="df"><button class="btn" id="fo-stop" data-act="stopF">หยุด</button><button class="btn pri" id="fo-go" data-act="goF">เริ่มโฟกัส</button></div>
 </dialog>
 <dialog id="d-fcat" aria-labelledby="fc-title">
@@ -1153,6 +1197,35 @@ const KEY='habitflow_app_state_v3',VER='3.2.0';
 const mem={};
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v;return !/quota/i.test(e.name)}return true},del:k=>{try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
 const IC=(p,x)=>`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+/* UI icons (decorative, replace emoji in the interface; habit / mood / reward icons stay user-chosen) */
+const U=(p,cl='')=>`<svg class="ui-i${cl?' '+cl:''}" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const UI={
+ coin:`<svg class="ui-i coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="#F5C35C"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#C98A0C" stroke-width="1.6"/><path d="M12 8.6v6.8M10.2 10.2h2.9a1.2 1.2 0 0 1 0 2.4h-2.2a1.2 1.2 0 0 0 0 2.4h3" fill="none" stroke="#9A6A06" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+ gift:U('<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3 9h18M12 9v11M12 9S10 4 7.5 5.5 9 9 12 9zm0 0s2-5 4.5-3.5S15 9 12 9z"/>'),
+ box:U('<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/>'),
+ check:U('<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/>'),
+ smile:U('<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 1.8 3.5 1.8 3.5-1.8 3.5-1.8M9 9.5h.01M15 9.5h.01"/>'),
+ timer:U('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/>'),
+ book:U('<path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2zM5 18a2 2 0 0 1 2-2h11M9 8h5"/>'),
+ bulb:U('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>'),
+ chart:U('<path d="M4 20h16M7 16v-5M12 16V6M17 16v-8"/>'),
+ cal:U('<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/>'),
+ cloud:U('<path d="M7 18a4.5 4.5 0 0 1-.6-9 6 6 0 0 1 11.4 1.6A3.8 3.8 0 0 1 17.5 18z"/>'),
+ sync:U('<path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/>'),
+ recycle:U('<path d="M7 19H4.5L7 14.5M17 19h2.5L17 14.5M9.5 5.5 12 3l2.5 2.5M7 19h10M12 3v6"/>'),
+ crown:U('<path d="M4 18h16l1-10-5 4-4-7-4 7-5-4z"/>'),
+ broken:U('<path d="M12 20s-8-4.7-8-10.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 8 3.5C20 15.3 12 20 12 20z"/><path d="m12 6-1.5 4 3 2-1.5 3"/>'),
+ pencil:U('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>'),
+ apple:`<svg class="ui-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.5c-1.6-1.3-5.5-1.6-6.6 2.2-1 3.6 1.2 9.8 4.2 10.3 1 .2 1.6-.4 2.4-.4s1.4.6 2.4.4c3-.5 5.2-6.7 4.2-10.3C17.5 5.9 13.6 6.2 12 7.5z" fill="#E23A3A"/><path d="M12 7.5c0-2 1-3.6 2.6-4.2" fill="none" stroke="#6B3E1E" stroke-width="1.6" stroke-linecap="round"/><path d="M12.6 5.6c1.6-1.6 3.8-1.4 4.6-.6-1.2 1.4-3 1.6-4.6.6z" fill="#4E9A2E"/></svg>`,
+ sun:U('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+ sunrise:U('<path d="M4 18h16M7 18a5 5 0 0 1 10 0M12 4v4M5.6 9.6l1.4 1.4M18.4 9.6 17 11M2 14h2M20 14h2"/>'),
+ moon:U('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
+ bell:U('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0"/>'),
+ block:U('<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>'),
+ lock:U('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+ star:U('<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>')
+};
+const strip=t=>t.replace(/\s*[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2B50}\u{231A}-\u{23FA}]️?/gu,'');
 const ICONS={weight:{c:'indigo',e:'🏋️'},cardio:{c:'rose',e:'🫀'},sleep:{c:'amber',e:'🛏️'},water:{c:'sky',e:'💧'},read:{c:'emerald',e:'📚'},smoke:{c:'tan',e:'🚭'},run:{c:'violet',e:'🏃'},mind:{c:'emerald',e:'🧘'}};
 const COLORS={indigo:'#52A8AF',rose:'#F03E43',amber:'#C59A2B',sky:'#3A9FE0',emerald:'#2FB283',tan:'#A88E68',violet:'#8E6CE0',orange:'#E8803A',pink:'#DE5C95',navy:'#4A6FD0'};
 Object.assign(ICONS,{learn:{c:'violet',e:'🎓'},english:{c:'navy',e:'🇬🇧'},review:{c:'amber',e:'📝'},plan:{c:'sky',e:'📅'},target:{c:'rose',e:'🎯'},nophone:{c:'tan',e:'📵'},check:{c:'emerald',e:'✅'},zzz:{c:'violet',e:'😴'},money:{c:'emerald',e:'💵'},save:{c:'orange',e:'📈'},ai:{c:'navy',e:'💻'},rocket:{c:'pink',e:'🚀'}});
@@ -1264,7 +1337,7 @@ $('c-yes').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(tr
 $('c-no').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(false)};
 $('d-confirm').addEventListener('cancel',()=>confirmResolve&&confirmResolve(null));
 /* perf: show the toast on the next frame so it never lands in the same frame as a list re-render */
-function toast(msg,err){requestAnimationFrame(()=>{
+function toast(msg,err){msg=strip(String(msg));requestAnimationFrame(()=>{
   document.querySelectorAll('.toast').forEach(t=>t.remove());
   const t=document.createElement('div');t.className='toast'+(err?' err':'');t.setAttribute('popover','manual');t.setAttribute('role',err?'alert':'status');t.setAttribute('aria-live',err?'assertive':'polite');t.textContent=msg;
   document.body.appendChild(t);try{t.showPopover()}catch(e){}
@@ -1334,7 +1407,7 @@ function renderMood(){
   $('m7').innerHTML=[6,5,4,3,2,1,0].map(i=>{const d=addDays(t,-i),e=state.moods[d];return `<div><span class="bl s">${e&&MOODS[e.m]?MOODS[e.m][0]:''}</span>${WD[parse(d).getDay()]}</div>`}).join('');
   const hab=[],non=[];Object.entries(state.moods).forEach(([d,e])=>{if(MOODS[e.m])(dayDone(d)?hab:non).push(MOODS[e.m][3])});
   const av=a=>a.reduce((x,y)=>x+y,0)/a.length;
-  $('mood-ins').textContent=hab.length>=2&&non.length>=2?(av(hab)-av(non)>=.3?tr('💡 วันที่ทำกิจวัตรสำเร็จ อารมณ์ของคุณมักดีกว่าวันที่ไม่ได้ทำ','💡 On days you complete habits, your mood tends to be better'):''):tr('💡 บันทึกอารมณ์ต่อเนื่อง แอปจะเทียบให้ว่ากิจวัตรช่วยให้รู้สึกดีขึ้นไหม','💡 Keep logging to see whether your habits lift your mood');
+  $('mood-ins').textContent=hab.length>=2&&non.length>=2?(av(hab)-av(non)>=.3?'On days you complete habits, your mood tends to be better':''):'Keep logging to see whether your habits lift your mood';
   const ds=Object.keys(state.moods).filter(d=>MOODS[state.moods[d].m]).sort().reverse().slice(0,14);
   $('mood-list').innerHTML=ds.length?ds.map(d=>{const e=state.moods[d],v=MOODS[e.m],dd=parse(d);
     return `<div class="item" style="--c:${v[2]}"><span class="mf">${face(e.m,38)}</span><div style="flex:1;min-width:0"><div class="t">${v[1]}</div><div class="m">${dd.getDate()} ${MS[dd.getMonth()]}${e.note?' · '+esc(e.note):''}</div></div></div>`}).join(''):tr('<div class="empty">ยังไม่มีบันทึกอารมณ์</div>','<div class="empty">No mood entries yet</div>');
@@ -1380,7 +1453,7 @@ function renderFocus(){
 function updateRun(){const r=state.focusRun,b=$('f-run');b.hidden=!r;if(r){const c=fCat(r.c);b.textContent=`${c[2]} ${tr('กำลังโฟกัส','Focusing:')} ${c[1]} · ${mmss(fLeft())}${r.end?'':tr(' (พัก)',' (paused)')} — ${tr('แตะเพื่อเปิด','tap to open')}`}}
 function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.now()):r.left):fMin*60000}
 /* cartoon apple tree: leafy canopy clusters pop in as the session runs; apples (red or green, picked per round) appear near the end */
-const AP_C={r:['#E23A3A','#A9232A'],g:['#C4E04E','#86A92B']};
+const AP_C={y:['#F2C14E','#B8860B'],r:['#E23A3A','#A9232A'],g:['#C4E04E','#86A92B']};
 const TREE=(()=>{
   const B=[[64,152,31,1],[136,152,31,2],[100,142,42,0],[72,114,34,3],[128,114,34,4],[100,88,37,5]];
   const leaf=(x,y)=>`<path d="M${x-5} ${y}q5 6 10 0" stroke="#3F822B" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>`;
@@ -1406,9 +1479,12 @@ function renderTree(r,total,left){const el=$('fo-tree');if(!el)return;const dead
 function renderFocusUI(){
   const r=state.focusRun,total=r?r.total:fMin*60000,left=fLeft();
   $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));renderTree(r,total,left);
-  $('fo-dur').hidden=!!r;$('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} ${tr('น.','min')}</button>`).join('');
+  $('fo-dur').hidden=$('fo-gr').hidden=!!r;
+  if(!r){const g=fGrace(),dk=fMin+'|'+g;if($('fo-dur').dataset.k!==dk){$('fo-dur').dataset.k=dk;
+    $('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} min</button>`).join('');
+    $('fo-grace').innerHTML=[[10000,'10 s'],[60000,'1 min'],[0,'Never']].map(([v,l])=>`<button data-act="fgrace" data-id="${v}" aria-pressed="${v===g}">${l}</button>`).join('')}}
   $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('ปลูกต้นไม้','Plant'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
-  $('fo-msg').textContent=fDead&&!r?tr('🥀 ต้นไม้เหี่ยว เพราะออกจากแอประหว่างโฟกัส · กดค้างเพื่อปลูกใหม่','🥀 Your tree withered because you left the app · long-press to plant again'):fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🍎 Your apple tree is fully grown! Long-press to plant another'):!r?tr('🌱 กดค้างที่วงเพื่อปลูกต้นไม้ · อย่าออกจากแอประหว่างโฟกัส','🌱 Long-press the circle to plant · stay in the app while you focus'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
+  $('fo-msg').textContent=fDead&&!r?'Your tree withered because you left the app · long-press to plant again':fDone&&!r?'Your apple tree is fully grown! Long-press to plant another':!r?(fGrace()?'Long-press the circle to plant · stay in the app while you focus':'Long-press the circle to plant'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
 }
 function openFocus(id){
   const r=state.focusRun;fDone=false;fDead=false;fSel=r?r.c:id;fMin=state.focus.min;
@@ -1421,18 +1497,18 @@ function startTick(){clearInterval(ftick);ftick=setInterval(()=>{
   document.title=(r.end?mmss(fLeft())+' · ':'')+'HabitFlow';
   if($('d-focus').open)renderFocusUI();updateRun()},500)}
 /* leaving the app while focusing (not paused) for more than 10 s withers the tree */
-const F_GRACE=10000;
+const fGrace=()=>state.focus.grace===undefined?10000:state.focus.grace;
 document.addEventListener('visibilitychange',()=>{const r=state.focusRun;if(!r||!r.end)return;
-  if(document.hidden){if(!r.away){r.away=Date.now();save();flushSave()}}else fBack()});
+  if(document.hidden){if(!r.away&&fGrace()){r.away=Date.now();save();flushSave()}}else fBack()});
 function fBack(){const r=state.focusRun;if(!r||!r.away)return;const a=r.away;delete r.away;
-  if(Date.now()-a<=F_GRACE){save();if(r.end<=Date.now())finishFocus();return}
-  if(r.end<=a+F_GRACE){finishFocus();return}
+  const G=fGrace();if(!G||Date.now()-a<=G){save();if(r.end<=Date.now())finishFocus();return}
+  if(r.end<=a+G){finishFocus();return}
   killTree()}
 function killTree(){const r=state.focusRun;if(!r)return;state.focus.trees.push({d:today(),c:r.c,m:Math.round(r.total/60000),dead:1});
   state.focusRun=null;fDead=true;fDone=false;clearInterval(ftick);document.title='HabitFlow';save();renderFocus();if($('d-focus').open)renderFocusUI();
   toast(tr('ต้นไม้เหี่ยวแล้ว เพราะออกจากแอประหว่างโฟกัส','Your tree withered — you left the app during focus'),true)}
 function renderForest(){const el=$('f-forest');if(!el)return;const t=today(),all=state.focus.trees,td=all.filter(x=>x.d===t),ok=td.filter(x=>!x.dead).length,dd=td.length-ok,tot=all.filter(x=>!x.dead).length,MAX=30;
-  el.innerHTML=`<div class="fh"><b>🍎 ${tr('ป่าของวันนี้','Today\'s forest')}</b><small>${tr(`${ok} ต้น${dd?` · เหี่ยว ${dd}`:''} · รวม ${tot} ต้น`,`${ok} tree${ok===1?'':'s'}${dd?` · ${dd} withered`:''} · ${tot} total`)}</small></div>`+
+  el.innerHTML=`<div class="fh"><b>${UI.apple} ${tr('ป่าของวันนี้','Today\'s forest')}</b><small>${tr(`${ok} ต้น${dd?` · เหี่ยว ${dd}`:''} · รวม ${tot} ต้น`,`${ok} tree${ok===1?'':'s'}${dd?` · ${dd} withered`:''} · ${tot} total`)}</small></div>`+
    (td.length?`<div class="ft2" role="img" aria-label="${tr(`ปลูกสำเร็จ ${ok} ต้น เหี่ยว ${dd} ต้น`,`${ok} grown, ${dd} withered`)}">${td.slice(-MAX).map(x=>miniTree(x.dead,x.ac)).join('')}${td.length>MAX?`<span class="more">+${td.length-MAX}</span>`:''}</div>`
    :`<p class="emp">${tr('ยังไม่มีต้นไม้วันนี้ · กดค้างที่โหมดด้านล่างเพื่อปลูกต้นแรก','No trees yet today · long-press a mode below to plant your first')}</p>`)}
 function logFocus(m){state.focus.sessions.push({d:today(),c:state.focusRun.c,m,t:new Date().toISOString()})}
@@ -1461,7 +1537,7 @@ function moodCal(){
 }
 let popId=null,popFrom=0,animList=true,flameUp=false;
 function setGreet(){const h=new Date().getHours();
-  $('greet').textContent=h<5?tr('ดึกแล้ว พักผ่อนบ้างนะ 🌌','Up late? Get some rest 🌌'):h<12?tr('สวัสดีตอนเช้า ☀️','Good morning ☀️'):h<17?tr('สวัสดีตอนบ่าย 🌤️','Good afternoon 🌤️'):h<21?tr('สวัสดีตอนเย็น 🌇','Good evening 🌇'):tr('ราตรีสวัสดิ์ 🌙','Good night 🌙')}
+  $('greet').textContent=h<5?'Up late? Get some rest':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night'}
 setInterval(()=>{setGreet();if(sel!==today()&&document.hidden===false&&!state._k){}},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)setGreet()});
 /* 🔥 flame: +1 for every day on which ALL habits are completed; a day without it breaks the run */
@@ -1493,8 +1569,8 @@ function setFlame(){
 function renderTier(){
   const n=flames(),ti=tierOf(n),nx=TIERS[ti+1];
   $('p-fl').innerHTML=flameSVG(n);
-  $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+ · ♻️${FIX_ALLOW[TIERS.indexOf(x)]}</i></span>`).join('')}</div>
-   <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${tr('กู้ไฟเมื่อพลาด: แดง 1 · ม่วง 2 · ฟ้า 4 · ทอง 7 ครั้ง','Restores when you miss: red 1 · purple 2 · blue 4 · gold 7')}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):tr('ระดับสูงสุดแล้ว 👑','Top level reached 👑')}</p>`;
+  $('p-tier').innerHTML=`<div class="tl">${TIERS.slice(1).map((x,i)=>`<span class="${i+1<=ti?'on':''}${i+1===ti?' cur':''}">${flameSVG(x.min)}<small>${tr(x.n[0],x.n[1])}</small><i>${x.min}+ · ${UI.recycle}${FIX_ALLOW[TIERS.indexOf(x)]}</i></span>`).join('')}</div>
+   <p class="tn">${tr(`ทำครบ ${FLAME_NEED} กิจวัตรต่อวัน = ไฟ 1 ดวง`,`Complete ${FLAME_NEED} habits a day = 1 flame`)}<br>${tr('กู้ไฟเมื่อพลาด: แดง 1 · ม่วง 2 · ฟ้า 4 · ทอง 7 ครั้ง','Restores when you miss: red 1 · purple 2 · blue 4 · gold 7')}<br>${nx?tr(`อีก ${nx.min-n} วัน จะเป็น${nx.n[0]}`,`${nx.min-n} more day${nx.min-n>1?'s':''} to ${nx.n[1].toLowerCase()}`):`${UI.crown} Top level reached`}</p>`;
 }
 const RC=2*Math.PI*52;
 function setRing(pct){
@@ -1562,7 +1638,7 @@ function calendar(y,m,level){
   return `<div class="cal">${heads}${cells}</div>`;
 }
 const monthNav=(y,m,act)=>`<div class="mnav"><b>${ML[m]} ${y}</b><button class="ib" data-act="${act}" data-id="-1" aria-label="${tr('เดือนก่อน','Previous month')}">‹</button><button class="ib" data-act="${act}" data-id="1" aria-label="${tr('เดือนถัดไป','Next month')}">›</button></div>`;
-const MI=[['#F1DDB4','#D9825B','🔥'],['#E6D6F5','#8E62D9','↗'],['#C5CCFB','#4B5BD6','◕'],['#C9EBDD','#3E9B76','✓'],['#F7E9B0','#C98F12','★'],['#F7CFD3','#D6454F','!']];
+const MI=[['#F1DDB4','#D9825B',U('<path d="M12 3c1 3.5 5 5.6 5 10a5 5 0 0 1-10 0c0-2.6 1.4-4 2.5-5.4.3 1.6 1 2.6 2 3 0-2.8.5-5.4.5-7.6z"/>')],['#E6D6F5','#8E62D9','↗'],['#C5CCFB','#4B5BD6','◕'],['#C9EBDD','#3E9B76','✓'],['#F7E9B0','#C98F12','★'],['#F7CFD3','#D6454F','!']];
 const num=(v,l,i)=>`<div style="background:color-mix(in srgb,${MI[i][1]} 15%,var(--surf));border-color:transparent"><span><strong style="color:${MI[i][1]}">${v}</strong><small>${l}</small></span><span class="mc" style="background:${MI[i][0]};color:${MI[i][1]}">${MI[i][2]}</span></div>`;
 
 /* ===== Stats · Habit Radar style ===== */
@@ -1580,7 +1656,7 @@ function renderStats(){
   el.innerHTML=`<div class="radar ${v}">${hs.map((h,i)=>{const k=streaks(d=>done(h,d)).cur,ok=done(h,t);
     return `<div class="rcard" style="--c:${hex(h)};--i:${i}"><div class="rch"><button class="rgo" data-act="detail" data-id="${h.id}"><span class="ric">${icon(h.iconKey)}</span><span class="rtt"><b>${esc(tn(h.title))}</b><small>${(()=>{let c=0;for(let i=0;i<30;i++)if(done(h,addDays(t,-i)))c++;return tr(`${c}/30 วันล่าสุด`,`${c}/30 days`)})()}</small></span></button>
 </div>${!ok&&k===0&&Object.keys(h.logs).length?`<small class="rback">${tr('กลับมาทำต่อไหม?','Back for it?')}</small>`:''}${cells(h)}</div>`}).join('')}</div>
-   <button class="link rmore" data-act="tool" data-id="overview">📊 ${tr('ดูกราฟสรุปทั้งหมด ›','See all charts ›')}</button>`;
+   <button class="link rmore" data-act="tool" data-id="overview">${isPro()?UI.chart:UI.lock} ${tr('ดูกราฟสรุปทั้งหมด ›','See all charts ›')}</button>`;
 }
 function renderStatsOld(){
   document.querySelectorAll('#seg-stats button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===mode));
@@ -1598,7 +1674,7 @@ function renderStatsOld(){
     for(let d=1;d<=n;d++){const ds=`${y}-${pad(m+1)}-${pad(d)}`;if(ds>t)break;days++;const c=hs.filter(h=>done(h,ds)).length;if(hs.length)sum+=c/hs.length;if(c)any++;else if(hs.length&&ds<t)miss++;if(hs.length&&c===hs.length)full++}
     const s=streaks(dayDone);
     const wc=[0,0,0,0,0,0,0];for(let i=0;i<56;i++){const d=addDays(t,-i);if(dayDone(d))wc[parse(d).getDay()]++}
-    const bi=wc.indexOf(Math.max(...wc)),ins=wc[bi]?`<p class="ins">${tr(`💡 ${WDL[bi]}คือวันที่คุณทำได้ดีที่สุดใน 8 สัปดาห์ที่ผ่านมา`,`💡 ${WDL[bi]} has been your best day over the past 8 weeks`)}</p>`:'';
+    const bi=wc.indexOf(Math.max(...wc)),ins=wc[bi]?`<p class="ins">${UI.bulb} ${tr(`💡 ${WDL[bi]}คือวันที่คุณทำได้ดีที่สุดใน 8 สัปดาห์ที่ผ่านมา`,`${WDL[bi]} has been your best day over the past 8 weeks`)}</p>`:'';
     el.innerHTML=`<div class="card">${monthNav(y,m,'smonth')}${calendar(y,m,ds=>{if(ds>t||!hs.length)return[0];const f=hs.filter(h=>done(h,ds)).length/hs.length;return f?[f,f>=1?'var(--acc)':'color-mix(in srgb,var(--acc) 35%,var(--surf))',f>=1?'var(--onacc)':'var(--ink)']:[0]})}</div>`+
     `${statsCharts(y,m,{days,full,any,miss,sum,s})}${ins}`;
   }
@@ -1745,7 +1821,7 @@ function statsCharts(y,m,{days,full,any,miss,sum,s}){
   const rate=days?sum/days:0;
   const per=hs.map(h=>{let c=0;for(let d=1;d<=days;d++)if(done(h,`${y}-${pad(m+1)}-${pad(d)}`))c++;return{l:tn(h.title),e:icon(h.iconKey),v:c,max:days||1,c:hex(h),txt:(days?Math.round(c/days*100):0)+'%'}});
   return `<div class="crow">${card(tr('อัตราสำเร็จ','Success rate'),donut(rate,C_ACC,Math.round(rate*100)+'%',tr(`${days} วัน`,`${days} days`)))}
-   ${card(tr('สตรีค','Streak'),`<div class="sk"><div><b>${s.cur}</b><small>${tr('ปัจจุบัน','Current')}</small></div><div><b>${s.best}</b><small>${tr('ยาวที่สุด','Best')}</small></div><div><b>${flames()}</b><small>🔥 ${tr('ไฟ','Flames')}</small></div></div>`)}</div>
+   ${card(tr('สตรีค','Streak'),`<div class="sk"><div><b>${s.cur}</b><small>${tr('ปัจจุบัน','Current')}</small></div><div><b>${s.best}</b><small>${tr('ยาวที่สุด','Best')}</small></div><div><b>${flames()}</b><small>${tr('ไฟ','Flames')}</small></div></div>`)}</div>
    ${card(tr('ความสำเร็จรายวัน (%)','Daily completion (%)'),lineChart(vals,labs,{max:100,fmt:v=>Math.round(v),color:C_LAV}))}
    ${card(tr('สรุปวันในเดือนนี้','Days this month'),barChart([any,full,miss],[tr('ทำสำเร็จ','Active'),tr('ทำครบ','Perfect'),tr('พลาด','Missed')],{h:120}))}
    ${per.length?card(tr('แต่ละกิจวัตร','By habit'),hbars(per)):''}`;
@@ -1756,7 +1832,10 @@ const TOOLT={overview:['ภาพรวมทั้งหมด','Overview'],goa
 const fdate=iso=>{const d=new Date(iso);return isNaN(d)?'':`${d.getDate()} ${MS[d.getMonth()]} ${pad(d.getHours())}:${pad(d.getMinutes())}`};
 const JQ=[['วันนี้มีอะไรดี ๆ เกิดขึ้นบ้าง?','What went well today?'],['วันนี้ได้เรียนรู้อะไร?','What did you learn today?'],['อะไรที่อยากทำให้ดีขึ้นพรุ่งนี้?','What would you improve tomorrow?'],['วันนี้รู้สึกขอบคุณอะไร?','What are you grateful for today?'],['อะไรทำให้ยิ้มได้วันนี้?','What made you smile today?']];
 function renderTool(){
-  const k=toolName,b=$('tl-body');$('tl-title').textContent=tr(...TOOLT[k]);
+  const k=toolName,b=$('tl-body');$('tl-title').textContent=(k==='journal'||k==='notes')?'Journal & notes':tr(...TOOLT[k]);
+  renderTool_(k,b);
+  if((k==='journal'||k==='notes')&&toolEdit===null)b.insertAdjacentHTML('afterbegin',`<div class="seg tsw" role="group" aria-label="Journal or notes"><button data-act="toolSw" data-id="journal" aria-pressed="${k==='journal'}">Journal</button><button data-act="toolSw" data-id="notes" aria-pressed="${k==='notes'}">Notes</button></div>`)}
+function renderTool_(k,b){
   $('tl-add').hidden=k==='overview'||k==='journal'||toolEdit!==null;$('tl-add').textContent='+ '+tr('เพิ่ม','Add');
   if(k==='notes'){
     if(toolEdit!==null){const n=state.notesList.find(x=>x.id===toolEdit)||{title:'',text:''};
@@ -1809,7 +1888,7 @@ function renderOverview(b){
   const mc={};D30.forEach(d=>{const e=state.moods[d];if(e&&MOODS[e.m])mc[e.m]=(mc[e.m]||0)+1});const mtot=Object.values(mc).reduce((a,x)=>a+x,0);
   const rate30=pct.reduce((a,x)=>a+x,0)/30/100,sd=d=>parse(d).getDate();
   const kpi=(v,l,c)=>`<div class="kpi"><b style="color:${c}">${v}</b><small>${l}</small></div>`;
-  b.innerHTML=`<div class="kpis">${kpi('🔥 '+flames(),tr('ไฟต่อเนื่อง','Flames'),'#FF6A3D')}${kpi(totDone,tr('ทำสำเร็จทั้งหมด','Completions'),'var(--acc)')}${kpi(state.totalEarned,tr('เหรียญสะสม','Coins earned'),'var(--coin)')}${kpi((totF/60).toFixed(1)+tr(' ชม.','h'),tr('เวลาโฟกัส','Focus time'),'#5B9BF0')}</div>
+  b.innerHTML=`<div class="kpis">${kpi(flames(),tr('ไฟต่อเนื่อง','Flames'),'#FF6A3D')}${kpi(totDone,tr('ทำสำเร็จทั้งหมด','Completions'),'var(--acc)')}${kpi(state.totalEarned,tr('เหรียญสะสม','Coins earned'),'var(--coin)')}${kpi((totF/60).toFixed(1)+tr(' ชม.','h'),tr('เวลาโฟกัส','Focus time'),'#5B9BF0')}</div>
    <div class="crow">${card(tr('อัตราสำเร็จ 30 วัน','30-day rate'),donut(rate30,C_ACC,Math.round(rate30*100)+'%'))}${card(tr('อารมณ์ 30 วัน','Mood, 30 days'),mtot?hbars(Object.keys(MOODS).filter(k=>mc[k]).map(k=>({l:MOODS[k][1],e:MOODS[k][0],v:mc[k],max:mtot,c:FC[k]}))):`<p class="m">${tr('ยังไม่มีบันทึกอารมณ์','No moods yet')}</p>`)}</div>
    ${card(tr('ความสำเร็จ 30 วันล่าสุด (%)','Completion, last 30 days (%)'),lineChart(pct,D30.map(sd),{max:100,h:160,color:C_LAV}))}
    ${card(tr('กิจวัตรที่ทำได้ 7 วัน','Habits done, 7 days'),barChart(cnt7,D7.map(d=>WD[parse(d).getDay()])))}
@@ -1823,18 +1902,19 @@ function renderOverview(b){
 function renderRemind(){
   const hs=active(),perm='Notification' in window?Notification.permission:'unsupported';
   $('rm-title').textContent=tr('การแจ้งเตือน','Reminders');
-  const st={granted:['✅ เปิดการแจ้งเตือนแล้ว','✅ Notifications on'],denied:['⛔ ถูกปิดในการตั้งค่าเบราว์เซอร์','⛔ Blocked in browser settings'],default:['ยังไม่ได้อนุญาต','Not allowed yet'],unsupported:['เบราว์เซอร์นี้ไม่รองรับ','Not supported here']}[perm];
-  $('rm-body').innerHTML=`<div class="rwarn"><b>${tr('แจ้งเตือนในแอป','In-app notifications')}</b><br><small class="m">${tr(st[0],st[1])} · ${tr('ทำงานขณะเปิดแอปไว้ (Android/คอมพิวเตอร์)','Works while the app is open (Android/desktop)')}</small>${perm==='default'?`<button class="btn pri sm" style="margin-top:10px;width:100%" data-act="askNotif">${tr('อนุญาตการแจ้งเตือน','Allow notifications')}</button>`:''}</div>
-   <div class="rwarn" style="margin-top:10px"><b>📅 ${tr('เตือนผ่านปฏิทิน iPhone (แนะนำ)','iPhone Calendar alarms (recommended)')}</b><br><small class="m">${tr('เพิ่มกิจวัตรที่ตั้งเวลาไว้ลงปฏิทินเป็นนัดประจำวัน มีเสียงเตือนแม้ปิดแอป','Adds timed habits as daily calendar events that alert even when the app is closed')}</small><button class="btn pri sm" style="margin-top:10px;width:100%" data-act="icsOut"${hs.some(h=>h.remind)?'':' disabled'}>${tr('เพิ่มลงปฏิทิน','Add to Calendar')}</button></div>
+  const st={granted:['เปิดการแจ้งเตือนแล้ว','Notifications on'],denied:['ถูกปิดในการตั้งค่าเบราว์เซอร์','Blocked in browser settings'],default:['ยังไม่ได้อนุญาต','Not allowed yet'],unsupported:['เบราว์เซอร์นี้ไม่รองรับ','Not supported here']}[perm];
+  const nT=hs.filter(h=>h.remind).length;
+  $('rm-body').innerHTML=`<div class="rwarn rcal"><b>${UI.cal} Calendar alarms · work when the app is closed</b><br><small class="m">Adds each timed habit to your phone's calendar as a daily event with an alert. Recommended on iPhone.${nT?` · ${nT} habit${nT>1?'s':''} with a time`:''}</small><button class="btn pri sm" style="margin-top:10px;width:100%" data-act="icsOut"${nT?'':' disabled'}>${nT?'Add to Calendar':'Set a time below first'}</button><small class="m" style="display:block;margin-top:6px">Changed a time? Add to Calendar again and delete the old event in your calendar.</small></div>
+   <div class="rwarn" style="margin-top:10px"><b>${UI.bell} In-app reminders · only while HabitFlow is open</b><br><small class="m">${tr(st[0],st[1])} · skipped on days you've already done the habit</small>${perm==='default'?`<button class="btn sm" style="margin-top:10px;width:100%" data-act="askNotif">Allow notifications</button>`:''}</div>
    <h4>${tr('ตั้งเวลาแต่ละกิจวัตร','Time for each habit')}</h4>
    <div class="grp">${hs.map(h=>`<label class="set"><span class="row sl" style="min-width:0"><span class="tile" style="--c:${hex(h)}">${icon(h.iconKey)}</span><span class="t">${esc(tn(h.title))}</span></span><input type="time" class="in sel rmt" data-id="${h.id}" value="${h.remind||''}"></label>`).join('')||`<p class="m" style="padding:14px">${tr('ยังไม่มีกิจวัตร','No habits yet')}</p>`}</div>
-   <p class="hhint" style="margin-top:10px">${tr('เว้นว่างไว้ = ไม่เตือน · เตือนเฉพาะวันที่ยังทำไม่ครบ','Leave empty for no reminder · only reminds if not done yet')}</p>`;
+   <p class="hhint" style="margin-top:10px">${'Leave empty for no reminder'}</p>`;
   $('rm-body').querySelectorAll('.rmt').forEach(i=>i.addEventListener('change',()=>{const h=state.habits.find(x=>x.id===i.dataset.id);if(h){h.remind=i.value;save();renderSettings();renderRemind()}}));
 }
 function notify(title,body){
   try{if('Notification' in window&&Notification.permission==='granted'){
     if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(r=>r.showNotification(title,{body,tag:title}));else new Notification(title,{body,tag:title})}}catch(e){}
-  toast(`⏰ ${title}`);vib([120,60,120]);
+  toast(title);vib([120,60,120]);
 }
 function checkRemind(){
   const n=new Date(),t=today(),hm=`${pad(n.getHours())}:${pad(n.getMinutes())}`;state.notified=state.notified||{};
@@ -1845,7 +1925,7 @@ function checkRemind(){
 setInterval(checkRemind,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkRemind,800)});
 function icsOut(){
   const hs=active().filter(h=>h.remind),d=today().replace(/-/g,''),st=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
-  const ev=hs.map(h=>{const [H,M]=h.remind.split(':');return ['BEGIN:VEVENT',`UID:${h.id}@habitflow`,`DTSTAMP:${st}`,`DTSTART:${d}T${H}${M}00`,`DURATION:PT15M`,'RRULE:FREQ=DAILY',`SUMMARY:${icon(h.iconKey)} ${tn(h.title)}`,`DESCRIPTION:HabitFlow`,'BEGIN:VALARM','ACTION:DISPLAY','TRIGGER:PT0M',`DESCRIPTION:${tn(h.title)}`,'END:VALARM','END:VEVENT'].join('\r\n')});
+  const ev=hs.map(h=>{const [H,M]=h.remind.split(':');return ['BEGIN:VEVENT',`UID:${h.id}@habitflow`,`DTSTAMP:${st}`,`DTSTART:${d}T${H}${M}00`,`DURATION:PT15M`,'RRULE:FREQ=DAILY',`SUMMARY:${tn(h.title)} · HabitFlow`,`DESCRIPTION:HabitFlow`,'BEGIN:VALARM','ACTION:DISPLAY','TRIGGER:PT0M',`DESCRIPTION:${tn(h.title)}`,'END:VALARM','END:VEVENT'].join('\r\n')});
   const txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//HabitFlow//TH','CALSCALE:GREGORIAN',...ev,'END:VCALENDAR'].join('\r\n');
   shareFile(new File([txt],'HabitFlow_Reminders.ics',{type:'text/calendar'}),tr('เปิดไฟล์แล้วกด "เพิ่มทั้งหมด" ในปฏิทิน','Open the file and tap "Add All" in Calendar'));
 }
@@ -1932,20 +2012,21 @@ async function gSignIn(){
 function gSignOut(){try{if(gTok&&window.google)google.accounts.oauth2.revoke(gTok,()=>{})}catch(e){}gTok=null;state.google=null;save();renderGoogleUI();renderSettings();toast(tr('ออกจากระบบ Google แล้ว (ข้อมูลในเครื่องยังอยู่)','Signed out of Google (data on this device is kept)'))}
 const gMsg=m=>({noclient:tr('ยังไม่ได้ใส่ Client ID','Client ID not set yet'),needtap:tr('แตะ "ซิงก์ตอนนี้" เพื่อเชื่อมต่ออีกครั้ง','Tap "Sync now" to reconnect'),gis:tr('โหลดระบบ Google ไม่ได้ ตรวจอินเทอร์เน็ต','Could not load Google sign-in — check your connection'),popup_failed_to_open:tr('เบราว์เซอร์บล็อกหน้าต่างล็อกอิน','The browser blocked the sign-in window'),auth:tr('สิทธิ์หมดอายุ แตะซิงก์อีกครั้ง','Session expired — tap Sync again'),access_denied:tr('ไม่ได้อนุญาตการเข้าถึง','Access was not allowed')}[m]||(m.startsWith('http')?tr('เชื่อมต่อ Google Drive ไม่สำเร็จ ','Google Drive error ')+m:m));
 function renderGoogleUI(){
+  const gr=$('s-grow');if(gr)gr.hidden=!gcid()&&location.hash!=='#gsetup';
   const sub=$('s-gsub');if(sub)sub.textContent=gOn()?(state.google.email+(gBusy?' · '+tr('กำลังซิงก์…','syncing…'):state.google.pending?' · '+tr('รอซิงก์','pending'):'')):tr('ยังไม่ได้เชื่อม','Not connected');
   const b=$('gg-body');if(!b||!$('d-google').open)return;$('gg-title').textContent=tr('สำรองด้วย Google','Back up with Google');
   const fmt=d=>d?new Date(d).toLocaleString(state.lang==='en'?'en-GB':'th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
   if(!gcid()){b.innerHTML=`<div class="rwarn"><b>${tr('ตั้งค่าครั้งแรก','First-time setup')}</b><br><small class="m">${tr('วาง Google OAuth Client ID (ประเภท Web) ที่สร้างจาก Google Cloud Console','Paste a Google OAuth Client ID (Web type) created in Google Cloud Console')}</small>
      <input class="in" id="g-cid" style="margin-top:10px" placeholder="xxxxxxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false"><button class="btn pri" style="width:100%;margin-top:10px" data-act="gSaveCid">${tr('บันทึก Client ID','Save Client ID')}</button>
      <small class="m" style="display:block;margin-top:8px">${tr('ต้องเพิ่ม','Add')} <b>${esc(location.origin)}</b> ${tr('ใน Authorized JavaScript origins','to Authorized JavaScript origins')}</small></div>`;return}
-  if(!gOn()){b.innerHTML=`<div class="gcard2"><div class="gico">☁️</div><b>${tr('เก็บข้อมูลไว้บน Google Drive ของคุณ','Keep your data in your Google Drive')}</b><p class="m">${tr('ซิงก์อัตโนมัติทุกเครื่องที่ล็อกอินบัญชีเดียวกัน ข้อมูลเก็บในพื้นที่ส่วนตัวของแอป ไม่ปะปนกับไฟล์ใน Drive','Syncs automatically on every device signed in to the same account. Stored in a private app folder, separate from your Drive files.')}</p>
+  if(!gOn()){b.innerHTML=`<div class="gcard2"><div class="gico">${UI.cloud}</div><b>${tr('เก็บข้อมูลไว้บน Google Drive ของคุณ','Keep your data in your Google Drive')}</b><p class="m">${tr('ซิงก์อัตโนมัติทุกเครื่องที่ล็อกอินบัญชีเดียวกัน ข้อมูลเก็บในพื้นที่ส่วนตัวของแอป ไม่ปะปนกับไฟล์ใน Drive','Syncs automatically on every device signed in to the same account. Stored in a private app folder, separate from your Drive files.')}</p>
      <button class="gbtn" data-act="gSignIn"${gBusy?' disabled':''}><svg viewBox="0 0 48 48" width="20" height="20"><path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.5-9.5 6.5-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.5 46 24 46z"/><path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.5C3 17 2 20.4 2 24s1 7 2.5 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.1 29.9 2 24 2 15.5 2 8.1 6.9 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg>${tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
      ${gErr?`<p class="gerr">${esc(gMsg(gErr))}</p>`:''}</div><button class="link" style="margin-top:14px" data-act="gResetCid">${tr('เปลี่ยน Client ID','Change Client ID')}</button>`;return}
   const g=state.google;
   b.innerHTML=`<div class="gcard2"><div class="gacc">${g.pic?`<img src="${esc(g.pic)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${esc((g.name||g.email)[0].toUpperCase())}</span>`}<div><b>${esc(g.name||g.email)}</b><small class="m">${esc(g.email)}</small></div></div>
     <div class="gst"><span>${tr('ซิงก์ล่าสุด','Last synced')}</span><b>${gBusy?tr('กำลังซิงก์…','Syncing…'):fmt(g.last)}</b></div>
     ${gErr?`<p class="gerr">${esc(gMsg(gErr))}</p>`:''}
-    <button class="btn pri" style="width:100%;margin-top:12px" data-act="gSyncNow"${gBusy?' disabled':''}>🔄 ${tr('ซิงก์ตอนนี้','Sync now')}</button></div>
+    <button class="btn pri" style="width:100%;margin-top:12px" data-act="gSyncNow"${gBusy?' disabled':''}>${UI.sync} ${tr('ซิงก์ตอนนี้','Sync now')}</button></div>
    <div class="grp" style="margin-top:12px"><div class="set"><span class="row sl">${tr('ซิงก์อัตโนมัติเมื่อมีการเปลี่ยนแปลง','Auto-sync when data changes')}</span><button class="sw" role="switch" aria-checked="${g.auto!==false}" data-act="gAuto" aria-label="${tr('ซิงก์อัตโนมัติ','Auto-sync')}"></button></div>
     <button class="set" data-act="gSignOut"><span class="row sl gout">${tr('ออกจากระบบ Google','Sign out of Google')}</span></button></div>
    <p class="hhint" style="margin-top:10px">${tr('ข้อมูลจากหลายเครื่องจะรวมกัน ไม่ทับกัน · การล็อกอินมีอายุ 1 ชั่วโมง ถ้าหมดอายุแตะ "ซิงก์ตอนนี้"','Data from several devices is merged, never overwritten · Sign-in lasts 1 hour; when it expires tap "Sync now"')}</p>`;
@@ -1955,27 +2036,27 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)return;if(t
 /* ===== Daily rewards: check-in track · daily quests · bonus chest ===== */
 const CHECKIN=[1,1,2,2,3,3,5];
 const QUESTS=[
- ['q1','✅',['ทำกิจวัตรสำเร็จ 1 อย่าง','Complete 1 habit'],1,()=>[Math.min(1,doneCount(today())),1]],
- ['q2','🔥',['ทำครบ 4 อย่าง รับไฟ','Complete 4 habits for a flame'],2,()=>[Math.min(doneCount(today()),flameNeed()||4),flameNeed()||4]],
- ['q3','😊',['บันทึกอารมณ์วันนี้','Log today\'s mood'],1,()=>[state.moods[today()]?1:0,1]],
- ['q4','⏱️',['โฟกัสรวม 25 นาที','Focus for 25 minutes'],2,()=>[Math.min(25,state.focus.sessions.filter(x=>x.d===today()).reduce((a,x)=>a+x.m,0)),25]],
- ['q5','📔',['เขียนบันทึกประจำวัน','Write a journal entry'],1,()=>[state.journal[today()]&&state.journal[today()].text?1:0,1]]];
+ ['q1','check',['ทำกิจวัตรสำเร็จ 1 อย่าง','Complete 1 habit'],1,()=>[Math.min(1,doneCount(today())),1]],
+ ['q2','flame',['ทำครบ 4 อย่าง รับไฟ','Complete 4 habits for a flame'],2,()=>[Math.min(doneCount(today()),flameNeed()||4),flameNeed()||4]],
+ ['q3','smile',['บันทึกอารมณ์วันนี้','Log today\'s mood'],1,()=>[state.moods[today()]?1:0,1]],
+ ['q4','timer',['โฟกัสรวม 25 นาที','Focus for 25 minutes'],2,()=>[Math.min(25,state.focus.sessions.filter(x=>x.d===today()).reduce((a,x)=>a+x.m,0)),25]],
+ ['q5','book',['เขียนบันทึกประจำวัน','Write a journal entry'],1,()=>[state.journal[today()]&&state.journal[today()].text?1:0,1]]];
 const dly=()=>state.daily;
 const ciDay=()=>{const d=dly(),t=today();if(d.last===t)return {done:true,idx:(d.streak-1)%7};const cont=d.last===addDays(t,-1);return {done:false,idx:cont?d.streak%7:0}};
 function renderDaily(){
   const el=$('daily');if(!el)return;const d=dly(),t=today(),ci=ciDay(),got=d.q[t]||[];
   const qs=QUESTS.map(([id,e,n,c,f])=>{const [v,mx]=f();return {id,e,n:tr(...n),c,v,mx,ok:v>=mx,claimed:got.includes(id)}});
   const allC=qs.every(q=>q.claimed),chest=d.chest[t];const nd=qs.filter(q=>q.claimed).length;
-  el.innerHTML=`<div class="dcard ci"><div class="dch"><div><b>${tr('เช็กอินรายวัน','Daily check-in')}</b><small>${ci.done?tr(`ต่อเนื่อง ${d.streak} วัน · กลับมาพรุ่งนี้นะ`,`${d.streak}-day streak · come back tomorrow`):tr('เข้าแอปทุกวัน รับเหรียญเพิ่มขึ้นเรื่อยๆ','Open the app daily for growing rewards')}</small></div><span class="dpill">🪙 +${CHECKIN[ci.idx]}</span></div>
-    <div class="track">${CHECKIN.map((c,i)=>{const past=ci.done?i<=ci.idx:i<ci.idx,cur=!ci.done&&i===ci.idx;return `<div class="tday${past?' got':''}${cur?' cur':''}${i===6?' big':''}"><span>${past?'✓':i===6?'🎁':'🪙'}</span><b>+${c}</b><small>${tr('วัน','Day')} ${i+1}</small></div>`}).join('')}</div>
+  el.innerHTML=`<div class="dcard ci"><div class="dch"><div><b>${tr('เช็กอินรายวัน','Daily check-in')}</b><small>${ci.done?tr(`ต่อเนื่อง ${d.streak} วัน · กลับมาพรุ่งนี้นะ`,`${d.streak}-day streak · come back tomorrow`):tr('เข้าแอปทุกวัน รับเหรียญเพิ่มขึ้นเรื่อยๆ','Open the app daily for growing rewards')}</small></div><span class="dpill">${UI.coin} +${CHECKIN[ci.idx]}</span></div>
+    <div class="track">${CHECKIN.map((c,i)=>{const past=ci.done?i<=ci.idx:i<ci.idx,cur=!ci.done&&i===ci.idx;return `<div class="tday${past?' got':''}${cur?' cur':''}${i===6?' big':''}"><span>${past?'✓':i===6?UI.gift:UI.coin}</span><b>+${c}</b><small>${tr('วัน','Day')} ${i+1}</small></div>`}).join('')}</div>
     <button class="btn pri dbtn${ci.done?'':' glow'}" data-act="checkIn"${ci.done?' disabled':''}>${ci.done?tr('✓ รับแล้ววันนี้','✓ Claimed today'):tr(`รับ ${CHECKIN[ci.idx]} เหรียญ`,`Claim ${CHECKIN[ci.idx]} coin${CHECKIN[ci.idx]>1?'s':''}`)}</button></div>
    <div class="dcard"><div class="dch"><div><b>${tr('ภารกิจวันนี้','Today\'s quests')}</b><small>${tr(`สำเร็จ ${nd}/${qs.length} · รีเซ็ตทุกเที่ยงคืน`,`${nd}/${qs.length} done · resets at midnight`)}</small></div><div class="qring" style="--p:${nd/qs.length*100}%"><span>${nd}/${qs.length}</span></div></div>
-    <div class="qlist">${qs.map(q=>`<div class="quest${q.ok?' ok':''}${q.claimed?' cl':''}"><span class="qe">${q.e}</span><div class="qb"><b>${q.n}</b><div class="qbar"><i style="width:${Math.round(q.v/q.mx*100)}%"></i></div><small>${q.v}/${q.mx}</small></div>
+    <div class="qlist">${qs.map(q=>`<div class="quest${q.ok?' ok':''}${q.claimed?' cl':''}"><span class="qe">${q.e==='flame'?flameSVG(1):UI[q.e]||''}</span><div class="qb"><b>${q.n}</b><div class="qbar"><i style="width:${Math.round(q.v/q.mx*100)}%"></i></div><small>${q.v}/${q.mx}</small></div>
       ${q.claimed?`<span class="qdone">✓</span>`:`<button class="qbtn" data-act="claimQ" data-id="${q.id}"${q.ok?'':' disabled'}>${q.ok?tr(`รับ +${q.c}`,`Claim +${q.c}`):`🪙 ${q.c}`}</button>`}</div>`).join('')}</div>
-    <button class="chest${allC&&!chest?' ready':''}${chest?' open':''}" data-act="openChest"${allC&&!chest?'':' disabled'}><span class="ce">${chest?'📭':'🎁'}</span><span><b>${chest?tr(`เปิดแล้ว · ได้ ${chest} เหรียญ`,`Opened · got ${chest} coins`):tr('หีบโบนัสประจำวัน','Daily bonus chest')}</b><small>${chest?tr('พรุ่งนี้มีหีบใหม่','A new chest tomorrow'):allC?tr('แตะเพื่อเปิด! 🎉','Tap to open! 🎉'):tr('ทำภารกิจครบทุกข้อเพื่อปลดล็อก (3–8 เหรียญ)','Finish every quest to unlock (3–8 coins)')}</small></span></button></div>`;
+    <button class="chest${allC&&!chest?' ready':''}${chest?' open':''}" data-act="openChest"${allC&&!chest?'':' disabled'}><span class="ce">${chest?UI.box:UI.gift}</span><span><b>${chest?tr(`เปิดแล้ว · ได้ ${chest} เหรียญ`,`Opened · got ${chest} coins`):tr('หีบโบนัสประจำวัน','Daily bonus chest')}</b><small>${chest?tr('พรุ่งนี้มีหีบใหม่','A new chest tomorrow'):allC?'Tap to open!':tr('ทำภารกิจครบทุกข้อเพื่อปลดล็อก (3–8 เหรียญ)','Finish every quest to unlock (3–8 coins)')}</small></span></button></div>`;
 }
 function coinBurst(el,n){if(!el||document.documentElement.dataset.motion==='reduce')return;const r=el.getBoundingClientRect();
-  for(let i=0;i<Math.min(10,3+n);i++){const c=document.createElement('span');c.className='cburst';c.textContent='🪙';c.style.left=(r.left+r.width/2)+'px';c.style.top=(r.top+r.height/2)+'px';
+  for(let i=0;i<Math.min(10,3+n);i++){const c=document.createElement('span');c.className='cburst';c.innerHTML=UI.coin;c.style.left=(r.left+r.width/2)+'px';c.style.top=(r.top+r.height/2)+'px';
     c.style.setProperty('--dx',(Math.random()*160-80)+'px');c.style.setProperty('--dy',(-60-Math.random()*90)+'px');c.style.animationDelay=(i*35)+'ms';document.body.appendChild(c);setTimeout(()=>c.remove(),1100)}}
 function checkIn(el){const d=dly(),t=today();if(d.last===t)return;const ci=ciDay();const n=CHECKIN[ci.idx];d.streak=d.last===addDays(t,-1)?d.streak+1:1;d.last=t;pay(n);save();coinBurst(el,n);buzz();renderDaily();toast(tr(`เช็กอินวันที่ ${d.streak} · +${n} เหรียญ 🪙`,`Day ${d.streak} check-in · +${n} coins 🪙`))}
 function claimQ(id,el){const q=QUESTS.find(x=>x[0]===id),t=today(),d=dly();if(!q)return;const [v,mx]=q[4]();if(v<mx)return;d.q[t]=d.q[t]||[];if(d.q[t].includes(id))return;d.q[t].push(id);pay(q[3]);
@@ -1990,8 +2071,45 @@ document.addEventListener('pointerdown',e=>{if(document.documentElement.dataset.
   if(t.matches('.av,.ib,.wb,.x,.fl,.coins,.grip,.plus'))return;if(getComputedStyle(t).position==='static')t.style.position='relative';const ov=t.style.overflow;t.style.overflow='hidden';t.appendChild(rp);setTimeout(()=>{rp.remove();t.style.overflow=ov},600)},{passive:true});
 
 /* paid unlock removed for now (see git history: 'Add HabitFlow Pro') */
-const isPro=()=>true,canAddHabit=()=>true,renderPro=()=>{};
-$('t-pick').addEventListener('change',e=>{const v=e.target.value;if(!v)return;sel=v>today()?today():v;animList=true;renderWeek();renderHabits();haptic()});
+/* ===== VIP: plans, entitlement and automatic expiry =====
+   state.vip = {plan:'1m'|'3m'|'life', since:ms, until:ms|null}. Lifetime never expires; 1 and 3 month plans end on their own.
+   activateVip() is what the payment backend will call once a payment is verified server-side (not reachable from the UI). */
+const VIP_PLANS=[{id:'1m',name:'1 Month',price:99,months:1,note:'One-time payment · 1 month of VIP'},
+  {id:'3m',name:'3 Months',price:249,months:3,tag:'Save 16%',note:'One-time payment · 3 months of VIP'},
+  {id:'life',name:'Lifetime',price:690,tag:'Best value',note:'One-time payment · never expires'}];
+const FREE_HABITS=4,FREE_DAYS=30;
+const isPro=()=>{const v=state.vip;return !!v&&(v.plan==='life'||(!!v.until&&Date.now()<v.until))};
+function activateVip(plan,from=Date.now()){const P=VIP_PLANS.find(x=>x.id===plan);if(!P)return false;
+  if(plan==='life'){state.vip={plan,since:from,until:null}}
+  else{const base=isPro()&&state.vip.until?Math.max(from,state.vip.until):from,d=new Date(base);d.setMonth(d.getMonth()+P.months);state.vip={plan,since:from,until:d.getTime()}}
+  save();applyAccent();renderAll();if($('d-vip').open)renderVip();return true}
+function vipTick(){const v=state.vip;if(v&&v.until&&Date.now()>=v.until&&!v.ended){v.ended=1;save();applyAccent();renderAll();toast('Your VIP plan has ended · you are back on the Free plan')}}
+const vipLabel=()=>{const v=state.vip;if(!isPro())return 'Free plan';if(v.plan==='life')return 'Lifetime VIP';return 'VIP until '+new Date(v.until).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
+const canAddHabit=()=>{if(isPro()||active().length<FREE_HABITS)return true;openVip('habits');return false};
+const histOK=iso=>isPro()||iso>=addDays(today(),-FREE_DAYS);
+const renderPro=()=>{applyAccent();const v=$('s-vipsub');if(v)v.textContent=isPro()?vipLabel():'Free plan · tap to see VIP';const r=$('s-vipr');if(r)r.classList.toggle('on',isPro())};
+/* premium theme colours */
+const ACCENTS=[['green','Green','#6ED3AA','#7EE0B8',0],['ocean','Ocean','#5BB8F5','#8CCFFF',1],['violet','Violet','#B9A0F5','#CDB9FF',1],['sunset','Sunset','#F5A35B','#FFC08A',1],['rose','Rose','#F58BB0','#FFB0CB',1]];
+function applyAccent(){const a=ACCENTS.find(x=>x[0]===state.accent&&(!x[4]||isPro()))||ACCENTS[0],r=document.documentElement.style;
+  if(a[0]==='green'){r.removeProperty('--acc');r.removeProperty('--accT')}else{r.setProperty('--acc',a[2]);r.setProperty('--accT',a[3])}
+  const el=$('s-accent');if(el)el.innerHTML=ACCENTS.map(([k,n,c,,lk])=>{const locked=lk&&!isPro();return `<button data-act="accent" data-id="${k}" aria-pressed="${a[0]===k}" aria-label="${n}${locked?' (VIP)':''}" style="--sw:${c}"><i></i>${locked?'<span class="lk">'+UI.lock+'</span>':''}</button>`}).join('')}
+/* the VIP sheet */
+let vipSel='3m',vipWhy='',vipMsg='';
+const VIP_WHY={habits:`The Free plan includes up to ${FREE_HABITS} daily habits.`,history:`The Free plan keeps the last ${FREE_DAYS} days of history.`,stats:'Advanced statistics and reports are part of VIP.',themes:'Premium theme colours are part of VIP.',more:'Combine more than one habit mode with VIP.'};
+function openVip(why){vipWhy=why||'';vipMsg='';renderVip();const d=$('d-vip');if(!d.open)d.showModal()}
+function renderVip(){const b=$('vip-body'),P=VIP_PLANS.find(x=>x.id===vipSel)||VIP_PLANS[1],pro=isPro();
+  const row=(f,free,vip)=>`<tr><th scope="row">${f}</th><td>${free===true?UI.check:free===false?'<span class="lk">'+UI.lock+'</span>':free}</td><td class="v">${vip===true?UI.check:vip}</td></tr>`;
+  b.innerHTML=`<div class="vhero"><span class="vcrown">${UI.crown}</span><h2>${pro?'You are VIP':'Unlock everything'}</h2><p>${pro?vipLabel()+' · thank you for your support':(VIP_WHY[vipWhy]||'Unlimited habits, full history, advanced stats and premium themes.')}</p></div>
+  ${pro?`<div class="vstat"><b>${vipLabel()}</b><small>${state.vip.plan==='life'?'Lifetime VIP never expires.':'Your plan ends automatically on this date. You can add more time below.'}</small></div>`:''}
+  ${pro&&state.vip.plan==='life'?'':`<div class="vplans" role="radiogroup" aria-label="VIP plans">${VIP_PLANS.map(x=>`<button class="vplan${x.id===vipSel?' on':''}" role="radio" aria-checked="${x.id===vipSel}" data-act="vipPick" data-id="${x.id}">${x.tag?`<span class="vtag">${x.tag}</span>`:''}<b>${x.name}</b><span class="vprice">฿${x.price}</span><small>${x.months?`฿${Math.round(x.price/x.months)} / month`:'Pay once'}</small><small class="vnote">${x.note}</small></button>`).join('')}</div>
+  <button class="btn pri vbuy" data-act="vipBuy">${pro?'Add time':'Continue'} · ฿${P.price}</button>
+  <p class="vmsg" id="vip-msg" aria-live="polite">${esc(vipMsg)}</p>`}
+  <table class="vcmp"><thead><tr><th scope="col"><span class="vh">Feature</span></th><th scope="col">Free</th><th scope="col">${UI.crown} VIP</th></tr></thead><tbody>
+   ${row('Daily habits & routines',`Up to ${FREE_HABITS}`,'Unlimited')}${row('Habit tracking & progress',true,true)}${row('Statistics & reports','Basic','Advanced')}${row('History',`${FREE_DAYS} days`,'Unlimited')}${row('Themes & customisation','1 colour','All colours')}${row('Exclusive VIP features',false,'Golden apples & more')}</tbody></table>
+  <p class="vfine">1 Month and 3 Months plans end automatically when the time is up — no auto-renewal. Lifetime VIP never expires.</p>
+  ${pro?'':'<button class="link vrest" data-act="vipRestore">Already bought VIP? Restore purchase</button>'}`}
+const VIP_SOON='Secure checkout opens soon. Account sign-in and payment will be added next — nothing has been charged.';
+$('t-pick').addEventListener('change',e=>{const v=e.target.value;if(!v)return;if(!histOK(v)){e.target.value=sel;openVip('history');return}sel=v>today()?today():v;animList=true;renderWeek();renderHabits();haptic()});
 
 /* ===== Flame restore: red 1 · purple 2 · blue 4 · gold 7 restores per flame run ===== */
 const FIX_ALLOW=[0,1,2,4,7];
@@ -2006,7 +2124,7 @@ function fixOffer(){
 }
 function renderFix(){const el=$('fixcard');if(!el)return;const o=sel===today()?fixOffer():null;if(!o){el.innerHTML='';return}
   const T=TIERS[o.ti];
-  el.innerHTML=`<div class="fixc t-${T.k}"><div class="fxi">${flameSVG(o.k)}<span class="fxb">💔</span></div><div class="fxt"><b>${tr(`ไฟดับ! ${T.n[0]} ${o.k} วัน`,`Flame out! ${T.n[1]}, ${o.k} days`)}</b>
+  el.innerHTML=`<div class="fixc t-${T.k}"><div class="fxi">${flameSVG(o.k)}<span class="fxb">${UI.broken}</span></div><div class="fxt"><b>${tr(`ไฟดับ! ${T.n[0]} ${o.k} วัน`,`Flame out! ${T.n[1]}, ${o.k} days`)}</b>
     <small>${o.can?tr(`พลาด ${o.g} วัน · กู้ได้อีก ${o.left} ครั้ง (${T.n[0]}กู้ได้ ${FIX_ALLOW[o.ti]} ครั้ง)`,`Missed ${o.g} day${o.g>1?'s':''} · ${o.left} restore${o.left!==1?'s':''} left (${T.n[1].toLowerCase()}: ${FIX_ALLOW[o.ti]})`)
       :tr(`พลาด ${o.g} วัน แต่กู้ได้อีกแค่ ${Math.max(0,o.left)} ครั้ง`,`Missed ${o.g} days but only ${Math.max(0,o.left)} restore${o.left===1?'':'s'} left`)}</small></div>
     <div class="fxa">${o.can?`<button class="btn pri sm" data-act="fixFlame">${tr(`กู้ไฟ${o.g>1?` (${o.g} ครั้ง)`:''}`,`Restore${o.g>1?` (${o.g})`:''}`)}</button>`:''}<button class="link" data-act="fixSkip">${tr('ปล่อยไป','Let it go')}</button></div></div>`}
@@ -2031,15 +2149,17 @@ function renderOnb(){const el=$('onb');if(el.hidden)return;const a=document.acti
 function renderOnbView(el){
   const lang='';
   if(onbStep===1){el.innerHTML=`<div class="onw">${lang}<img class="onlogo" src="icon-192.png" alt="" onerror="this.style.display='none'"><p class="onstep">${tr('ขั้นตอนที่ 1 จาก 2','Step 1 of 2')}</p><h1 id="onb-h" tabindex="-1">HabitFlow</h1><p>${tr('สร้างนิสัยดีทีละวัน เห็นความก้าวหน้าชัดเจน','Build good habits one day at a time')}</p>
-    <ul class="onf"><li><span aria-hidden="true">✅</span> ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li><span aria-hidden="true">🔥</span> ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li><span aria-hidden="true">📊</span> ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
-    <div class="onb-act"><button class="gbtn" data-act="onbGoogle"${onbBusy?' aria-disabled="true" aria-busy="true"':''}${onbErr?' aria-describedby="onb-err"':''}>${GLOGO}${onbBusy?tr('กำลังเชื่อมต่อ…','Connecting…'):tr('เข้าสู่ระบบด้วย Google','Sign in with Google')}</button>
+    <ul class="onf"><li>${UI.check} ${tr('ติดตามกิจวัตรรายวันง่ายๆ','Simple daily habit tracking')}</li><li>${flameSVG(1)} ${tr('สะสมไฟและเหรียญเป็นแรงจูงใจ','Earn flames and coins to stay motivated')}</li><li>${UI.chart} ${tr('ดูสถิติและอารมณ์ของตัวเอง','See your stats and moods')}</li></ul>
+    <div class="onb-act">${gcid()?`<button class="gbtn" data-act="onbGoogle"${onbBusy?' aria-disabled="true" aria-busy="true"':''}${onbErr?' aria-describedby="onb-err"':''}>${GLOGO}${onbBusy?'Connecting…':'Sign in with Google'}</button>
     ${onbErr&&!onbBusy?`<p class="onerr" id="onb-err">${esc(onbErr)}</p>`:''}
-    <small class="m">${tr('สำรองข้อมูลอัตโนมัติ ใช้ได้หลายเครื่อง','Automatic backup across devices')}</small>
-    <button class="btn onskip" data-act="onbSkip">${tr('ใช้งานโดยไม่ล็อกอิน','Continue without signing in')}</button>
-    <small class="m">${tr('ข้อมูลเก็บในเครื่องนี้ · เชื่อม Google ภายหลังได้ในตั้งค่า','Data stays on this device · connect Google later in Settings')}</small></div></div>`;return}
-  el.innerHTML=`<div class="onw two">${lang}<p class="onstep">${tr('ขั้นตอนที่ 2 จาก 2','Step 2 of 2')}</p><h1 id="onb-h" tabindex="-1">${tr('เลือกโหมดกิจวัตร','Choose your habit mode')}</h1><p>${tr('เลือกได้มากกว่า 1 โหมด · ปรับเปลี่ยนได้ทีหลัง','Pick one or more · you can change them later')}</p>
-   <div class="onm">${HPRE.map(([g,items],i)=>`<button class="onmc${onbPick.has(i)?' on':''}" data-act="onbMode" data-id="${i}" role="checkbox" aria-checked="${onbPick.has(i)}"><span class="ome" aria-hidden="true">${g[2]}</span><span class="omt"><b>${tr(g[0],g[1])}</b><small>${items.map(it=>icon(it[0])+' '+esc(tr(it[1],it[2]))).join(' · ')}</small></span><span class="omk" aria-hidden="true">${onbPick.has(i)?'✓':''}</span></button>`).join('')}
-    <button class="onmc${onbPick.has('own')?' on':''}" data-act="onbMode" data-id="own" role="checkbox" aria-checked="${onbPick.has('own')}"><span class="ome" aria-hidden="true">✏️</span><span class="omt"><b>${tr('เลือกเอง','Choose my own')}</b><small>${tr('เริ่มว่างๆ แล้วเพิ่มกิจวัตรที่ต้องการ','Start empty and add the habits you want')}</small></span><span class="omk" aria-hidden="true">${onbPick.has('own')?'✓':''}</span></button></div>
+    <small class="m">Automatic backup across devices</small>
+    <button class="btn onskip" data-act="onbSkip">Continue without signing in</button>
+    <small class="m">Data stays on this device · connect Google later in Settings</small>`
+    :`<button class="btn pri onstart" data-act="onbSkip">Get started</button>
+    <small class="m">Your data stays on this device · back it up anytime in Settings</small>`}</div></div>`;return}
+  el.innerHTML=`<div class="onw two">${lang}<p class="onstep">${tr('ขั้นตอนที่ 2 จาก 2','Step 2 of 2')}</p><h1 id="onb-h" tabindex="-1">${tr('เลือกโหมดกิจวัตร','Choose your habit mode')}</h1><p>${isPro()?'Pick one or more · you can change them later':`Free plan: 1 mode · up to ${FREE_HABITS} habits · more with VIP`}</p>
+   <div class="onm">${HPRE.map(([g,items],i)=>`<button class="onmc${onbPick.has(i)?' on':''}" data-act="onbMode" data-id="${i}" role="checkbox" aria-checked="${onbPick.has(i)}"><span class="ome" aria-hidden="true">${g[2]}</span><span class="omt"><b>${tr(g[0],g[1])}</b><small>${items.map(it=>icon(it[0])+' '+esc(tr(it[1],it[2]))).join(' · ')}</small></span><span class="omk" aria-hidden="true">${onbPick.has(i)?'✓':(!isPro()&&[...onbPick].some(x=>x!=='own')?UI.lock:'')}</span></button>`).join('')}
+    <button class="onmc${onbPick.has('own')?' on':''}" data-act="onbMode" data-id="own" role="checkbox" aria-checked="${onbPick.has('own')}"><span class="ome" aria-hidden="true">${UI.pencil}</span><span class="omt"><b>${tr('เลือกเอง','Choose my own')}</b><small>${tr('เริ่มว่างๆ แล้วเพิ่มกิจวัตรที่ต้องการ','Start empty and add the habits you want')}</small></span><span class="omk" aria-hidden="true">${onbPick.has('own')?'✓':''}</span></button></div>
    <div class="onb-act sticky"><button class="btn pri onstart" data-act="onbStart"${onbPick.size?'':' aria-disabled="true"'}>${onbPick.size?tr(`เริ่มใช้งาน${onbCount()?` · ${onbCount()} กิจวัตร`:''}`,`Get started${onbCount()?` · ${onbCount()} habits`:''}`):tr('เลือกอย่างน้อย 1 โหมด','Pick at least one mode')}</button></div></div>`;
 }
 const onbCount=()=>[...onbPick].filter(x=>x!=='own').reduce((a,i)=>a+HPRE[i][1].length,0);
@@ -2088,7 +2208,7 @@ const RESETS=[
  ['habits','#45B386',RI('<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.5 2.5 4.5-5"/>'),['รีเซ็ตกิจวัตร','Reset Habits'],['ลบกิจวัตรทั้งหมด (รวมที่ลบไปแล้ว) และประวัติการทำ','Delete all active and archived habits and their records.']],
  ['records','#E8704F',RI('<circle cx="12" cy="12" r="8" stroke-dasharray="2.2 2.4"/><path d="M12 8v4l2.5 2"/>'),['รีเซ็ตประวัติกิจวัตร','Reset Habit Records'],['ล้างประวัติการทำ สตรีค และบันทึก โดยยังเก็บกิจวัตรไว้','Clear habit records, streak history and notes while keeping your habits.']],
  ['rewards','#F2A25E',RI('<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M4 13h16M12 9v11M12 9c-3 0-4.5-1-4.5-2.5S9 4 10.5 5 12 9 12 9zm0 0c3 0 4.5-1 4.5-2.5S15 4 13.5 5 12 9 12 9z"/>'),['รีเซ็ตรางวัล','Reset Rewards'],['ลบรางวัลทั้งหมด รวมถึงรางวัลที่แลกไปแล้ว','Delete all rewards, including rewards you have already claimed.']],
- ['flame','#F0913A',RI('<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1-3.6 2-4.6.3 1.6 1 2.6 2 3 0-3 .5-5.5 1-8.4z"/>'),['รีเซ็ตไฟ','Reset Flames'],['ตั้งไฟ 🔥 กลับเป็น 0 โดยยังเก็บประวัติกิจวัตรไว้','Set your 🔥 flame streak back to 0 while keeping habit records.']],
+ ['flame','#F0913A',RI('<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1-3.6 2-4.6.3 1.6 1 2.6 2 3 0-3 .5-5.5 1-8.4z"/>'),['รีเซ็ตไฟ','Reset Flames'],['ตั้งไฟ กลับเป็น 0 โดยยังเก็บประวัติกิจวัตรไว้','Set your 🔥 flame streak back to 0 while keeping habit records.']],
  ['coins','#EBC45E',RI('<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.5 0-2.5.8-2.5 1.9 0 2.6 5 1.4 5 4.1 0 1.1-1.1 2-2.5 2-1.2 0-2.1-.5-2.6-1.3M12 6.5v11"/>'),['รีเซ็ตเหรียญ','Reset Coins'],['รีเซ็ตเหรียญคงเหลือ เหรียญสะสม เลเวล และสิทธิ์ข้ามวัน','Reset coin balance, total earned, level and skip passes.']],
  ['groups','#4A87B5',RI('<rect x="5" y="5" width="6" height="6" rx="1.5"/><rect x="13" y="5" width="6" height="6" rx="1.5"/><rect x="5" y="13" width="6" height="6" rx="1.5"/><rect x="13" y="13" width="6" height="6" rx="1.5"/>'),['รีเซ็ตหมวดหมู่','Reset Groups'],['ลบหมวดหมู่ทั้งหมด และนำกิจวัตรออกจากหมวดหมู่','Delete all groups and remove group assignments from your habits.']],
  ['all','#E5544B',RI('<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>'),['รีเซ็ตข้อมูลทั้งหมด','Reset Everything'],['กลับเป็นค่าเริ่มต้นทั้งหมด รวมถึงโปรไฟล์และการตั้งค่า','Restore everything to defaults, including your profile and settings.']]];
@@ -2119,9 +2239,13 @@ function setTab(t){{const to=arguments[0],sub=['rewards','focus'].includes(to);i
 function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();renderRewards();renderSettings();if(tab==='stats')renderStats();moodPick=null;if(tab==='mood')renderMood();save()}
 
 const ACT={
-  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fDone=false;fDead=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
+  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),openVip:()=>openVip(),vipPick:k=>{vipSel=k;vipMsg='';renderVip();const b=document.querySelector(`.vplan[data-id="${k}"]`);b&&b.focus()},
+  vipBuy:()=>{vipMsg=VIP_SOON;const m=$('vip-msg');if(m)m.textContent=vipMsg;haptic()},vipRestore:()=>{vipMsg='Restoring needs an account — sign-in arrives together with checkout.';const m=$('vip-msg');if(m)m.textContent=vipMsg},
+  accent:k=>{const a=ACCENTS.find(x=>x[0]===k);if(!a)return;if(a[4]&&!isPro()){openVip('themes');return}state.accent=k;save();applyAccent();haptic()},
+  fgrace:v=>{state.focus.grace=+v;save();renderFocusUI();haptic()},
+  fdur:v=>{if(!state.focusRun){fDone=false;fDead=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
   goF:()=>{const r=state.focusRun;
-    if(!r){fDone=false;fDead=false;fAc=Math.random()<.5?'r':'g';state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0,ac:fAc};startTick()}
+    if(!r){fDone=false;fDead=false;fAc=isPro()&&Math.random()<.34?'y':Math.random()<.5?'r':'g';state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0,ac:fAc};startTick()}
     else if(r.end){r.left=Math.max(0,r.end-Date.now());r.end=0}else r.end=Date.now()+r.left;
     save();renderFocusUI();renderFocus()},
   stopF:async()=>{if(!state.focusRun)return;if(!await ask(tr('หยุดโฟกัส? เวลาที่ทำไปแล้ว (ถ้าเกิน 5 นาที) จะถูกบันทึก','Stop focusing? Time so far (5+ min) will be saved'),tr('หยุด','Stop')))return;
@@ -2136,7 +2260,7 @@ const ACT={
   week:n=>{sel=addDays(sel,+n);animList=true;renderWeek();renderHabits();if(tab==='stats')renderStats()},
   group:g=>{state.selectedGroup=g;store.set(KEY,JSON.stringify(state));renderGroups();renderHabits()},
   toolGo:k=>{toolName=k;toolEdit=null;renderTool()},
-  tool:k=>{toolName=k;toolEdit=null;renderTool();$('d-tool').showModal()},toolBack:()=>{if(toolEdit!==null){toolEdit=null;renderTool()}else $('d-tool').close()},toolAdd:()=>{toolEdit='new';renderTool()},
+  tool:k=>{if(k==='overview'&&!isPro()){openVip('stats');return}toolName=k;toolEdit=null;renderTool();$('d-tool').showModal()},toolSw:k=>{toolName=k;toolEdit=null;renderTool()},toolBack:()=>{if(toolEdit!==null){toolEdit=null;renderTool()}else $('d-tool').close()},toolAdd:()=>{toolEdit='new';renderTool()},
   tSave:()=>toolSave(),tDel:()=>toolDel(),tOpen:id=>{toolEdit=id;renderTool()},gStep:(id,el)=>goalStep(id,+el.dataset.d),jMood:k=>{jMood=jMood===k?'':k;document.querySelectorAll('.jm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===jMood))},
   openRemind:()=>{renderRemind();$('d-remind').showModal()},askNotif:async()=>{try{await Notification.requestPermission()}catch(e){}renderRemind()},icsOut,syncOut,syncIn:()=>$('s-file').click(),
   a11yOpen:()=>{const g=$('s-a11y'),o=g.hidden;g.hidden=!o;$('s-a11yb').setAttribute('aria-expanded',o);$('s-a11yc').textContent=o?'⌄':'›'},
@@ -2150,20 +2274,20 @@ const ACT={
   pgBack:()=>{const b=backTo||'habits';backTo=null;if(b==='settings'){setTab('habits');ACT.settings()}else setTab(b==='rewards'||b==='focus'?'habits':b)},
   tview:k=>{state.todoView=k;save();animList=true;renderHabits()},tgrp:g=>{state.todoCollapsed=state.todoCollapsed||{};state.todoCollapsed[g]=!state.todoCollapsed[g];save();renderHabits()},fTod:k=>{formTod=k;setFTod()},
   fixFlame,fixSkip:()=>{const o=fixOffer();if(o){state.fixSkip=addDays(today(),-1)+'|'+o.start;save()}renderFix()},
-  onbGoogle,onbSkip:()=>{onbStep=2;renderOnb()},onbMode:k=>{const v=k==='own'?'own':+k;if(onbPick.has(v))onbPick.delete(v);else{if(v==='own')onbPick.clear();else onbPick.delete('own');onbPick.add(v)}haptic();renderOnb()},onbStart,
+  onbGoogle,onbSkip:()=>{onbStep=2;renderOnb()},onbMode:k=>{const v=k==='own'?'own':+k;if(onbPick.has(v))onbPick.delete(v);else{if(v!=='own'&&!isPro()&&[...onbPick].some(x=>x!=='own')){openVip('more');return}if(v==='own')onbPick.clear();else onbPick.delete('own');onbPick.add(v)}haptic();renderOnb()},onbStart,
   onbLang:v=>{state.lang=v;applyLang();renderOnb()},replayOnb:async()=>{if(!await ask(tr('เริ่มต้นใหม่? กิจวัตรและเหรียญปัจจุบันจะถูกแทนที่ด้วยโหมดที่เลือก (บันทึก อารมณ์ เป้าหมาย ยังอยู่)','Start over? Your current habits and coins will be replaced by the mode you pick (notes, moods and goals are kept)'),tr('เริ่มใหม่','Start over')))return;document.querySelectorAll('dialog[open]').forEach(d=>d.close());openOnb()},
   hlay:k=>{state.homeLayout=k;save();animList=true;renderHabits();haptic()},
   rview:k=>{state.radarView=k;save();renderStats();haptic();document.querySelectorAll('#s-rview button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===k))},
   openHabits:()=>{renderHabitList();$('d-habits').showModal()},
-  bump,addHabit:()=>{renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
+  bump,addHabit:()=>{if(!canAddHabit())return;renderHPick();$('d-hpick').showModal()},customHabit:()=>{$('d-hpick').close();openHabitForm()},hpreset:addPreset,
   openReset:()=>{renderReset();$('d-reset').showModal()},rst:doReset,
   detail:id=>{detailId=id;detailMonth=null;renderDetail();$('d-detail').showModal()},
   editHabit:()=>openHabitForm(detailId),
   formIcon:k=>{formIcon=k;renderIconPicker()},saveHabit,
   delHabit:async()=>{if(await ask(tr('ลบกิจวัตรนี้? ประวัติจะถูกซ่อนจากแอป','Delete this habit? Its history will be hidden'),tr('ลบ','Delete'))){const h=state.habits.find(x=>x.id===$('f-id').value);if(h)h.archived=true;$('d-habit').close();$('d-detail').close();renderAll();toast(tr('ลบกิจวัตรแล้ว','Habit deleted'))}},
   mode:m=>{mode=m;renderStats()},
-  smonth:n=>{const d=new Date(statsMonth.y,statsMonth.m+ +n,1);statsMonth={y:d.getFullYear(),m:d.getMonth()};renderStats()},
-  dmonth:n=>{const d=new Date(detailMonth.y,detailMonth.m+ +n,1);detailMonth={y:d.getFullYear(),m:d.getMonth()};renderDetail()},
+  smonth:n=>{const d=new Date(statsMonth.y,statsMonth.m+ +n,1);if(+n<0&&!histOK(fmt(new Date(d.getFullYear(),d.getMonth()+1,0)))){openVip('history');return}statsMonth={y:d.getFullYear(),m:d.getMonth()};renderStats()},
+  dmonth:n=>{const d=new Date(detailMonth.y,detailMonth.m+ +n,1);if(+n<0&&!histOK(fmt(new Date(d.getFullYear(),d.getMonth()+1,0)))){openVip('history');return}detailMonth={y:d.getFullYear(),m:d.getMonth()};renderDetail()},
   rtab:t=>{rtab=t;renderRewards()},claim,
   newReward:()=>{$('presets').innerHTML=Object.entries(PRESETS).map(([k,v])=>`<h4>${state.lang==='en'?PRE_EN[k]||k:k}</h4><div class="picks">${v.map(p=>`<button class="pick" data-act="preset" data-id="${esc(p[0])}"><span class="e">${p[2]}</span><span><div class="t">${esc(tn(p[0]))}</div><div class="cost">${p[1]} ${tr('เหรียญ','coins')}</div></span></button>`).join('')}</div>`).join('');$('d-picker').showModal()},
   preset:t=>{for(const v of Object.values(PRESETS)){const p=v.find(x=>x[0]===t);if(p){addReward(p[0],p[1],p[2]);$('d-picker').close();break}}},
@@ -2253,6 +2377,16 @@ $('s-file').addEventListener('change',e=>{
 state.selectedDate=sel;
 if(state.selectedGroup!=='All'&&!state.groups.includes(state.selectedGroup))state.selectedGroup='All';
 collectStatic();applyLang();applyTheme();setTab('habits');animList=true;renderAll();if(state.focusRun){if(state.focusRun.away)fBack();if(state.focusRun)startTick()}
+/* ===== offline + updates: service worker, and a "new version" banner when the live app changes ===== */
+const APP_VER='5.1';
+applyAccent();vipTick();setInterval(vipTick,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)vipTick()});
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+let updShown=false,updAt=0;
+async function checkUpdate(){if(updShown||!/^https?:/.test(location.protocol)||Date.now()-updAt<6e5)return;updAt=Date.now();
+  try{const t=await (await fetch('index.html',{cache:'no-store'})).text(),m=t.match(/const APP_VER='([^']+)'/);if(m&&m[1]!==APP_VER)showUpdate()}catch(e){}}
+function showUpdate(){if(updShown)return;updShown=true;const b=document.createElement('div');b.className='updbar';b.setAttribute('role','status');
+  b.innerHTML='<span>A new version of HabitFlow is ready</span><button class="btn pri" type="button">Update</button>';b.querySelector('button').onclick=()=>{flushSave();location.reload()};document.body.appendChild(b)}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkUpdate()});setTimeout(checkUpdate,8000);
 if(!state.onboarded){if(FRESH_INSTALL)openOnb();else{state.onboarded=true;save()}}
 </script>
 </body>
