@@ -592,7 +592,7 @@ h2{font-weight:800}
 .item.just:not(.ok){animation:none}
 .item.ok.just .plus{animation:pop .45s var(--ease)}
 /* nav: floating pill with labels */
-nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));border-radius:26px;background:color-mix(in srgb,var(--surf) 92%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 10px 30px -10px rgba(120,100,190,.35);padding-bottom:0;border:0}
+nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));border-radius:26px;background:color-mix(in srgb,var(--surf) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 30px -10px rgba(120,100,190,.35);padding-bottom:0;border:0}
 nav button{height:62px;font-size:10.5px;font-weight:800;gap:2px;flex-direction:column;display:flex;align-items:center;justify-content:center}
 nav svg{width:20px;height:20px;padding:5px 14px;border-radius:99px;border:0!important}
 nav button[aria-current=page]{color:var(--acc)}nav button[aria-current=page] svg{background:color-mix(in srgb,var(--acc) 16%,transparent)!important}
@@ -665,7 +665,7 @@ h2{font-weight:700;letter-spacing:-.02em}.hb .t{font-weight:600}.ring .rc b{font
 .hs{font-weight:700}
 /* --- press dynamics: spring, depth, ripple --- */
 :root{--spring:cubic-bezier(.34,1.56,.64,1)}
-button,.btn,.item.hb,.fc,.pick,.tcard,.quest,.chest,.tday{transition:transform .22s var(--spring),box-shadow .22s ease,background-color .2s,opacity .2s}
+button,.btn,.item.hb,.fc,.pick,.tcard,.quest,.chest,.tday{transition:transform .22s var(--spring),background-color .2s,opacity .2s}
 button:active:not([disabled]):not(.sw),.btn:active:not([disabled]){transform:scale(.95) translateY(1px)}
 .btn.pri:active:not([disabled]){box-shadow:0 3px 8px -4px rgba(110,180,170,.9);transform:scale(.96) translateY(2px)}
 .item.hb:has(.go:active){transform:scale(.98) translateY(2px);box-shadow:0 2px 8px -6px rgba(120,100,190,.4)}
@@ -890,6 +890,10 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
 #d-tool .dh .dsp{display:none}
 .dh:has(.dback) h3{flex:1;text-align:center;padding-left:0!important;margin:0}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ===== 60 FPS: compositor-only motion ===== */
+#hbar{width:100%!important;transform:scaleX(0);transform-origin:left center;transition:transform .6s var(--spring)!important;will-change:transform}
+.hbt b{animation:sgrow .8s var(--ease) both!important;transform-origin:left center}@keyframes sgrow{from{transform:scaleX(0)}}
+nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 </style>
 </head>
 <body>
@@ -1212,7 +1216,11 @@ function streaks(pred){
   while(c<=730&&pred(x)){c++;x=addDays(x,-1)}
   return{cur:c,best};
 }
-function save(){queueGSync();if(store.set(KEY,JSON.stringify(state))===false)toast(tr('พื้นที่เก็บข้อมูลเต็ม ลองลบรูปเก่าออก','Storage full — try removing old photos'),true);const ce=$('coins');if(ce.textContent!==String(state.coins)){ce.textContent=state.coins;const b=ce.parentElement;b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}$('bal').textContent=state.coins;$('skips').textContent=state.skips;const L=Math.floor(state.totalEarned/10)+1;$('lvl').textContent=tr(`เลเวล ${L} · สะสมรวม ${state.totalEarned} เหรียญ`,`Level ${L} · ${state.totalEarned} coins earned`);$('lvg').innerHTML=gauge((state.totalEarned%10)/10,112,12,'var(--coin)')+`<b>Lv ${L}</b>`}
+/* perf: JSON.stringify + localStorage write moved off the tap frame; coalesced and flushed on hide/close */
+let saveT=0;const idle=window.requestIdleCallback?f=>requestIdleCallback(f,{timeout:400}):f=>setTimeout(f,60);
+function flushSave(){if(!saveT)return;saveT=0;if(store.set(KEY,JSON.stringify(state))===false)toast(tr('พื้นที่เก็บข้อมูลเต็ม ลองลบรูปเก่าออก','Storage full — try removing old photos'),true)}
+addEventListener('pagehide',flushSave);document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave()});
+function save(){queueGSync();if(!saveT){saveT=1;idle(flushSave)}const ce=$('coins');if(ce.textContent!==String(state.coins)){ce.textContent=state.coins;const b=ce.parentElement;/* restart bump without a forced reflow */b.classList.remove('bump');requestAnimationFrame(()=>requestAnimationFrame(()=>b.classList.add('bump')))}const sc=String(state.coins);if($('bal').textContent!==sc)$('bal').textContent=sc;if($('skips').textContent!==String(state.skips))$('skips').textContent=state.skips;const L=Math.floor(state.totalEarned/10)+1,lt=tr(`เลเวล ${L} · สะสมรวม ${state.totalEarned} เหรียญ`,`Level ${L} · ${state.totalEarned} coins earned`),gk=state.totalEarned+'|'+state.lang;if($('lvl').textContent!==lt)$('lvl').textContent=lt;const g=$('lvg');if(g.dataset.k!==gk){g.dataset.k=gk;g.innerHTML=gauge((state.totalEarned%10)/10,112,12,'var(--coin)')+`<b>Lv ${L}</b>`}}
 
 /* ui helpers */
 let confirmResolve=null;
@@ -1220,12 +1228,13 @@ function ask(msg,ok=tr('ยืนยัน','Confirm')){return new Promise(r=>{$
 $('c-yes').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(true)};
 $('c-no').onclick=()=>{$('d-confirm').close();confirmResolve&&confirmResolve(false)};
 $('d-confirm').addEventListener('cancel',()=>confirmResolve&&confirmResolve(false));
-function toast(msg,err){
+/* perf: show the toast on the next frame so it never lands in the same frame as a list re-render */
+function toast(msg,err){requestAnimationFrame(()=>{
   document.querySelectorAll('.toast').forEach(t=>t.remove());
   const t=document.createElement('div');t.className='toast'+(err?' err':'');t.setAttribute('popover','manual');t.setAttribute('role',err?'alert':'status');t.setAttribute('aria-live',err?'assertive':'polite');t.textContent=msg;
   document.body.appendChild(t);try{t.showPopover()}catch(e){}
   setTimeout(()=>t.remove(),err?4000:(state.a11y&&state.a11y.size>1?3600:2600));
-}
+})}
 /* real haptics: Vibration API on Android; on iPhone (iOS 18+) toggling a native <input switch> fires the Taptic Engine */
 const canVib=typeof navigator.vibrate==='function'&&!/iP(hone|ad|od)/.test(navigator.userAgent);
 let hsw=null;
@@ -1413,7 +1422,7 @@ function renderTier(){
 }
 const RC=2*Math.PI*52;
 function setRing(pct){
-  $('hpct').textContent=pct+'%';$('hbarw').setAttribute('aria-valuenow',pct);requestAnimationFrame(()=>{$('hbar').style.width=pct+'%'});
+  $('hpct').textContent=pct+'%';$('hbarw').setAttribute('aria-valuenow',pct);requestAnimationFrame(()=>{$('hbar').style.transform=`scaleX(${pct/100})`});
   $('hbarw').setAttribute('aria-label',tr(`ความคืบหน้าวันนี้ ${pct}%`,`Today's progress ${pct}%`));
 }
 const PTOD={read:'night',learn:'day',english:'day',review:'night',plan:'morning',target:'day',nophone:'night',check:'night',water:'day',weight:'morning',zzz:'night',smoke:'day',money:'night',save:'day',ai:'day',rocket:'day',cardio:'morning',sleep:'night',mind:'morning',run:'morning'};
@@ -1429,14 +1438,15 @@ function renderHabits(){renderFix();
   setRing(pct);
   $('day-sub').textContent=list.length?tr(`${n} จาก ${list.length} เสร็จแล้ว`,`${n} of ${list.length} done`):tr('กดปุ่มด้านล่างเพื่อเพิ่มกิจวัตรแรก','Tap below to add your first habit');
   $('habits').classList.toggle('anim',animList);animList=false;
-  $('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
+  const L=state.homeLayout||'card';
+  if(L==='card'||!list.length)$('habits').innerHTML=list.length?list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,p=Math.min(100,Math.round(v/h.target*100)),j=popId===h.id;
     return `<div class="item hb${ok?' ok':''}${j?' just':''}" style="--c:${hex(h)};--p:${p}%;--from:${j?popFrom:p}%;--i:${i}"><button class="go" data-act="detail" data-id="${h.id}"><span class="tile">${icon(h.iconKey)}</span><span style="min-width:0"><div class="t">${esc(tn(h.title))}</div><div class="m">${v} / ${h.target} ${esc(tn(h.unit||'ครั้ง'))}</div>${h.target>1?`<div class="hpb"><i style="width:${p}%"></i></div>`:''}</span></button><button class="plus${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('เพิ่ม','Add')}: ${esc(tn(h.title))}">${state.a11y&&state.a11y.labels?`<span class="pl">${ok?tr('เสร็จ','Done'):tr('ทำ','Do')}</span>`:''}${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'}</button></div>`}).join('')
   :`<div class="empty"><p>${tr('ยังไม่มีกิจวัตร','No habits yet')}</p><button class="btn pri sm" data-act="addHabit">+ ${tr('เพิ่มกิจวัตร','Add habit')}</button></div>`;
-  const L=state.homeLayout||'card';document.querySelectorAll('#s-hlay button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===L));
+  document.querySelectorAll('#s-hlay button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===L));
   $('habits').classList.toggle('lt-tile',L==='tile');$('habits').classList.toggle('lt-row',L==='row');
   if(L!=='card'&&list.length){const ws=weekStart(today());
     const wk=h=>{let c=0;const d=[...Array(7)].map((_,i)=>{const ds=addDays(ws,i),on=done(h,ds);if(on)c++;return `<i class="${on?'on':''}${ds>today()?' fu':''}">${WD[parse(ds).getDay()].slice(0,1)}</i>`}).join('');return `<span class="wk">${d}<em>${c}/7</em></span>`};
-    $('habits').innerHTML=list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,k=streaks(d=>done(h,d)).cur,j=popId===h.id;
+    $('habits').innerHTML=list.map((h,i)=>{const v=val(h,sel),ok=v>=h.target,j=popId===h.id;
       const ck=`<button class="lck${ok?' on':''}${j?' pop':''}" data-act="bump" data-id="${h.id}" aria-label="${ok?tr('ยกเลิก','Undo'):tr('ทำแล้ว','Done')}: ${esc(tn(h.title))}">${ok?'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>':h.target>1&&v?`<b>${v}</b>`:'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg>'}</button>`;
       const st=`<span class="lst"><b>${v}<span class="lof">/${h.target}</span></b><small>${esc(tn(h.unit||'ครั้ง'))}</small></span>`;
       return L==='tile'?`<div class="ltile${ok?' ok':''}" style="--c:${hex(h)};--i:${i}"><div class="lth">${st}${ck}</div><button class="lgo" data-act="detail" data-id="${h.id}"><b>${esc(tn(h.title))}</b></button>${wk(h)}</div>`
