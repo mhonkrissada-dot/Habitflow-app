@@ -238,7 +238,7 @@ nav div{grid-template-columns:repeat(5,1fr)}nav svg{padding:2px 10px}
 .frun{display:block;width:100%;margin-top:14px;padding:12px 14px;border-radius:16px;background:var(--acc);color:var(--onacc);font-weight:600;text-align:left}
 .fo{display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:20px}
 .fring{position:relative;width:220px;height:220px}.fring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.fring circle{fill:none;stroke-width:10}.fring .bg{stroke:var(--soft)}.fring .fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .5s linear}
+.fring>svg circle{fill:none;stroke-width:10}.fring .bg{stroke:var(--soft)}.fring .fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .5s linear}
 .ft{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .hero{display:flex;align-items:center;justify-content:space-between;gap:8px;background:color-mix(in srgb,var(--acc) 20%,var(--surf));border-radius:28px;padding:16px 14px 14px 18px;margin:8px 0 14px}
 .hl{min-width:0}.hero h2{font-size:20px;margin:2px 0 4px}.hero .sub{margin:0 0 10px}
@@ -901,12 +901,14 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 [data-theme=dark] .fscene{background:radial-gradient(circle at 50% 35%,#3B3A5A,#2C2A44)}
 .fscene .soil{position:absolute;left:6%;right:6%;top:64%;height:44%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#7A4E2C,#5C3A20)}
 .fscene .lip{position:absolute;left:6%;right:6%;top:59%;height:11%;border-radius:50%;background:#9A6A3E}
-.fscene .ftree{position:absolute;left:0;right:0;bottom:36%;height:58%;display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
+.fscene .ftree{position:absolute;left:0;right:0;bottom:36%;height:68%;display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
 .ftree svg{height:100%;width:auto;overflow:visible}
 .fring .fscene svg{transform:none}
 .ftree .tw{transform-box:view-box;transform-origin:100px 246px;transition:transform 1.2s cubic-bezier(.3,1.25,.5,1)}
 .ftree .tr{transform-box:fill-box;transform-origin:50% 0;transform:scale(0);opacity:0;transition:transform .7s cubic-bezier(.3,1.5,.5,1),opacity .3s}
 .ftree .tr.on{transform:none;opacity:1}
+.ftree .tr.bl{transform-origin:50% 60%}
+.ftree .ap{transform-box:fill-box;transform-origin:50% 0;transform:scale(0);opacity:0;transition:transform .6s cubic-bezier(.3,1.7,.5,1),opacity .25s}.ftree .ap.on{transform:none;opacity:1}
 .ftree.grow .tw>g{animation:sway 5s ease-in-out infinite;transform-box:view-box;transform-origin:100px 246px}
 @keyframes sway{50%{transform:rotate(1.2deg)}}
 .ftree.paused .tw{filter:saturate(.55)}
@@ -1371,28 +1373,36 @@ function renderFocus(){
 }
 function updateRun(){const r=state.focusRun,b=$('f-run');b.hidden=!r;if(r){const c=fCat(r.c);b.textContent=`${c[2]} ${tr('กำลังโฟกัส','Focusing:')} ${c[1]} · ${mmss(fLeft())}${r.end?'':tr(' (พัก)',' (paused)')} — ${tr('แตะเพื่อเปิด','tap to open')}`}}
 function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.now()):r.left):fMin*60000}
-/* paper-cut pine: 6 tiers, light/dark halves along a centre fold; tiers pop in from the bottom as the session progresses */
-const TREE=(()=>{const T=[[206,62,80],[178,56,68],[151,50,57],[127,44,47],[106,38,37],[87,34,27]];
-  const half=(by,h,w,d)=>{const ty=by-h,x=k=>100+d*w*k;return `M100 ${ty}Q${x(.42)} ${ty+h*.55} ${x(1)} ${by}L${x(.7)} ${by-8}L${x(.5)} ${by+2}L${x(.28)} ${by-7}L${x(.1)} ${by}L100 ${by-3}Z`};
-  const tiers=T.map(([by,h,w],i)=>`<g class="tr" data-i="${i}"><path d="${half(by,h,w,-1)}" fill="#86B653"/><path d="${half(by,h,w,1)}" fill="#3E6B2C"/><path d="M100 ${by-h}V${by-3}" stroke="#2F5422" stroke-width="1.2"/></g>`).join('');
+/* cartoon apple tree: leafy canopy clusters pop in as the session runs; apples (red or green, picked per round) appear near the end */
+const AP_C={r:['#E23A3A','#A9232A'],g:['#C4E04E','#86A92B']};
+const TREE=(()=>{
+  const B=[[64,152,31,1],[136,152,31,2],[100,142,42,0],[72,114,34,3],[128,114,34,4],[100,88,37,5]];
+  const leaf=(x,y)=>`<path d="M${x-5} ${y}q5 6 10 0" stroke="#3F822B" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>`;
+  const blob=([x,y,r,i])=>`<g class="tr bl" data-i="${i}"><circle cx="${x}" cy="${y+5}" r="${r}" fill="#3D7A28"/><circle cx="${x}" cy="${y}" r="${r}" fill="#5DAA3A"/><circle cx="${x-r*.22}" cy="${y-r*.3}" r="${r*.58}" fill="#7CC44F"/>${leaf(x-r*.35,y+r*.2)}${leaf(x+r*.35,y-r*.05)}${leaf(x+r*.05,y+r*.5)}${leaf(x-r*.1,y-r*.55)}</g>`;
+  const A=[[72,160],[130,148],[102,124],[82,98]];
+  const apple=([x,y],i)=>`<g class="ap" data-i="${i}"><path d="M${x} ${y-11}q1-5 4-7" stroke="#6B3E1E" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M${x+2} ${y-14}q7-5 11 0q-6 5-11 0z" fill="#4E9A2E"/><circle cx="${x}" cy="${y}" r="12" fill="var(--ap)"/><path d="M${x+2} ${y+11}a12 12 0 0 0 9-10" stroke="var(--ap2)" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="${x-4.5}" cy="${y-4.5}" rx="3.8" ry="2.8" fill="#fff" opacity=".55"/></g>`;
   return `<svg viewBox="0 0 200 260"><g class="tw"><g>
-    <rect x="92" y="170" width="8" height="78" fill="#8A4B2A"/><rect x="100" y="170" width="8" height="78" fill="#5E3019"/>${tiers}</g></g></svg>`})();
+    <path d="M86 248c3-30 5-62 6-96h16c1 34 3 66 6 96z" fill="#C99A5B"/><path d="M100 152h8c1 34 3 66 6 96h-14z" fill="#A97B43"/>
+    <path d="M74 248q10-4 16-14l2 14zM126 248q-10-4-16-14l-2 14z" fill="#B78748"/>
+    ${B.map(blob).join('')}${A.map(apple).join('')}</g></g></svg>`})();
+var fAc=Math.random()<.5?'r':'g';
 const DEADTREE=`<svg viewBox="0 0 200 260"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M100 248V120" stroke="#6E5240" stroke-width="12"/><path d="M100 196l-34-30M66 166l-10-22M100 176l30-28M130 148l4-22M100 150l-22-26M78 124l-4-18M100 138l18-24M118 114l14-6" stroke="#7D6250" stroke-width="7"/><path d="M90 248q-14 0-22 6M110 248q14 0 22 6" stroke="#6E5240" stroke-width="6"/></g><circle cx="70" cy="250" r="3" fill="#F3EDE4"/><circle cx="132" cy="252" r="3" fill="#F3EDE4"/></svg>`;
-const miniTree=dead=>dead?`<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 33V12M13 24l-6-5M13 20l5-5M13 16l-4-4" stroke="#8C7262" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`
-  :`<svg viewBox="0 0 26 34" aria-hidden="true"><rect x="11.5" y="25" width="3" height="8" fill="#6E3A20"/><path d="M13 2 4 15h4l-5 7h5l-5 6h10z" fill="#86B653"/><path d="M13 2l9 13h-4l5 7h-5l5 6H13z" fill="#3E6B2C"/></svg>`;
+const miniTree=(dead,ac)=>dead?`<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 33V12M13 24l-6-5M13 20l5-5M13 16l-4-4" stroke="#8C7262" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`
+  :`<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M11 33l1-10h2l1 10z" fill="#B98A4F"/><circle cx="8" cy="18" r="6" fill="#4C9630"/><circle cx="18" cy="18" r="6" fill="#4C9630"/><circle cx="13" cy="11" r="8" fill="#5DAA3A"/><circle cx="11" cy="9" r="4.5" fill="#7CC44F"/><circle cx="9" cy="18" r="2.2" fill="${(AP_C[ac]||AP_C.r)[0]}"/><circle cx="17" cy="15" r="2.2" fill="${(AP_C[ac]||AP_C.r)[0]}"/></svg>`;
 var fDone=false,fDead=false,fTreeK='';
 function renderTree(r,total,left){const el=$('fo-tree');if(!el)return;const dead=fDead&&!r;
   if(el.dataset.kind!==(dead?'d':'t')){el.dataset.kind=dead?'d':'t';el.innerHTML=dead?DEADTREE:TREE;fTreeK=''}el.classList.toggle('dead',dead);if(dead)return;
   const p=fDone?1:r?Math.min(1,Math.max(0,1-left/(total||1))):0,n=fDone?6:1+Math.min(5,Math.floor(p*6)),sc=(.32+.68*p).toFixed(3);
-  const k=n+'|'+sc+'|'+(r?r.end?'g':'p':'')+(fDone?'d':'');if(k===fTreeK)return;fTreeK=k;
-  el.querySelector('.tw').style.transform=`scale(${sc})`;el.querySelectorAll('.tr').forEach(t=>t.classList.toggle('on',+t.dataset.i<n));
+  const k=n+'|'+sc+'|'+(r?r.end?'g':'p':'')+(fDone?'d':'')+((r&&r.ac)||fAc)+(p>=.66?Math.floor(p*25):0);if(k===fTreeK)return;fTreeK=k;
+  const ac=AP_C[(r&&r.ac)||fAc]||AP_C.r,na=fDone?4:p>=.92?3:p>=.8?2:p>=.66?1:0;el.style.setProperty('--ap',ac[0]);el.style.setProperty('--ap2',ac[1]);
+  el.querySelector('.tw').style.transform=`scale(${sc})`;el.querySelectorAll('.tr').forEach(t=>t.classList.toggle('on',+t.dataset.i<n));el.querySelectorAll('.ap').forEach(t=>t.classList.toggle('on',+t.dataset.i<na));
   el.classList.toggle('grow',!!(r&&r.end));el.classList.toggle('paused',!!(r&&!r.end));el.classList.toggle('done',fDone)}
 function renderFocusUI(){
   const r=state.focusRun,total=r?r.total:fMin*60000,left=fLeft();
   $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));renderTree(r,total,left);
   $('fo-dur').hidden=!!r;$('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} ${tr('น.','min')}</button>`).join('');
   $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('ปลูกต้นไม้','Plant'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
-  $('fo-msg').textContent=fDead&&!r?tr('🥀 ต้นไม้เหี่ยว เพราะออกจากแอประหว่างโฟกัส · กดค้างเพื่อปลูกใหม่','🥀 Your tree withered because you left the app · long-press to plant again'):fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🌲 Your tree is fully grown! Long-press to plant another'):!r?tr('🌱 กดค้างที่วงเพื่อปลูกต้นไม้ · อย่าออกจากแอประหว่างโฟกัส','🌱 Long-press the circle to plant · stay in the app while you focus'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
+  $('fo-msg').textContent=fDead&&!r?tr('🥀 ต้นไม้เหี่ยว เพราะออกจากแอประหว่างโฟกัส · กดค้างเพื่อปลูกใหม่','🥀 Your tree withered because you left the app · long-press to plant again'):fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🍎 Your apple tree is fully grown! Long-press to plant another'):!r?tr('🌱 กดค้างที่วงเพื่อปลูกต้นไม้ · อย่าออกจากแอประหว่างโฟกัส','🌱 Long-press the circle to plant · stay in the app while you focus'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
 }
 function openFocus(id){
   const r=state.focusRun;fDone=false;fDead=false;fSel=r?r.c:id;fMin=state.focus.min;
@@ -1416,13 +1426,13 @@ function killTree(){const r=state.focusRun;if(!r)return;state.focus.trees.push({
   state.focusRun=null;fDead=true;fDone=false;clearInterval(ftick);document.title='HabitFlow';save();renderFocus();if($('d-focus').open)renderFocusUI();
   toast(tr('ต้นไม้เหี่ยวแล้ว เพราะออกจากแอประหว่างโฟกัส','Your tree withered — you left the app during focus'),true)}
 function renderForest(){const el=$('f-forest');if(!el)return;const t=today(),all=state.focus.trees,td=all.filter(x=>x.d===t),ok=td.filter(x=>!x.dead).length,dd=td.length-ok,tot=all.filter(x=>!x.dead).length,MAX=30;
-  el.innerHTML=`<div class="fh"><b>🌲 ${tr('ป่าของวันนี้','Today\'s forest')}</b><small>${tr(`${ok} ต้น${dd?` · เหี่ยว ${dd}`:''} · รวม ${tot} ต้น`,`${ok} tree${ok===1?'':'s'}${dd?` · ${dd} withered`:''} · ${tot} total`)}</small></div>`+
-   (td.length?`<div class="ft2" role="img" aria-label="${tr(`ปลูกสำเร็จ ${ok} ต้น เหี่ยว ${dd} ต้น`,`${ok} grown, ${dd} withered`)}">${td.slice(-MAX).map(x=>miniTree(x.dead)).join('')}${td.length>MAX?`<span class="more">+${td.length-MAX}</span>`:''}</div>`
+  el.innerHTML=`<div class="fh"><b>🍎 ${tr('ป่าของวันนี้','Today\'s forest')}</b><small>${tr(`${ok} ต้น${dd?` · เหี่ยว ${dd}`:''} · รวม ${tot} ต้น`,`${ok} tree${ok===1?'':'s'}${dd?` · ${dd} withered`:''} · ${tot} total`)}</small></div>`+
+   (td.length?`<div class="ft2" role="img" aria-label="${tr(`ปลูกสำเร็จ ${ok} ต้น เหี่ยว ${dd} ต้น`,`${ok} grown, ${dd} withered`)}">${td.slice(-MAX).map(x=>miniTree(x.dead,x.ac)).join('')}${td.length>MAX?`<span class="more">+${td.length-MAX}</span>`:''}</div>`
    :`<p class="emp">${tr('ยังไม่มีต้นไม้วันนี้ · กดค้างที่โหมดด้านล่างเพื่อปลูกต้นแรก','No trees yet today · long-press a mode below to plant your first')}</p>`)}
 function logFocus(m){state.focus.sessions.push({d:today(),c:state.focusRun.c,m,t:new Date().toISOString()})}
 function finishFocus(){
   const r=state.focusRun;if(!r)return;const m=Math.round(r.total/60000);let msg=tr(`โฟกัส ${fCat(r.c)[1]} ครบ ${m} นาที`,`${fCat(r.c)[1]}: ${m} min done`);
-  logFocus(m);state.focus.trees.push({d:today(),c:r.c,m});if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
+  fAc=r.ac||fAc;logFocus(m);state.focus.trees.push({d:today(),c:r.c,m,ac:fAc});if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
   state.focusRun=null;fDone=true;clearInterval(ftick);document.title='HabitFlow';sound.play([523,659,784,1047]);buzz($('fo-hold'));
   save();renderFocus();renderRewards();renderFocusUI();toast(msg);
 }
@@ -2105,7 +2115,7 @@ function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();
 const ACT={
   tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fDone=false;fDead=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
   goF:()=>{const r=state.focusRun;
-    if(!r){fDone=false;fDead=false;state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
+    if(!r){fDone=false;fDead=false;fAc=Math.random()<.5?'r':'g';state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0,ac:fAc};startTick()}
     else if(r.end){r.left=Math.max(0,r.end-Date.now());r.end=0}else r.end=Date.now()+r.left;
     save();renderFocusUI();renderFocus()},
   stopF:async()=>{if(!state.focusRun)return;if(!await ask(tr('หยุดโฟกัส? เวลาที่ทำไปแล้ว (ถ้าเกิน 5 นาที) จะถูกบันทึก','Stop focusing? Time so far (5+ min) will be saved'),tr('หยุด','Stop')))return;
