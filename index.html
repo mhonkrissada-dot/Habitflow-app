@@ -894,10 +894,16 @@ body.onbon{overflow:hidden}body.onbon nav,body.onbon::after{display:none}
 #hbar{width:100%!important;transform:scaleX(0);transform-origin:left center;transition:transform .6s var(--spring)!important;will-change:transform}
 .hbt b{animation:sgrow .8s var(--ease) both!important;transform-origin:left center}@keyframes sgrow{from{transform:scaleX(0)}}
 nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
-/* ===== focus tree: grows with the timer (paper-cut pine) ===== */
-.fo{flex:1}
-.ftree{margin-top:auto;width:100%;height:min(36dvh,250px);display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
+/* ===== focus: plant a tree (grows with the timer, withers if you leave) ===== */
+.fo{flex:1;gap:14px}
+#fo-hold{width:min(74vw,280px);height:min(74vw,280px)}
+.fscene{position:absolute;inset:7%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,#FFF6D8 80%,var(--surf)),color-mix(in srgb,#F1E7B8 70%,var(--surf)))}
+[data-theme=dark] .fscene{background:radial-gradient(circle at 50% 35%,#3B3A5A,#2C2A44)}
+.fscene .soil{position:absolute;left:6%;right:6%;top:64%;height:44%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#7A4E2C,#5C3A20)}
+.fscene .lip{position:absolute;left:6%;right:6%;top:59%;height:11%;border-radius:50%;background:#9A6A3E}
+.fscene .ftree{position:absolute;left:0;right:0;bottom:36%;height:58%;display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
 .ftree svg{height:100%;width:auto;overflow:visible}
+.fring .fscene svg{transform:none}
 .ftree .tw{transform-box:view-box;transform-origin:100px 246px;transition:transform 1.2s cubic-bezier(.3,1.25,.5,1)}
 .ftree .tr{transform-box:fill-box;transform-origin:50% 0;transform:scale(0);opacity:0;transition:transform .7s cubic-bezier(.3,1.5,.5,1),opacity .3s}
 .ftree .tr.on{transform:none;opacity:1}
@@ -906,7 +912,14 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 .ftree.paused .tw{filter:saturate(.55)}
 .ftree.done .tw>g{animation:treepop .6s cubic-bezier(.3,1.6,.5,1)}
 @keyframes treepop{40%{transform:scale(1.06)}}
-[data-motion=reduce] .ftree .tw>g{animation:none!important}
+.ftree.dead svg{animation:wilt .6s ease-out}@keyframes wilt{from{transform:translateY(4px);opacity:.3}}
+[data-motion=reduce] .ftree .tw>g,[data-motion=reduce] .ftree.dead svg{animation:none!important}
+#fo-time{position:static;inset:auto;display:block;font-size:60px;font-weight:300;letter-spacing:.03em;line-height:1;margin-top:2px}
+.forest{background:var(--surf);border-radius:20px;box-shadow:var(--sh);padding:14px 16px;margin:12px 0}
+.forest .fh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.forest .fh b{font-size:15px}.forest .fh small{color:var(--mute);font-size:12.5px}
+.forest .ft2{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;min-height:34px;align-items:flex-end}
+.forest .ft2 svg{width:26px;height:34px}.forest .more{font-size:12px;color:var(--mute);font-weight:700;align-self:center}
+.forest .emp{color:var(--mute);font-size:13px;margin:8px 0 0}
 </style>
 </head>
 <body>
@@ -956,7 +969,7 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
   <button class="pgback" data-act="pgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>กลับ</span></button>
   <div class="row between" style="align-items:flex-start"><div><h2>โฟกัส</h2><p class="sub">เลือกโหมด ตั้งเวลา แล้วจดจ่อ · ครบ 25 นาทีขึ้นไป ได้ +1 เหรียญ</p></div><button class="btn sm" data-act="addFcat">+ โหมด</button></div>
   <button class="frun" id="f-run" data-act="openRun" hidden></button>
-  <div class="fsum"><div><b id="f-min">0</b> <span>นาทีวันนี้</span></div><div class="fwk" id="f-week"></div></div>
+  <div class="forest" id="f-forest"></div><div class="fsum"><div><b id="f-min">0</b> <span>นาทีวันนี้</span></div><div class="fwk" id="f-week"></div></div>
   <div class="fgrid" id="f-grid"></div>
 </section>
 </main>
@@ -1111,8 +1124,8 @@ nav{background:color-mix(in srgb,var(--surf) 95%,transparent)}
 
 <dialog id="d-focus" class="full" aria-labelledby="fo-title">
   <div class="dh"><h3 id="fo-title"></h3><button class="ib" data-act="close" aria-label="ปิด"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-  <div class="db fo"><div class="fring" id="fo-hold" role="button" tabindex="0" aria-label="กดค้างเพื่อเริ่มหรือพักโฟกัส"><svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fo-ring" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/><circle class="hold" cx="100" cy="100" r="98" stroke-dasharray="615.8"/></svg><div class="ft" id="fo-time">25:00</div></div>
-  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p><div class="ftree" id="fo-tree" aria-hidden="true"></div></div>
+  <div class="db fo"><div class="fring" id="fo-hold" role="button" tabindex="0" aria-label="กดค้างเพื่อเริ่มหรือพักโฟกัส"><svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fo-ring" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/><circle class="hold" cx="100" cy="100" r="98" stroke-dasharray="615.8"/></svg><div class="fscene" aria-hidden="true"><i class="soil"></i><i class="lip"></i><div class="ftree" id="fo-tree"></div></div></div><div class="ft" id="fo-time">25:00</div>
+  <div class="seg" id="fo-dur" role="group" aria-label="ระยะเวลา"></div><p class="fhint" id="fo-msg"></p></div>
   <div class="df"><button class="btn" id="fo-stop" data-act="stopF">หยุด</button><button class="btn pri" id="fo-go" data-act="goF">เริ่มโฟกัส</button></div>
 </dialog>
 <dialog id="d-fcat" aria-labelledby="fc-title">
@@ -1164,7 +1177,7 @@ function normalize(p){
   if(typeof s.totalEarned!=='number')s.totalEarned=s.coins+s.claimedRewards.reduce((a,r)=>a+(+r.cost||0),0);
   if(!s.bonusDays||typeof s.bonusDays!=='object')s.bonusDays={};
   if(!s.moods||typeof s.moods!=='object')s.moods={};
-  if(!s.focus||typeof s.focus!=='object')s.focus={};if(!Array.isArray(s.focus.sessions))s.focus.sessions=[];if(!Array.isArray(s.focus.cats))s.focus.cats=[];
+  if(!s.focus||typeof s.focus!=='object')s.focus={};if(!Array.isArray(s.focus.sessions))s.focus.sessions=[];if(!Array.isArray(s.focus.cats))s.focus.cats=[];if(!Array.isArray(s.focus.trees))s.focus.trees=[];
   s.focus.sessions=s.focus.sessions.filter(x=>x&&typeof x.d==='string'&&x.m>0);s.focus.cats=s.focus.cats.filter(c=>c&&c.id&&c.name);s.focus.min=[15,25,45,60].includes(s.focus.min)?s.focus.min:25;
   if(!s.focusRun||typeof s.focusRun.c!=='string'||!(s.focusRun.total>0))s.focusRun=null;
   s.selectedGroup='All';
@@ -1354,7 +1367,7 @@ function renderFocus(){
   const days=[6,5,4,3,2,1,0].map(i=>{const d=addDays(t,-i);return[d,ss.filter(x=>x.d===d).reduce((a,x)=>a+x.m,0)]}),mx=Math.max(1,...days.map(x=>x[1]));
   $('f-week').innerHTML=days.map(([d,m])=>`<div title="${m} ${tr('นาที','min')}"><i class="${m?'':'z'}" style="height:${Math.max(3,Math.round(m/mx*26))}px"></i>${WD[parse(d).getDay()]}</div>`).join('');
   $('f-grid').innerHTML=fcats().map(c=>`<div class="fw1"><button class="fc" style="--c:${c[3]}" data-hold="${esc(c[0])}" aria-label="${tr('เริ่มโฟกัส','Start focus')}: ${esc(c[1])}"><span class="fe">${esc(c[2])}</span><span class="fb"><span><span class="fn">${esc(c[1])}</span><span class="fm">${per[c[0]]?per[c[0]]+tr(' นาที',' min'):''}</span></span></span></button>${c[4]?`<button class="fx" data-act="rmFcat" data-id="${esc(c[0])}" aria-label="${tr('ลบโหมด','Delete mode')} ${esc(c[1])}">×</button>`:''}</div>`).join('');
-  updateRun();
+  updateRun();renderForest();
 }
 function updateRun(){const r=state.focusRun,b=$('f-run');b.hidden=!r;if(r){const c=fCat(r.c);b.textContent=`${c[2]} ${tr('กำลังโฟกัส','Focusing:')} ${c[1]} · ${mmss(fLeft())}${r.end?'':tr(' (พัก)',' (paused)')} — ${tr('แตะเพื่อเปิด','tap to open')}`}}
 function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.now()):r.left):fMin*60000}
@@ -1362,11 +1375,14 @@ function fLeft(){const r=state.focusRun;return r?(r.end?Math.max(0,r.end-Date.no
 const TREE=(()=>{const T=[[206,62,80],[178,56,68],[151,50,57],[127,44,47],[106,38,37],[87,34,27]];
   const half=(by,h,w,d)=>{const ty=by-h,x=k=>100+d*w*k;return `M100 ${ty}Q${x(.42)} ${ty+h*.55} ${x(1)} ${by}L${x(.7)} ${by-8}L${x(.5)} ${by+2}L${x(.28)} ${by-7}L${x(.1)} ${by}L100 ${by-3}Z`};
   const tiers=T.map(([by,h,w],i)=>`<g class="tr" data-i="${i}"><path d="${half(by,h,w,-1)}" fill="#86B653"/><path d="${half(by,h,w,1)}" fill="#3E6B2C"/><path d="M100 ${by-h}V${by-3}" stroke="#2F5422" stroke-width="1.2"/></g>`).join('');
-  return `<svg viewBox="0 0 200 260"><ellipse cx="100" cy="248" rx="46" ry="6" fill="#000" opacity=".07"/><g class="tw"><g>
-    <path d="M100 238l-30 6h60z" fill="#E4E6EA"/><path d="M100 238l-16 9h32z" fill="#F7F8FA"/>
-    <rect x="92" y="170" width="8" height="72" fill="#8A4B2A"/><rect x="100" y="170" width="8" height="72" fill="#5E3019"/>${tiers}</g></g></svg>`})();
-var fDone=false,fTreeK='';
-function renderTree(r,total,left){const el=$('fo-tree');if(!el)return;if(!el.firstChild)el.innerHTML=TREE;
+  return `<svg viewBox="0 0 200 260"><g class="tw"><g>
+    <rect x="92" y="170" width="8" height="78" fill="#8A4B2A"/><rect x="100" y="170" width="8" height="78" fill="#5E3019"/>${tiers}</g></g></svg>`})();
+const DEADTREE=`<svg viewBox="0 0 200 260"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M100 248V120" stroke="#6E5240" stroke-width="12"/><path d="M100 196l-34-30M66 166l-10-22M100 176l30-28M130 148l4-22M100 150l-22-26M78 124l-4-18M100 138l18-24M118 114l14-6" stroke="#7D6250" stroke-width="7"/><path d="M90 248q-14 0-22 6M110 248q14 0 22 6" stroke="#6E5240" stroke-width="6"/></g><circle cx="70" cy="250" r="3" fill="#F3EDE4"/><circle cx="132" cy="252" r="3" fill="#F3EDE4"/></svg>`;
+const miniTree=dead=>dead?`<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 33V12M13 24l-6-5M13 20l5-5M13 16l-4-4" stroke="#8C7262" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`
+  :`<svg viewBox="0 0 26 34" aria-hidden="true"><rect x="11.5" y="25" width="3" height="8" fill="#6E3A20"/><path d="M13 2 4 15h4l-5 7h5l-5 6h10z" fill="#86B653"/><path d="M13 2l9 13h-4l5 7h-5l5 6H13z" fill="#3E6B2C"/></svg>`;
+var fDone=false,fDead=false,fTreeK='';
+function renderTree(r,total,left){const el=$('fo-tree');if(!el)return;const dead=fDead&&!r;
+  if(el.dataset.kind!==(dead?'d':'t')){el.dataset.kind=dead?'d':'t';el.innerHTML=dead?DEADTREE:TREE;fTreeK=''}el.classList.toggle('dead',dead);if(dead)return;
   const p=fDone?1:r?Math.min(1,Math.max(0,1-left/(total||1))):0,n=fDone?6:1+Math.min(5,Math.floor(p*6)),sc=(.32+.68*p).toFixed(3);
   const k=n+'|'+sc+'|'+(r?r.end?'g':'p':'')+(fDone?'d':'');if(k===fTreeK)return;fTreeK=k;
   el.querySelector('.tw').style.transform=`scale(${sc})`;el.querySelectorAll('.tr').forEach(t=>t.classList.toggle('on',+t.dataset.i<n));
@@ -1375,22 +1391,38 @@ function renderFocusUI(){
   const r=state.focusRun,total=r?r.total:fMin*60000,left=fLeft();
   $('fo-time').textContent=mmss(left);$('fo-ring').style.strokeDashoffset=565.5*(1-(total?left/total:1));renderTree(r,total,left);
   $('fo-dur').hidden=!!r;$('fo-dur').innerHTML=[15,25,45,60].map(m=>`<button data-act="fdur" data-id="${m}" aria-pressed="${m===fMin}">${m} ${tr('น.','min')}</button>`).join('');
-  $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('เริ่มโฟกัส','Start focus'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
-  $('fo-msg').textContent=fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🌲 Your tree is fully grown! Long-press to plant another'):!r?tr('👆 กดค้างที่วงเวลาเพื่อเริ่ม','👆 Long-press the timer to start'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
+  $('fo-stop').hidden=!r;$('fo-go').textContent=!r?tr('ปลูกต้นไม้','Plant'):r.end?tr('พักชั่วคราว','Pause'):tr('ทำต่อ','Resume');
+  $('fo-msg').textContent=fDead&&!r?tr('🥀 ต้นไม้เหี่ยว เพราะออกจากแอประหว่างโฟกัส · กดค้างเพื่อปลูกใหม่','🥀 Your tree withered because you left the app · long-press to plant again'):fDone&&!r?tr('🌲 ต้นไม้โตเต็มที่แล้ว! กดค้างเพื่อปลูกต้นใหม่','🌲 Your tree is fully grown! Long-press to plant another'):!r?tr('🌱 กดค้างที่วงเพื่อปลูกต้นไม้ · อย่าออกจากแอประหว่างโฟกัส','🌱 Long-press the circle to plant · stay in the app while you focus'):r.end?tr('กำลังโฟกัส… กดค้างที่วงเพื่อพัก','Focusing… long-press the timer to pause'):tr('พักอยู่ · กดค้างที่วงเพื่อทำต่อ','Paused · long-press the timer to resume');
 }
 function openFocus(id){
-  const r=state.focusRun;fDone=false;fSel=r?r.c:id;fMin=state.focus.min;
+  const r=state.focusRun;fDone=false;fDead=false;fSel=r?r.c:id;fMin=state.focus.min;
   const c=fCat(fSel);$('fo-title').textContent=c[2]+' '+c[1];renderFocusUI();$('d-focus').showModal();
 }
 function startTick(){clearInterval(ftick);ftick=setInterval(()=>{
   const r=state.focusRun;if(!r){clearInterval(ftick);document.title='HabitFlow';return}
+  if(r.away)return;
   if(r.end&&r.end<=Date.now()){finishFocus();return}
   document.title=(r.end?mmss(fLeft())+' · ':'')+'HabitFlow';
   if($('d-focus').open)renderFocusUI();updateRun()},500)}
+/* leaving the app while focusing (not paused) for more than 10 s withers the tree */
+const F_GRACE=10000;
+document.addEventListener('visibilitychange',()=>{const r=state.focusRun;if(!r||!r.end)return;
+  if(document.hidden){if(!r.away){r.away=Date.now();save();flushSave()}}else fBack()});
+function fBack(){const r=state.focusRun;if(!r||!r.away)return;const a=r.away;delete r.away;
+  if(Date.now()-a<=F_GRACE){save();if(r.end<=Date.now())finishFocus();return}
+  if(r.end<=a+F_GRACE){finishFocus();return}
+  killTree()}
+function killTree(){const r=state.focusRun;if(!r)return;state.focus.trees.push({d:today(),c:r.c,m:Math.round(r.total/60000),dead:1});
+  state.focusRun=null;fDead=true;fDone=false;clearInterval(ftick);document.title='HabitFlow';save();renderFocus();if($('d-focus').open)renderFocusUI();
+  toast(tr('ต้นไม้เหี่ยวแล้ว เพราะออกจากแอประหว่างโฟกัส','Your tree withered — you left the app during focus'),true)}
+function renderForest(){const el=$('f-forest');if(!el)return;const t=today(),all=state.focus.trees,td=all.filter(x=>x.d===t),ok=td.filter(x=>!x.dead).length,dd=td.length-ok,tot=all.filter(x=>!x.dead).length,MAX=30;
+  el.innerHTML=`<div class="fh"><b>🌲 ${tr('ป่าของวันนี้','Today\'s forest')}</b><small>${tr(`${ok} ต้น${dd?` · เหี่ยว ${dd}`:''} · รวม ${tot} ต้น`,`${ok} tree${ok===1?'':'s'}${dd?` · ${dd} withered`:''} · ${tot} total`)}</small></div>`+
+   (td.length?`<div class="ft2" role="img" aria-label="${tr(`ปลูกสำเร็จ ${ok} ต้น เหี่ยว ${dd} ต้น`,`${ok} grown, ${dd} withered`)}">${td.slice(-MAX).map(x=>miniTree(x.dead)).join('')}${td.length>MAX?`<span class="more">+${td.length-MAX}</span>`:''}</div>`
+   :`<p class="emp">${tr('ยังไม่มีต้นไม้วันนี้ · กดค้างที่โหมดด้านล่างเพื่อปลูกต้นแรก','No trees yet today · long-press a mode below to plant your first')}</p>`)}
 function logFocus(m){state.focus.sessions.push({d:today(),c:state.focusRun.c,m,t:new Date().toISOString()})}
 function finishFocus(){
   const r=state.focusRun;if(!r)return;const m=Math.round(r.total/60000);let msg=tr(`โฟกัส ${fCat(r.c)[1]} ครบ ${m} นาที`,`${fCat(r.c)[1]}: ${m} min done`);
-  logFocus(m);if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
+  logFocus(m);state.focus.trees.push({d:today(),c:r.c,m});if(m>=25){pay(1);msg+=tr(' +1 เหรียญ',' +1 coin')}
   state.focusRun=null;fDone=true;clearInterval(ftick);document.title='HabitFlow';sound.play([523,659,784,1047]);buzz($('fo-hold'));
   save();renderFocus();renderRewards();renderFocusUI();toast(msg);
 }
@@ -2071,9 +2103,9 @@ function setTab(t){{const to=arguments[0],sub=['rewards','focus'].includes(to);i
 function renderAll(){renderProfile();renderWeek();renderGroups();renderHabits();renderRewards();renderSettings();if(tab==='stats')renderStats();moodPick=null;if(tab==='mood')renderMood();save()}
 
 const ACT={
-  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fDone=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
+  tab:setTab,home:()=>setTab('habits'),editH:id=>openHabitForm(id),tgt:d=>{$('f-target').value=Math.max(1,Math.min(999,(parseInt($('f-target').value)||1)+ +d))},mmonth:n=>{const d=new Date(moodMonth.y,moodMonth.m+ +n,1);moodMonth={y:d.getFullYear(),m:d.getMonth()};moodCal()},startF:id=>openFocus(id),openRun:()=>openFocus(),fdur:v=>{if(!state.focusRun){fDone=false;fDead=false;fMin=+v;state.focus.min=fMin;renderFocusUI()}},
   goF:()=>{const r=state.focusRun;
-    if(!r){fDone=false;state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
+    if(!r){fDone=false;fDead=false;state.focusRun={c:fSel,total:fMin*60000,end:Date.now()+fMin*60000,left:0};startTick()}
     else if(r.end){r.left=Math.max(0,r.end-Date.now());r.end=0}else r.end=Date.now()+r.left;
     save();renderFocusUI();renderFocus()},
   stopF:async()=>{if(!state.focusRun)return;if(!await ask(tr('หยุดโฟกัส? เวลาที่ทำไปแล้ว (ถ้าเกิน 5 นาที) จะถูกบันทึก','Stop focusing? Time so far (5+ min) will be saved'),tr('หยุด','Stop')))return;
@@ -2200,7 +2232,7 @@ $('s-file').addEventListener('change',e=>{
 
 state.selectedDate=sel;
 if(state.selectedGroup!=='All'&&!state.groups.includes(state.selectedGroup))state.selectedGroup='All';
-collectStatic();applyLang();applyTheme();setTab('habits');animList=true;renderAll();if(state.focusRun)startTick();
+collectStatic();applyLang();applyTheme();setTab('habits');animList=true;renderAll();if(state.focusRun){if(state.focusRun.away)fBack();if(state.focusRun)startTick()}
 if(!state.onboarded){if(FRESH_INSTALL)openOnb();else{state.onboarded=true;save()}}
 </script>
 </body>
